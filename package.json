@@ -101,7 +101,7 @@
     "gulp": "4.0.0",
     "gulp-livereload": "4.0.1",
     "gulp-nodemon": "2.4.2",
-    "gulp-sass": "3.2.1",
+    "gulp-sass": "4.0.2",
     "is-browser": "2.1.0",
     "isomorphic-unfetch": "3.0.0",
     "jsdom": "12.2.0",
