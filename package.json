@@ -138,7 +138,7 @@
     "redux": "4.0.1",
     "safe-json-globals": "2.1.0",
     "shader": "1.0.0",
-    "styletron-engine-atomic": "1.0.13",
+    "styletron-engine-atomic": "1.1.0",
     "uuid": "3.3.2",
     "validator": "10.11.0"
   },
