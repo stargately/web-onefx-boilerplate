@@ -127,7 +127,7 @@
     "antd": "3.14.0",
     "apollo-cache-inmemory": "1.5.1",
     "apollo-client": "2.5.1",
-    "apollo-link-http": "1.5.13",
+    "apollo-link-http": "1.5.14",
     "apollo-server-koa": "2.4.8",
     "axios": "0.18.0",
     "babel-loader": "8.0.5",
