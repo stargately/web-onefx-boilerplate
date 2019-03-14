@@ -43,7 +43,7 @@ export class IdentityApp extends Component<Props> {
           meta={[
             { name: "viewport", content: mobileViewPortContent },
             { name: "description", content: t("meta.description") },
-            { name: "theme-color", content: colors.brand01 },
+            { name: "theme-color", content: colors.primary },
 
             // social
             { property: "og:title", content: `${t("meta.title")}` },
@@ -99,7 +99,7 @@ export class IdentityApp extends Component<Props> {
 
 const RootStyle = styled("div", (_: React.CSSProperties) => ({
   ...fonts.body,
-  backgroundColor: colors.ui02,
+  backgroundColor: colors.black10,
   color: colors.text01,
   textRendering: "optimizeLegibility"
 }));
@@ -111,7 +111,7 @@ function EmailTokenInvalid(): JSX.Element {
         <Flex>
           {t("auth/forgot_password.email_token_failure")}
           <Link to="/forgot-password/">
-            <i style={{ color: colors.inverse01 }} className="fas fa-times" />
+            <i style={{ color: colors.white }} className="fas fa-times" />
           </Link>
         </Flex>
       </ContentPadding>
@@ -122,5 +122,5 @@ function EmailTokenInvalid(): JSX.Element {
 const Alert = styled("div", {
   padding: "16px 0 16px 0",
   backgroundColor: colors.error,
-  color: colors.inverse01
+  color: colors.white
 });

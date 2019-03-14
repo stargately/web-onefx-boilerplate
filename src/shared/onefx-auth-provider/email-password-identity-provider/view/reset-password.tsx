@@ -134,7 +134,7 @@ export const ResetPasswordContainer = connect<ReduxProps>(state => ({
                       <span>{message}</span>
                       <i
                         role={"button"}
-                        style={{ color: colors.inverse01, cursor: "pointer" }}
+                        style={{ color: colors.white, cursor: "pointer" }}
                         onClick={() => this.setState({ message: "" })}
                         className="fas fa-times"
                       />
@@ -196,5 +196,5 @@ const Info = styled("div", {
   padding: "16px",
   width: "100%",
   backgroundColor: colors.success,
-  color: colors.inverse01
+  color: colors.white
 });

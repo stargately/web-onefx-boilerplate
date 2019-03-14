@@ -8,13 +8,13 @@ export const inputStyle = (
 ) => ({
   color: `${props.color || colors.text01} !important`,
   borderRadius: "0px !important",
-  backgroundColor: `${colors.field01} !important`,
+  backgroundColor: `${colors.white} !important`,
   position: "relative !important",
   display: "block !important",
   width: "100% !important",
-  border: `1px solid ${props.error ? colors.error : colors.ui04}`,
+  border: `1px solid ${props.error ? colors.error : colors.black20}`,
   ":focus": {
-    border: `1px solid ${props.error ? colors.error : colors.brand01}`
+    border: `1px solid ${props.error ? colors.error : colors.primary}`
   },
   ...fonts.textBox,
   lineHeight: "24px !important",

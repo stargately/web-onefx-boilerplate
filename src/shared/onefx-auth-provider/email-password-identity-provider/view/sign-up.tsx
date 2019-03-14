@@ -112,7 +112,7 @@ export class SignUp extends Component<{}, State> {
 }
 
 export const StyleLink = styled(Link, {
-  ...colorHover(colors.brand01),
+  ...colorHover(colors.primary),
   textDecoration: "none",
   transition
 });

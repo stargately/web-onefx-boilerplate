@@ -38,7 +38,7 @@ function Empty(): JSX.Element {
 
 export const RootStyle = styled("div", (_: React.CSSProperties) => ({
   ...fonts.body,
-  backgroundColor: colors.ui02,
+  backgroundColor: colors.black10,
   color: colors.text01,
   textRendering: "optimizeLegibility"
 }));
