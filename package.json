@@ -148,7 +148,7 @@
     "jsdom": "12.2.0",
     "jsdom-global": "3.0.2",
     "jsonwebtoken": "8.5.1",
-    "mongoose": "5.5.0",
+    "mongoose": "5.5.1",
     "nodemailer": "5.1.1",
     "nodemailer-mailgun-transport": "1.4.0",
     "onefx": "1.4.4",
