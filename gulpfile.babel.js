@@ -103,15 +103,13 @@ const watchStatic = done => {
 const build = gulp.parallel(
   compileJavascripts,
   compileStylesheets,
-  compileStatic,
-  compileLess
+  compileStatic
 );
 const watch = gulp.parallel(
   build,
   watchJavascripts,
   watchStylesheets,
   watchStatic,
-  compileLess,
   watchServer
 );
 

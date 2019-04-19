@@ -1,8 +1,9 @@
-import { Layout, Table } from "antd";
+import Layout from "antd/lib/layout";
+import Table from "antd/lib/table";
 import gql from "graphql-tag";
 import { Component } from "react";
 import React from "react";
-import { Query } from "react-apollo";
+import { Query, QueryResult } from "react-apollo";
 import { ContentPadding } from "../common/styles/style-padding";
 
 const GET_HEALTH = gql`
@@ -64,7 +65,7 @@ export class Home extends Component<{}, State> {
         </button>
 
         <Query query={GET_HEALTH}>
-          {({ loading, error, data }) => {
+          {({ loading, error, data }: QueryResult<{ health: string }>) => {
             if (loading) {
               return "Loading...";
             }

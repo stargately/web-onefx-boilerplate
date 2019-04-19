@@ -1,4 +1,6 @@
-import { Icon, Layout, Menu } from "antd";
+import Icon from "antd/lib/icon";
+import Layout from "antd/lib/layout";
+import Menu from "antd/lib/menu";
 import { History } from "history";
 // @ts-ignore
 import { assetURL } from "onefx/lib/asset-url";
