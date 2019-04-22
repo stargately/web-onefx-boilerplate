@@ -15,6 +15,7 @@ import { Footer, FOOTER_ABOVE } from "./common/footer";
 // @ts-ignore
 import initGoogleAnalytics from "./common/google-analytics";
 import { NotFound } from "./common/not-found";
+import { ScrollToTop } from "./common/scroll-top";
 import { colors } from "./common/styles/style-color";
 import { fonts } from "./common/styles/style-font";
 import { TopBar } from "./common/top-bar";
@@ -76,10 +77,12 @@ export class App extends Component<Props> {
         </Helmet>
         <TopBar />
         <div style={FOOTER_ABOVE}>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route component={NotFound} />
-          </Switch>
+          <ScrollToTop>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route component={NotFound} />
+            </Switch>
+          </ScrollToTop>
         </div>
         <Footer />
       </RootStyle>
