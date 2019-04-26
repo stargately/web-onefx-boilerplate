@@ -120,7 +120,7 @@
     "@types/koa": "2.0.48",
     "@types/mongoose": "5.3.26",
     "@types/node-fetch": "2.3.3",
-    "@types/nodemailer": "4.6.6",
+    "@types/nodemailer": "4.6.8",
     "@types/nodemailer-mailgun-transport": "1.4.0",
     "@types/uuid": "3.4.4",
     "@types/validator": "10.9.0",
