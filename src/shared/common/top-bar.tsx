@@ -16,6 +16,7 @@ import { transition } from "./styles/style-animation";
 import { colors } from "./styles/style-color";
 import { media, PALM_WIDTH } from "./styles/style-media";
 import { contentPadding } from "./styles/style-padding";
+import { CommonMargin } from "./common-margin";
 
 export const TOP_BAR_HEIGHT = 52;
 
@@ -84,6 +85,7 @@ export class TopBar extends Component<{}, State> {
         <Bar>
           <Flex>
             <Logo />
+            <CommonMargin />
             <BrandText href="/">{t("topbar.brand")}</BrandText>
           </Flex>
           <Flex>
@@ -181,8 +183,8 @@ function CrossBtn({
 }
 
 const LogoWrapper = styled("a", {
-  width: "50px",
-  height: "50px"
+  width: `${TOP_BAR_HEIGHT}px`,
+  height: `${TOP_BAR_HEIGHT}px`
 });
 
 function Logo(): JSX.Element {
