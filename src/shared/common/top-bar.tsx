@@ -9,6 +9,7 @@ import { assetURL } from "onefx/lib/asset-url";
 // @ts-ignore
 import { t } from "onefx/lib/iso-i18n";
 import React from "react";
+import { CommonMargin } from "./common-margin";
 import { Icon } from "./icon";
 import { Cross } from "./icons/cross.svg";
 import { Hamburger } from "./icons/hamburger.svg";
@@ -16,7 +17,6 @@ import { transition } from "./styles/style-animation";
 import { colors } from "./styles/style-color";
 import { media, PALM_WIDTH } from "./styles/style-media";
 import { contentPadding } from "./styles/style-padding";
-import { CommonMargin } from "./common-margin";
 
 export const TOP_BAR_HEIGHT = 52;
 
