@@ -78,14 +78,6 @@ class ProfileApp extends PureComponent<Props, State> {
     return (
       <RootStyle>
         <Head locale={locale} />
-        <Helmet>
-          <link
-            rel="stylesheet"
-            type="text/css"
-            href={assetURL("/stylesheets/antd.css")}
-          />
-        </Helmet>
-
         <TopBar />
         <Layout tagName={"main"}>
           <CommonMargin />

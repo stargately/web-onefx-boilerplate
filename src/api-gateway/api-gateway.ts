@@ -15,7 +15,7 @@ export function setApiGateway(server: Server): void {
   const resolvers = {
     Query: {
       // meta
-      health: () => new Date()
+      health: () => "OK"
     },
     Mutation: {},
     Date: GraphQLDateTime

@@ -1,9 +1,15 @@
+import Row from "antd/lib/grid/row";
+import Icon from "antd/lib/icon";
 import Layout from "antd/lib/layout";
-import Table from "antd/lib/table";
 import gql from "graphql-tag";
-import { Component } from "react";
+// @ts-ignore
+import { assetURL } from "onefx/lib/asset-url";
+// @ts-ignore
+import { styled } from "onefx/lib/styletron-react";
 import React from "react";
+import { PureComponent } from "react";
 import { Query, QueryResult } from "react-apollo";
+import { colors } from "../common/styles/style-color";
 import { ContentPadding } from "../common/styles/style-padding";
 
 const GET_HEALTH = gql`
@@ -12,81 +18,93 @@ const GET_HEALTH = gql`
   }
 `;
 
-const dataSource = [
-  {
-    key: "1",
-    name: "Mike",
-    age: 32,
-    address: "10 Downing Street"
-  },
-  {
-    key: "2",
-    name: "John",
-    age: 42,
-    address: "10 Downing Street"
-  }
-];
-
-const columns = [
-  {
-    title: "Name",
-    dataIndex: "name",
-    key: "name"
-  },
-  {
-    title: "Age",
-    dataIndex: "age",
-    key: "age"
-  },
-  {
-    title: "Address",
-    dataIndex: "address",
-    key: "address"
-  }
-];
-
-type State = {
-  counter: number;
-};
-
-export class Home extends Component<{}, State> {
-  public state: State = { counter: 0 };
-
+export class Home extends PureComponent {
   public render(): JSX.Element {
     return (
       <ContentPadding>
-        <div>{this.state.counter}</div>
-        <button
-          onClick={_ => {
-            this.setState({ counter: this.state.counter + 1 });
-          }}
-        >
-          +1
-        </button>
-
-        <Query query={GET_HEALTH}>
-          {({ loading, error, data }: QueryResult<{ health: string }>) => {
-            if (loading) {
-              return "Loading...";
-            }
-            if (error) {
-              return `Error! ${error.message}`;
-            }
-
-            return <div>{JSON.stringify(data)}</div>;
-          }}
-        </Query>
-
         <Layout tagName={"main"}>
           <Layout.Content
             tagName={"main"}
-            style={{ backgroundColor: "#fff", padding: "8px" }}
+            style={{ backgroundColor: "#fff", padding: "32px" }}
           >
-            <h2>ant.design heading</h2>
-            <Table dataSource={dataSource} columns={columns} />
+            <Row type="flex" justify="center">
+              <OneFxIcon src={assetURL("/favicon.svg")} />
+            </Row>
+            <Row type="flex" justify="center">
+              <Title>OneFx</Title>
+            </Row>
+            <Row type="flex" justify="center">
+              <p>Building Web & Mobile Apps with Speed & Quality</p>
+            </Row>
+            <Row type="flex" justify="center">
+              <a
+                href="/api-gateway/"
+                target="_blank"
+                rel="noreferrer nofollow noopener"
+              >
+                GraphQL Endpoint
+              </a>
+            </Row>
+            <Row type="flex" justify="center">
+              <Query query={GET_HEALTH} ssr={false} fetchPolicy="network-only">
+                {({
+                  loading,
+                  error,
+                  data
+                }: QueryResult<{ health: string }>) => {
+                  if (loading) {
+                    return (
+                      <div>
+                        <Icon type="loading" /> Checking Status
+                      </div>
+                    );
+                  }
+                  if (error) {
+                    return (
+                      <div>
+                        <Icon
+                          type="close-circle"
+                          theme="twoTone"
+                          twoToneColor={colors.error}
+                        />{" "}
+                        Not OK
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <div>
+                      <Icon
+                        type="check-circle"
+                        theme="twoTone"
+                        twoToneColor={colors.success}
+                      />{" "}
+                      {data && data.health}
+                    </div>
+                  );
+                }}
+              </Query>
+            </Row>
           </Layout.Content>
         </Layout>
       </ContentPadding>
     );
   }
 }
+
+const OneFxIcon = styled("img", {
+  width: "150px",
+  height: "150px",
+  boxSizing: "border-box",
+  border: "5px white solid",
+  borderRadius: "50%",
+  overflow: "hidden",
+  boxShadow: "0 5px 15px 0px rgba(0,0,0,0.6)",
+  transform: "translatey(0px)",
+  animation: "float 6s ease-in-out infinite"
+});
+
+const Title = styled("h1", {
+  color: colors.secondary,
+  margin: "16px"
+});
