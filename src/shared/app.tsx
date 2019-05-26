@@ -51,13 +51,13 @@ export class App extends Component<Props> {
           link={[
             // PWA & mobile
             { rel: "manifest", href: "/manifest.json" },
-            { rel: "apple-touch-icon", href: "/favicon.png" },
+            { rel: "apple-touch-icon", href: "/favicon.svg" },
 
             {
               rel: "icon",
               type: "image/png",
               sizes: "any",
-              href: assetURL("/favicon.png")
+              href: assetURL("/favicon.svg")
             },
 
             // styles

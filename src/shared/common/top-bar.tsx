@@ -190,7 +190,7 @@ const LogoWrapper = styled("a", {
 function Logo(): JSX.Element {
   return (
     <LogoWrapper href="/">
-      <Icon url={assetURL("/favicon.png")} />
+      <Icon url={assetURL("/favicon.svg")} />
     </LogoWrapper>
   );
 }
