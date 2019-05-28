@@ -119,6 +119,8 @@ class LanguageSwitcher extends Component<{}, State> {
     return (
       <Wrapper>
         <div>
+          {/*
+          // @ts-ignore*/}
           <LanguageSwitchButton
             onclick={() =>
               this.setState({

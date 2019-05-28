@@ -1,5 +1,4 @@
 import koa from "koa";
-// @ts-ignore
 import { noopReducer } from "onefx/lib/iso-react-render/root/root-reducer";
 // @ts-ignore
 import { Server } from "onefx/lib/server";
@@ -20,6 +19,7 @@ export function setServerRoutes(server: Server): void {
 
   server.get("SPA", "/", async (ctx: koa.Context) => {
     ctx.setState("base.blah", "this is a sample initial state");
+    // @ts-ignore
     ctx.body = await apolloSSR(ctx, server.config.apiGatewayUrl, {
       VDom: <AppContainer />,
       reducer: noopReducer,

@@ -1,7 +1,9 @@
+import { StyleObject } from "styletron-standard";
+
 const fontFamily =
   "Noto Sans,Helvetica Neue,sans-serif,Microsoft YaHei !important";
 
-export const fonts = {
+export const fonts: { [key: string]: StyleObject } = {
   body: {
     fontFamily
   },
@@ -17,12 +19,12 @@ export const fonts = {
   textBox: {
     fontFamily,
     fontSize: "18px !important",
-    fontWeight: "300 !important"
+    fontWeight: 300
   },
   inputLabel: {
     fontFamily,
     fontSize: "14px",
-    fontWeight: "700"
+    fontWeight: 700
   },
   inputError: {
     fontFamily,

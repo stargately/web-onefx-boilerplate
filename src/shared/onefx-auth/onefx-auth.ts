@@ -1,8 +1,7 @@
 import koa from "koa";
-// @ts-ignore
 import { Server } from "onefx";
-// @ts-ignore
 import { logger } from "onefx/lib/integrated-gateways/logger";
+import { MyServer } from "../../server/start-server";
 import {
   allowedLoginNext,
   allowedLogoutNext,
@@ -23,17 +22,19 @@ export class OnefxAuth {
   public emailToken: EmailTokenModel;
   public mailgun: Mailgun;
 
-  constructor(server: Server, config: AuthConfig) {
+  constructor(server: MyServer, config: AuthConfig) {
     this.config = config || authConfig;
     this.server = server;
-    this.user = new UserModel({ mongoose: server.gateways.mongoose });
+    // @ts-ignore
+    const mongoose = server.gateways.mongoose;
+    this.user = new UserModel({ mongoose });
     this.jwt = new JwtModel({
-      mongoose: server.gateways.mongoose,
+      mongoose,
       secret: this.config.secret,
       expDays: this.config.ttl
     });
     this.emailToken = new EmailTokenModel({
-      mongoose: server.gateways.mongoose,
+      mongoose,
       expMins: config.emailTokenTtl
     });
     this.mailgun = new Mailgun(config.mailgun);

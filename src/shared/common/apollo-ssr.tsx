@@ -3,15 +3,10 @@ import { ApolloClient } from "apollo-client";
 import { createHttpLink } from "apollo-link-http";
 import fetch from "isomorphic-unfetch";
 import koa from "koa";
-// @ts-ignore
 import { initAssetURL } from "onefx/lib/asset-url";
-// @ts-ignore
 import { logger } from "onefx/lib/integrated-gateways/logger";
-// @ts-ignore
 import { configureStore } from "onefx/lib/iso-react-render/root/configure-store";
-// @ts-ignore
 import { noopReducer } from "onefx/lib/iso-react-render/root/root-reducer";
-// @ts-ignore
 import { RootServer } from "onefx/lib/iso-react-render/root/root-server";
 import React from "react";
 import { ApolloProvider } from "react-apollo";

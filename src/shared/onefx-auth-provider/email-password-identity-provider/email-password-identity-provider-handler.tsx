@@ -1,10 +1,8 @@
 import koa from "koa";
-// @ts-ignore
-import { Server } from "onefx";
-// @ts-ignore
 import { noopReducer } from "onefx/lib/iso-react-render/root/root-reducer";
 import * as React from "react";
 import validator from "validator";
+import { MyServer } from "../../../server/start-server";
 import { IdentityApp } from "./view/identity-app";
 
 const PASSWORD_MIN_LENGTH = 8;
@@ -51,7 +49,7 @@ export function passwordValidator(): Handler {
 }
 
 // tslint:disable-next-line
-export function setEmailPasswordIdentityProviderRoutes(server: Server): void {
+export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
   // view routes
   server.get("login", "/login", async (ctx: koa.Context, _: Function) => {
     return isoRender(ctx);

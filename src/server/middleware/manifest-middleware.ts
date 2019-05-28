@@ -1,7 +1,5 @@
 import koa from "koa";
-// @ts-ignore
 import { Server } from "onefx";
-// @ts-ignore
 import { logger } from "onefx/lib/integrated-gateways/logger";
 
 export function manifestMiddleware(_: Server): Function {

@@ -1,6 +1,4 @@
-// @ts-ignore
 import { clientReactRender } from "onefx/lib/iso-react-render/client-react-render";
-// @ts-ignore
 import { noopReducer } from "onefx/lib/iso-react-render/root/root-reducer";
 import React from "react";
 import { ApolloProvider } from "react-apollo";
@@ -13,6 +11,5 @@ clientReactRender({
       <AppContainer />
     </ApolloProvider>
   ),
-  reducer: noopReducer,
-  clientScript: "/main.js"
+  reducer: noopReducer
 });

@@ -1,5 +1,4 @@
 import config from "config";
-// @ts-ignore
 import { Server } from "onefx/lib/server";
 import { setModel } from "../model";
 import { OnefxAuth } from "../shared/onefx-auth";
@@ -8,7 +7,11 @@ import { setGateways } from "./gateway/gateway";
 import { setMiddleware } from "./middleware";
 import { setServerRoutes } from "./server-routes";
 
-export async function startServer(): Promise<void> {
+// tslint:disable-next-line
+export type MyServer = Server & { [key: string]: any };
+
+export async function startServer(): Promise<Server> {
+  // @ts-ignore
   const server = new Server(config);
   setGateways(server);
   server.auth = new OnefxAuth(server, authConfig);

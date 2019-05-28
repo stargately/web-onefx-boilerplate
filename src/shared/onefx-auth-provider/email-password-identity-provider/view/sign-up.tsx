@@ -1,5 +1,4 @@
 import serialize from "form-serialize";
-// @ts-ignore
 import { t } from "onefx/lib/iso-i18n";
 // @ts-ignore
 import Helmet from "onefx/lib/react-helmet";
@@ -100,7 +99,7 @@ export class SignUp extends Component<{}, State> {
               </FieldMargin>
             </Flex>
             <FieldMargin>
-              <StyleLink style={{ underscore: "none" }} to="/login/">
+              <StyleLink to="/login/">
                 {t("auth/sign_up.switch_to_sign_in")}
               </StyleLink>
             </FieldMargin>

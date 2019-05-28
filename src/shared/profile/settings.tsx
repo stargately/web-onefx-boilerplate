@@ -1,5 +1,4 @@
 import Divider from "antd/lib/divider";
-// @ts-ignore
 import { t } from "onefx/lib/iso-i18n";
 import React from "react";
 import { Button } from "../common/button";

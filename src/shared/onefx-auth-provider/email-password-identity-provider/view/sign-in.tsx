@@ -1,5 +1,4 @@
 import serialize from "form-serialize";
-// @ts-ignore
 import { t } from "onefx/lib/iso-i18n";
 // @ts-ignore
 import Helmet from "onefx/lib/react-helmet";

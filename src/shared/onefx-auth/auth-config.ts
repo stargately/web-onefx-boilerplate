@@ -1,4 +1,3 @@
-// @ts-ignore
 import { logger } from "onefx/lib/integrated-gateways/logger";
 
 let secret = process.env.AUTH_SECRET;

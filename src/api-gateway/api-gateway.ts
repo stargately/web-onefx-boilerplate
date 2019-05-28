@@ -1,8 +1,7 @@
 import { ApolloServer, gql } from "apollo-server-koa";
 import fs from "fs";
 import { GraphQLDateTime } from "graphql-iso-date";
-// @ts-ignore
-import { Server } from "onefx";
+import { MyServer } from "../server/start-server";
 
 // Construct a schema, using GraphQL schema language
 // tslint:disable
@@ -11,7 +10,7 @@ const typeDefs = gql`
 `;
 // tslint:enable
 
-export function setApiGateway(server: Server): void {
+export function setApiGateway(server: MyServer): void {
   const resolvers = {
     Query: {
       // meta

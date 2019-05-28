@@ -1,8 +1,8 @@
 // @ts-ignore
 import { styled } from "onefx/lib/styletron-react";
-import React from "react";
+import React, { ReactNode } from "react";
 
-type Element = JSX.Element | string | boolean | void;
+type Element = ReactNode;
 
 type PropTypes = {
   children?: Array<Element> | Element;

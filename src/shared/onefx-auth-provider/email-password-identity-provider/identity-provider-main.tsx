@@ -7,6 +7,5 @@ import { IdentityAppContainer } from "./view/identity-app-container";
 
 clientReactRender({
   VDom: <IdentityAppContainer />,
-  reducer: noopReducer,
-  clientScript: "/identity-provider-main.js"
+  reducer: noopReducer
 });

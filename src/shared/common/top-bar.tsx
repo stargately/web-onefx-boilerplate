@@ -1,12 +1,10 @@
 // @ts-ignore
-import { styled } from "onefx/lib/styletron-react";
+import { styled, StyleObject } from "onefx/lib/styletron-react";
 import { Component } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import { Link } from "react-router-dom";
 
-// @ts-ignore
 import { assetURL } from "onefx/lib/asset-url";
-// @ts-ignore
 import { t } from "onefx/lib/iso-i18n";
 import React from "react";
 import { CommonMargin } from "./common-margin";
@@ -156,7 +154,14 @@ function HamburgerBtn({
     cursor: "pointer",
     justifyContent: "center"
   });
-  return <Styled onClick={onClick}>{children}</Styled>;
+  return (
+    <Styled
+      // @ts-ignore
+      onClick={onClick}
+    >
+      {children}
+    </Styled>
+  );
 }
 
 function CrossBtn({
@@ -195,7 +200,7 @@ function Logo(): JSX.Element {
   );
 }
 
-const menuItem = {
+const menuItem: StyleObject = {
   color: colors.white,
   marginLeft: "14px",
   textDecoration: "none",

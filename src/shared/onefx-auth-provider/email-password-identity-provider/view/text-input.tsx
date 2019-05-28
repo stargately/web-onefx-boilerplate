@@ -24,4 +24,5 @@ export const inputStyle = (
   boxSizing: "border-box"
 });
 
+// @ts-ignore
 export const TextInput = styled("input", inputStyle);

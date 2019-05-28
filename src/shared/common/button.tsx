@@ -1,5 +1,5 @@
 // @ts-ignore
-import { styled } from "onefx/lib/styletron-react";
+import { styled, StyleObject } from "onefx/lib/styletron-react";
 import { Component } from "react";
 
 import React from "react";
@@ -53,13 +53,14 @@ export class Button extends Component<Props> {
         width
       };
     }
-    const Button = styled(href ? "a" : "button", style);
+    const Button = styled(href ? "a" : "button", style as StyleObject);
 
     return (
       <div ref={r => (this.wrapper = r)}>
         <Button
           id={id}
           href={href}
+          // @ts-ignore
           onClick={(e: Event) => {
             if (onClick) {
               return onClick(e);

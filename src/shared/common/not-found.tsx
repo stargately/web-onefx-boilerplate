@@ -1,4 +1,3 @@
-// @ts-ignore
 import { t } from "onefx/lib/iso-i18n";
 import * as React from "react";
 import { Route, RouteComponentProps } from "react-router";

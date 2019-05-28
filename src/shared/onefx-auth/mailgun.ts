@@ -1,6 +1,5 @@
 import mailer from "nodemailer";
 import mg from "nodemailer-mailgun-transport";
-// @ts-ignore
 import { logger } from "onefx/lib/integrated-gateways/logger";
 
 type MailgunOpts = {

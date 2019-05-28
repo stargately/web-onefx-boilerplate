@@ -1,8 +1,5 @@
-// @ts-ignore
 import { assetURL } from "onefx/lib/asset-url";
-// @ts-ignore
 import { t } from "onefx/lib/iso-i18n";
-// @ts-ignore
 import Helmet from "onefx/lib/react-helmet";
 // @ts-ignore
 import { styled } from "onefx/lib/styletron-react";

@@ -2,7 +2,6 @@ import Row from "antd/lib/grid/row";
 import Icon from "antd/lib/icon";
 import Layout from "antd/lib/layout";
 import gql from "graphql-tag";
-// @ts-ignore
 import { assetURL } from "onefx/lib/asset-url";
 // @ts-ignore
 import { styled } from "onefx/lib/styletron-react";
