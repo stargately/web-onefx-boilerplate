@@ -112,6 +112,6 @@ export class UserModel {
     } catch (err) {
       return false;
     }
-    return Boolean(resp && tools.bcompare(password, resp.password));
+    return Boolean(resp && (await tools.bcompare(password, resp.password)));
   }
 }
