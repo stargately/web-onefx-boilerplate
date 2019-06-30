@@ -5,8 +5,8 @@ import Helmet from "onefx/lib/react-helmet";
 // @ts-ignore
 import { styled } from "onefx/lib/styletron-react";
 import { Component } from "react";
-
 import React from "react";
+import { connect } from "react-redux";
 import { Button } from "../../../common/button";
 import { Flex } from "../../../common/flex";
 import { fullOnPalm } from "../../../common/styles/style-media";
@@ -28,7 +28,11 @@ type State = {
   valuePassword: string;
 };
 
-export class SignIn extends Component<{}, State> {
+type Props = {
+  next: string;
+};
+
+class SignInInner extends Component<Props, State> {
   public state: State = {
     errorEmail: "",
     errorPassword: "",
@@ -43,14 +47,18 @@ export class SignIn extends Component<{}, State> {
     if (!el) {
       return;
     }
-    const { email = "", password = "" } = serialize(el, { hash: true }) as {
+    const { email = "", password = "", next = "" } = serialize(el, {
+      hash: true
+    }) as {
       email: string;
       password: string;
+      next: string;
     };
     axiosInstance
       .post("/api/sign-in/", {
         email,
-        password
+        password,
+        next
       })
       .then(r => {
         if (r.data.ok && r.data.shouldRedirect) {
@@ -90,6 +98,8 @@ export class SignIn extends Component<{}, State> {
             <Flex column={true}>
               <h1>{t("auth/sign_in.title")}</h1>
               <EmailField error={errorEmail} defaultValue={valueEmail} />
+              {/* tslint:disable-next-line:react-a11y-input-elements */}
+              <input hidden={true} name="next" defaultValue={this.props.next} />
               <PasswordField
                 error={errorPassword}
                 defaultValue={valuePassword}
@@ -121,3 +131,8 @@ const Form = styled(FormContainer, {
   width: "320px",
   ...fullOnPalm
 });
+
+export const SignIn = connect(
+  // tslint:disable-next-line:no-any
+  (state: any) => ({ next: state.base.next })
+)(SignInInner);

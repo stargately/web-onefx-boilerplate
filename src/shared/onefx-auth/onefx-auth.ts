@@ -106,7 +106,6 @@ export class OnefxAuth {
     const token = await this.jwt.create(ctx.state.userId);
     ctx.cookies.set(this.config.cookieName, token, this.config.cookieOpts);
     ctx.state.jwt = token;
-    // @ts-ignore
     const nextUrl = allowedLoginNext(
       ctx.query.next || (ctx.request.body && ctx.request.body.next)
     );

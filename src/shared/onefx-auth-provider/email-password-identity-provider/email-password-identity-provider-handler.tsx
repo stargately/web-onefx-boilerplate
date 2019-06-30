@@ -52,6 +52,7 @@ export function passwordValidator(): Handler {
 export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
   // view routes
   server.get("login", "/login", async (ctx: koa.Context, _: Function) => {
+    ctx.setState("base.next", ctx.query.next);
     return isoRender(ctx);
   });
   server.get("sign-up", "/sign-up", async (ctx: koa.Context, _: Function) => {
