@@ -49,7 +49,7 @@ export const authConfig = {
   emailTokenTtl: 5, // mins
   emailTokenLink:
     String(process.env.NODE_ENV).indexOf("production") === -1
-      ? "http://localhost:4100/email-token/"
+      ? "http://localhost:5000/email-token/"
       : "https://example.com/email-token/",
   mailgun: {
     apiKey: "TODO",

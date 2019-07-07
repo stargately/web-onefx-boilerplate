@@ -29,7 +29,6 @@
     "max-classes-per-file": false,
     "interface-name": false,
     "missing-jsdoc": false,
-    "no-unused-variable": false,
     "no-default-export": false,
     "no-relative-imports": false,
     "no-empty-interfaces": false,
