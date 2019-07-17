@@ -17,7 +17,8 @@ export function setServerRoutes(server: Server): void {
   setApiGateway(server);
   setEmailPasswordIdentityProviderRoutes(server);
 
-  server.get("SPA", "/", async (ctx: koa.Context) => {
+  // @ts-ignore
+  server.get("SPA", /^(?!\/?api-gateway\/).+$/, async (ctx: koa.Context) => {
     ctx.setState("base.blah", "this is a sample initial state");
     // @ts-ignore
     ctx.body = await apolloSSR(ctx, server.config.apiGatewayUrl, {

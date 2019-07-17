@@ -29,7 +29,7 @@ const Align = styled("div", (_: React.CSSProperties) => ({
   justifyContent: "space-between",
   paddingTop: "32px",
   paddingBottom: "32px",
-  height: `${FOOTER_HEIGHT}px`,
+  minHeight: `${FOOTER_HEIGHT}px`,
   backgroundColor: colors.nav02,
   color: colors.white
 }));
