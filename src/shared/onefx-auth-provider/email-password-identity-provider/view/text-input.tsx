@@ -21,7 +21,8 @@ export const inputStyle = (
   padding: "11px !important",
   outline: "none",
   transition: "all 200ms ease",
-  boxSizing: "border-box"
+  boxSizing: "border-box",
+  backgroundClip: "padding-box"
 });
 
 // @ts-ignore

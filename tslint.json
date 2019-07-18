@@ -10,6 +10,16 @@
     "node_modules/tslint-require-connnect-typing"
   ],
   "rules": {
+    "react-no-dangerous-html": [
+      true,
+      [
+        {
+          "file": "src/shared/onefx-auth-provider/email-password-identity-provider/view/sign-up.tsx",
+          "method": "render",
+          "comment": "Usage has been approved by Tian on 2019-07-17 17:22"
+        }
+      ]
+    ],
     "no-null-keyword": false,
     "no-for-in-array": [false],
     "restrict-plus-operands": [false],

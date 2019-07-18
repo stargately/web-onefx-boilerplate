@@ -5,10 +5,11 @@ import Helmet from "onefx/lib/react-helmet";
 // @ts-ignore
 import { styled } from "onefx/lib/styletron-react";
 import { Component } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
+import Button from "antd/lib/button";
 import React from "react";
-import { Button } from "../../../common/button";
 import { colorHover } from "../../../common/color-hover";
 import { Flex } from "../../../common/flex";
 import { transition } from "../../../common/styles/style-animation";
@@ -29,28 +30,45 @@ type State = {
 
   valueEmail: string;
   valuePassword: string;
+
+  disableButton: boolean;
 };
 
-export class SignUp extends Component<{}, State> {
+type Props = {
+  next: string;
+};
+
+export class SignUpInner extends Component<Props, State> {
   public state: State = {
     errorEmail: "",
     errorPassword: "",
 
     valueEmail: "",
-    valuePassword: ""
+    valuePassword: "",
+
+    disableButton: false
   };
 
   public onSubmit(e: Event): void {
     e.preventDefault();
     const el = window.document.getElementById(LOGIN_FORM) as HTMLFormElement;
-    const { email = "", password = "" } = serialize(el, { hash: true }) as {
+    const { email = "", password = "", next = "" } = serialize(el, {
+      hash: true
+    }) as {
       email: string;
       password: string;
+      next: string;
     };
+    this.setState({
+      disableButton: true,
+      valueEmail: email,
+      valuePassword: password
+    });
     axiosInstance
       .post("/api/sign-up/", {
         email,
-        password
+        password,
+        next
       })
       .then(r => {
         if (r.data.ok && r.data.shouldRedirect) {
@@ -60,7 +78,8 @@ export class SignUp extends Component<{}, State> {
           const errorState = {
             valueEmail: email,
             errorEmail: "",
-            errorPassword: ""
+            errorPassword: "",
+            disableButton: false
           };
           switch (error.code) {
             case "auth/email-already-in-use":
@@ -83,21 +102,45 @@ export class SignUp extends Component<{}, State> {
     return (
       <ContentPadding>
         <Flex minHeight="550px" center={true}>
-          <Form id={LOGIN_FORM}>
+          <Form id={LOGIN_FORM} onSubmit={this.onSubmit}>
             <Helmet title={`Sign Up - ${t("topbar.brand")}`} />
             <Flex column={true}>
               <h1>Create Account</h1>
               <EmailField error={errorEmail} defaultValue={valueEmail} />
+              {/* tslint:disable-next-line:react-a11y-input-elements */}
+              <input hidden={true} name="next" defaultValue={this.props.next} />
               <PasswordField
                 error={errorPassword}
                 defaultValue={valuePassword}
               />
               <FieldMargin>
-                <Button onClick={(e: Event) => this.onSubmit(e)} width="100%">
-                  {"SUBMIT"}
+                {/*
+                // @ts-ignore */}
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  // @ts-ignore
+                  onClick={(e: Event) => this.onSubmit(e)}
+                  style={{ width: "100%" }}
+                  size="large"
+                  loading={this.state.disableButton}
+                >
+                  {t("auth/button_submit")}
                 </Button>
               </FieldMargin>
             </Flex>
+            <FieldMargin>
+              <div
+                style={{ fontSize: "10px" }}
+                dangerouslySetInnerHTML={{
+                  __html: t("auth/consent", {
+                    tosUrl: "/legal/terms-of-service",
+                    policyUrl: "/legal/privacy-policy"
+                  })
+                }}
+              />
+            </FieldMargin>
+
             <FieldMargin>
               <StyleLink to="/login/">
                 {t("auth/sign_up.switch_to_sign_in")}
@@ -120,3 +163,8 @@ const Form = styled(FormContainer, {
   width: "320px",
   ...fullOnPalm
 });
+
+export const SignUp = connect(
+  // tslint:disable-next-line:no-any
+  (state: any) => ({ next: state.base.next })
+)(SignUpInner);

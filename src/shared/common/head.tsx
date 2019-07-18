@@ -4,9 +4,10 @@ import { mobileViewPortContent } from "onefx/lib/iso-react-render/root/mobile-vi
 // @ts-ignore
 import Helmet from "onefx/lib/react-helmet";
 import React from "react";
+import { connect } from "react-redux";
 import { colors } from "./styles/style-color";
 
-export function Head({ locale }: { locale: string }): JSX.Element {
+function HeadInner({ locale }: { locale: string }): JSX.Element {
   return (
     <Helmet
       title={`${t("meta.title")} - ${t("meta.description")}`}
@@ -29,7 +30,7 @@ export function Head({ locale }: { locale: string }): JSX.Element {
           rel: "icon",
           type: "image/png",
           sizes: "any",
-          href: assetURL("/favicon.svg")
+          href: assetURL("/favicon.png")
         },
 
         // styles
@@ -55,3 +56,7 @@ export function Head({ locale }: { locale: string }): JSX.Element {
     </Helmet>
   );
 }
+
+export const Head = connect((state: { base: { locale: string } }) => ({
+  locale: state.base.locale
+}))(HeadInner);

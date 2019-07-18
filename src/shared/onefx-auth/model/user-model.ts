@@ -10,7 +10,7 @@ type TNewUser = {
   ip: string;
 };
 
-type TUser = mongoose.Document &
+export type TUser = mongoose.Document &
   TNewUser & {
     avatar: string;
 

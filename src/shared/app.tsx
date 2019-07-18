@@ -25,11 +25,9 @@ export class App extends Component<Props> {
   }
 
   public render(): JSX.Element {
-    const { locale } = this.props;
-
     return (
       <RootStyle>
-        <Head locale={locale} />
+        <Head />
         <TopBar />
         <div style={FOOTER_ABOVE}>
           <ScrollToTop>

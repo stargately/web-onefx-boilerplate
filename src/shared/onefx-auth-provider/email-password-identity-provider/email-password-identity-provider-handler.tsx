@@ -3,6 +3,7 @@ import { noopReducer } from "onefx/lib/iso-react-render/root/root-reducer";
 import * as React from "react";
 import validator from "validator";
 import { MyServer } from "../../../server/start-server";
+import { TUser } from "../../onefx-auth/model/user-model";
 import { IdentityApp } from "./view/identity-app";
 
 const PASSWORD_MIN_LENGTH = 8;
@@ -51,17 +52,33 @@ export function passwordValidator(): Handler {
 // tslint:disable-next-line
 export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
   // view routes
-  server.get("login", "/login", async (ctx: koa.Context, _: Function) => {
-    ctx.setState("base.next", ctx.query.next);
-    return isoRender(ctx);
-  });
-  server.get("sign-up", "/sign-up", async (ctx: koa.Context, _: Function) => {
-    return isoRender(ctx);
-  });
+  server.get(
+    "login",
+    "/login",
+    // server.auth.authOptionalContinue,
+    async (ctx: koa.Context, _: Function) => {
+      ctx.setState("base.next", ctx.query.next);
+      ctx.setState("base.userId", ctx.state.userId);
+      return isoRender(ctx);
+    }
+  );
+  server.get(
+    "sign-up",
+    "/sign-up",
+    // server.auth.authOptionalContinue,
+    async (ctx: koa.Context, _: Function) => {
+      ctx.setState("base.next", ctx.query.next);
+      ctx.setState("base.userId", ctx.state.userId);
+      return isoRender(ctx);
+    }
+  );
   server.get(
     "forgot-password",
     "/forgot-password",
+    // server.auth.authOptionalContinue,
     async (ctx: koa.Context, _: Function) => {
+      ctx.setState("base.next", ctx.query.next);
+      ctx.setState("base.userId", ctx.state.userId);
       return isoRender(ctx);
     }
   );
@@ -106,12 +123,12 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
     async (ctx: koa.Context, next: Function) => {
       const { email, password } = ctx.request.body;
       try {
-        const user = await server.auth.user.newAndSave({
+        const user: TUser = await server.auth.user.newAndSave({
           email,
           password,
           ip: ctx.headers["x-forward-for"]
         });
-        ctx.state.userId = user._id;
+        ctx.state.userId = user && user._id;
         await next();
       } catch (err) {
         if (err.name === "MongoError" && err.code === 11000) {

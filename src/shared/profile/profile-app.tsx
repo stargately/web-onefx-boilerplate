@@ -21,7 +21,6 @@ import { Settings } from "./settings";
 const { Footer } = Layout;
 
 type Props = {
-  locale: string;
   history: History;
 };
 
@@ -44,7 +43,7 @@ class ProfileApp extends PureComponent<Props, State> {
   public state: State = { toggled: false };
 
   public render(): JSX.Element {
-    const { locale, history } = this.props;
+    const { history } = this.props;
     const { Sider, Content } = Layout;
 
     const PANES = [
@@ -72,7 +71,7 @@ class ProfileApp extends PureComponent<Props, State> {
 
     return (
       <RootStyle>
-        <Head locale={locale} />
+        <Head />
         <TopBar />
         <Layout tagName={"main"}>
           <CommonMargin />
@@ -135,19 +134,14 @@ class ProfileApp extends PureComponent<Props, State> {
 
 type ConnectProps = {
   googleTid: string;
-  locale: string;
 };
 
 export const ProfileAppContainer = withRouter(
   // @ts-ignore
-  connect<ConnectProps>(
-    (state: object): { googleTid: string; locale: string } => {
-      return {
-        // @ts-ignore
-        googleTid: state.base.analytics.googleTid,
-        // @ts-ignore
-        locale: state.base.locale
-      };
-    }
-  )(ProfileApp)
+  connect<ConnectProps>((state: object): { googleTid: string } => {
+    return {
+      // @ts-ignore
+      googleTid: state.base.analytics.googleTid
+    };
+  })(ProfileApp)
 );
