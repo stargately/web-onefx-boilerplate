@@ -91,7 +91,7 @@
     "tslint-microsoft-contrib": "6.2.0",
     "tslint-require-connnect-typing": "1.0.1",
     "uglifyjs-webpack-plugin": "1.3.0",
-    "webpack": "4.39.0",
+    "webpack": "4.39.1",
     "webpack-bundle-analyzer": "3.4.1",
     "webpack-cli": "3.3.6",
     "webpack-manifest-plugin": "2.0.4"
