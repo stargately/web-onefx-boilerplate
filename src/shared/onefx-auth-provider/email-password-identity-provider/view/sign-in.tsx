@@ -95,11 +95,15 @@ class SignInInner extends Component<Props, State> {
           }
           this.setState(errorState);
         }
+      })
+      .catch(err => {
+        window.console.error(`failed to post sign-in: ${err}`);
       });
   }
 
   public render(): JSX.Element {
     const { errorEmail, errorPassword, valueEmail, valuePassword } = this.state;
+
     return (
       <ContentPadding>
         <Flex minHeight="550px" center={true}>

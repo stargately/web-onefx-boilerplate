@@ -5,9 +5,9 @@ import Helmet from "onefx/lib/react-helmet";
 import { styled } from "onefx/lib/styletron-react";
 import { Component } from "react";
 
+import Button from "antd/lib/button";
 import React from "react";
 import { connect } from "react-redux";
-import { Button } from "../../../common/button";
 import { Flex } from "../../../common/flex";
 import { colors } from "../../../common/styles/style-color";
 import { fullOnPalm } from "../../../common/styles/style-media";
@@ -33,6 +33,8 @@ type State = {
   valueNewPassword: string;
 
   message: string;
+
+  disableButton: boolean;
 };
 
 type ReduxProps = {
@@ -54,7 +56,8 @@ export const ResetPasswordContainer = connect<ReduxProps>(state => ({
         valuePassword: "",
         valueNewPassword: "",
 
-        message: ""
+        message: "",
+        disableButton: false
       };
     }
 
@@ -67,6 +70,11 @@ export const ResetPasswordContainer = connect<ReduxProps>(state => ({
       const { newPassword = "", password = "", token = "" } = serialize(el, {
         hash: true
       }) as { newPassword: string; password: string; token: string };
+      this.setState({
+        disableButton: true,
+        valueNewPassword: newPassword,
+        valuePassword: password
+      });
       axiosInstance
         .post("/api/reset-password/", {
           password,
@@ -80,13 +88,15 @@ export const ResetPasswordContainer = connect<ReduxProps>(state => ({
               errorPassword: "",
               errorNewPassword: "",
               valuePassword: "",
-              valueNewPassword: ""
+              valueNewPassword: "",
+              disableButton: false
             });
             if (r.data.shouldRedirect) {
               window.setInterval(
                 () => (window.location.href = r.data.next),
                 3000
               );
+
               return;
             }
           } else if (r.data.error) {
@@ -96,7 +106,8 @@ export const ResetPasswordContainer = connect<ReduxProps>(state => ({
               valueNewPassword: newPassword,
               errorPassword: "",
               errorNewPassword: "",
-              message: ""
+              message: "",
+              disableButton: false
             };
             if (error.code === "auth/wrong-password") {
               errorState.errorPassword = error.message;
@@ -107,6 +118,9 @@ export const ResetPasswordContainer = connect<ReduxProps>(state => ({
 
             this.setState(errorState);
           }
+        })
+        .catch(err => {
+          window.console.error(`failed to post reset-password: ${err}`);
         });
     }
 
@@ -119,6 +133,7 @@ export const ResetPasswordContainer = connect<ReduxProps>(state => ({
         message
       } = this.state;
       const { token } = this.props;
+
       return (
         <ContentPadding>
           <Flex minHeight="550px" center={true}>
@@ -168,11 +183,18 @@ export const ResetPasswordContainer = connect<ReduxProps>(state => ({
                 )}
                 {!message && (
                   <FieldMargin>
+                    {/*
+                // @ts-ignore */}
                     <Button
+                      type="primary"
+                      htmlType="submit"
+                      // @ts-ignore
                       onClick={(e: Event) => this.onSubmit(e)}
-                      width="100%"
+                      style={{ width: "100%" }}
+                      size="large"
+                      loading={this.state.disableButton}
                     >
-                      SUBMIT
+                      {t("auth/button_submit")}
                     </Button>
                   </FieldMargin>
                 )}

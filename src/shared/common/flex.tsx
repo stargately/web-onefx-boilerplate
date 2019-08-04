@@ -14,7 +14,7 @@ type PropTypes = {
   backgroundColor?: string;
   justifyContent?: string;
   height?: string;
-  media?: { [key: string]: string };
+  media?: { [key: string]: { [key: string]: string } };
   alignContent?: string;
 } & React.CSSProperties;
 
@@ -46,7 +46,7 @@ export function Flex({
     "-webkit-justify-content": center ? "center" : "space-between",
     boxSizing: "border-box",
     flexWrap: nowrap ? "nowrap" : "wrap",
-    alignContent: alignContent || center ? "center" : "space-between",
+    alignContent: alignContent || (center ? "center" : "space-between"),
     alignItems: alignItems || "center",
     width,
     height,

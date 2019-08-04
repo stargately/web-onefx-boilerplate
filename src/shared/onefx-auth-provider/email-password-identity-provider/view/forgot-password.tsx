@@ -6,8 +6,8 @@ import Helmet from "onefx/lib/react-helmet";
 import { styled } from "onefx/lib/styletron-react";
 import { Component } from "react";
 
+import Button from "antd/lib/button";
 import React from "react";
-import { Button } from "../../../common/button";
 import { Flex } from "../../../common/flex";
 import { fullOnPalm } from "../../../common/styles/style-media";
 import { ContentPadding } from "../../../common/styles/style-padding";
@@ -23,6 +23,7 @@ type State = {
   errorEmail: string;
   valueEmail: string;
   sent: boolean;
+  disableButton: boolean;
 };
 
 export class ForgotPassword extends Component<{}, State> {
@@ -33,7 +34,8 @@ export class ForgotPassword extends Component<{}, State> {
     this.state = {
       errorEmail: "",
       valueEmail: "",
-      sent: false
+      sent: false,
+      disableButton: false
     };
   }
 
@@ -47,6 +49,10 @@ export class ForgotPassword extends Component<{}, State> {
     }
     const { email = "" } = serialize(el, { hash: true }) as { email: string };
     this.email = email;
+    this.setState({
+      disableButton: true,
+      valueEmail: email
+    });
     axiosInstance
       .post("/api/forgot-password/", {
         email
@@ -54,23 +60,29 @@ export class ForgotPassword extends Component<{}, State> {
       .then(r => {
         if (r.data.ok) {
           this.setState({ sent: true });
+
           return;
         } else if (r.data.error) {
           const error = r.data.error;
           const errorState = {
             valueEmail: email,
-            errorEmail: ""
+            errorEmail: "",
+            disableButton: false
           };
           if (error.code === "auth/invalid-email") {
             errorState.errorEmail = error.message;
           }
           this.setState(errorState);
         }
+      })
+      .catch(err => {
+        window.console.error(`failed to post forgot password: ${err}`);
       });
   }
 
   public render(): JSX.Element {
     const { errorEmail, valueEmail, sent } = this.state;
+
     return (
       <ContentPadding>
         <Flex minHeight="550px" center={true}>
@@ -90,7 +102,15 @@ export class ForgotPassword extends Component<{}, State> {
                 <p>{t("auth/forgot_password.desc")}</p>
                 <EmailField error={errorEmail} defaultValue={valueEmail} />
                 <FieldMargin>
-                  <Button onClick={(e: Event) => this.onSubmit(e)} width="100%">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    // @ts-ignore
+                    onClick={(e: Event) => this.onSubmit(e)}
+                    style={{ width: "100%" }}
+                    size="large"
+                    loading={this.state.disableButton}
+                  >
                     {t("auth/forgot_password.send")}
                   </Button>
                 </FieldMargin>
