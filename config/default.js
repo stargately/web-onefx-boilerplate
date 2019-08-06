@@ -44,5 +44,6 @@ module.exports = {
     "object-src": ["self"],
     "script-src": ["self", "https://www.google-analytics.com/"]
   },
-  apiGatewayUrl: "http://localhost:5000/api-gateway/"
+  apiGatewayUrl:
+    process.env.API_GATEWAY_URL || "http://localhost:5000/api-gateway/"
 };
