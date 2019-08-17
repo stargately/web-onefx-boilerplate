@@ -16,6 +16,7 @@ export const apolloClient = new ApolloClient({
   link: new HttpLink({
     uri: apiGatewayUrl,
     fetch,
+    credentials: "same-origin",
     headers: { "x-csrf-token": csrfToken }
   }),
   cache: new InMemoryCache().restore(apolloState)
