@@ -172,7 +172,7 @@
     "type-graphql": "0.17.5",
     "typescript": "3.4.5",
     "uuid": "3.3.3",
-    "validator": "10.11.0"
+    "validator": "11.1.0"
   },
   "engines": {
     "node": "10.16.3",
