@@ -1,7 +1,7 @@
-import { Query, Resolver, ResolverInterface } from "type-graphql";
+import { Query, Resolver } from "type-graphql";
 
-@Resolver(_ => String)
-export class MetaResolver implements ResolverInterface<() => String> {
+@Resolver()
+export class MetaResolver {
   @Query(_ => String, { description: "is the server healthy?" })
   public async health(): Promise<string> {
     return "OK";
