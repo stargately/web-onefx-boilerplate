@@ -145,7 +145,7 @@
     "dotenv": "6.2.0",
     "form-serialize": "0.7.2",
     "global": "4.4.0",
-    "graphql": "14.5.3",
+    "graphql": "14.5.4",
     "graphql-iso-date": "3.6.1",
     "graphql-tag": "2.10.1",
     "is-browser": "2.1.0",
