@@ -39,7 +39,7 @@ module.exports = {
     "connect-src": ["self"],
     "child-src": ["self"],
     "font-src": ["self", "data:", "https://fonts.gstatic.com/"],
-    "img-src": ["*"],
+    "img-src": ["*", "data:"],
     "media-src": ["self"],
     "object-src": ["self"],
     "script-src": ["self", "https://www.google-analytics.com/"]
