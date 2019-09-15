@@ -126,7 +126,7 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
         const user: TUser = await server.auth.user.newAndSave({
           email,
           password,
-          ip: ctx.headers["x-forward-for"]
+          ip: ctx.headers["x-forwarded-for"]
         });
         ctx.state.userId = user && user._id;
         await next();

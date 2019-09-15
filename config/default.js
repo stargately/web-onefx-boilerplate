@@ -36,7 +36,11 @@ module.exports = {
     "manifest-src": ["self"],
     "style-src": ["self", "unsafe-inline", "https://fonts.googleapis.com/css"],
     "frame-src": [],
-    "connect-src": ["self"],
+    "connect-src": [
+      "self",
+      "https://www.google-analytics.com/",
+      ...(process.env.API_GATEWAY_URL ? [process.env.API_GATEWAY_URL] : [])
+    ],
     "child-src": ["self"],
     "font-src": ["self", "data:", "https://fonts.gstatic.com/"],
     "img-src": ["*", "data:"],
