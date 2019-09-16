@@ -68,7 +68,7 @@
   "homepage": "https://github.com/puncsky/template_website#readme",
   "devDependencies": {
     "@2fd/graphdoc": "2.4.0",
-    "ava": "1.1.0",
+    "ava": "2.4.0",
     "awesome-typescript-loader": "5.2.1",
     "cache-loader": "2.0.1",
     "del": "3.0.0",
