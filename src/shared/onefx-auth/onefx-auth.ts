@@ -121,6 +121,6 @@ export class OnefxAuth {
     if (!token && ctx.headers.authorization) {
       token = String(ctx.headers.authorization).replace("Bearer ", "");
     }
-    return token;
+    return token || "";
   };
 }
