@@ -114,7 +114,7 @@ class ProfileApp extends PureComponent<Props, State> {
                     <Route
                       key={i}
                       path={p.path}
-                      exact
+                      exact={true}
                       component={p.component}
                     />
                   ))}

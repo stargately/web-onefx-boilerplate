@@ -32,7 +32,7 @@ export class App extends Component<Props> {
         <div style={FOOTER_ABOVE}>
           <ScrollToTop>
             <Switch>
-              <Route exact path="/" component={Home} />
+              <Route exact={true} path="/" component={Home} />
               <Route component={NotFound} />
             </Switch>
           </ScrollToTop>

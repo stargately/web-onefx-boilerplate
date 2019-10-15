@@ -88,7 +88,7 @@ export class OnefxAuth {
   };
 
   public logout = async (ctx: koa.Context, _: Function) => {
-    ctx.cookies.set(this.config.cookieName, undefined, this.config.cookieOpts);
+    ctx.cookies.set(this.config.cookieName, "", this.config.cookieOpts);
     const token = this.tokenFromCtx(ctx);
     if (token) {
       this.jwt.revoke(token);

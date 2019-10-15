@@ -37,12 +37,20 @@ export class IdentityApp extends Component<Props> {
         <div style={FOOTER_ABOVE}>
           <Route path="/email-token/*" component={EmailTokenInvalid} />
           <Switch>
-            <Route exact path="/login" component={SignIn} />
-            <Route exact path="/sign-up" component={SignUp} />
-            <Route exact path="/forgot-password" component={ForgotPassword} />
-            <Route exact path="/email-token/*" component={ForgotPassword} />
+            <Route exact={true} path="/login" component={SignIn} />
+            <Route exact={true} path="/sign-up" component={SignUp} />
             <Route
-              exact
+              exact={true}
+              path="/forgot-password"
+              component={ForgotPassword}
+            />
+            <Route
+              exact={true}
+              path="/email-token/*"
+              component={ForgotPassword}
+            />
+            <Route
+              exact={true}
               path="/settings/reset-password"
               component={ResetPasswordContainer}
             />
