@@ -155,7 +155,7 @@
     "mongoose": "5.7.5",
     "nodemailer": "5.1.1",
     "nodemailer-mailgun-transport": "1.4.0",
-    "onefx": "1.6.0",
+    "onefx": "1.6.1",
     "process": "0.11.10",
     "react": "16.10.2",
     "react-apollo": "2.5.8",
