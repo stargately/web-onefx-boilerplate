@@ -122,7 +122,7 @@
     "@types/node-fetch": "2.5.2",
     "@types/nodemailer": "4.6.8",
     "@types/nodemailer-mailgun-transport": "1.4.1",
-    "@types/react-helmet": "5.0.13",
+    "@types/react-helmet": "5.0.14",
     "@types/react-outside-click-handler": "1.2.0",
     "@types/react-redux": "7.0.4",
     "@types/react-router": "4.4.5",
