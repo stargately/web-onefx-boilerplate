@@ -152,7 +152,7 @@
     "is-browser": "2.1.0",
     "isomorphic-unfetch": "3.0.0",
     "jsonwebtoken": "8.5.1",
-    "mongoose": "5.7.7",
+    "mongoose": "5.7.8",
     "nodemailer": "5.1.1",
     "nodemailer-mailgun-transport": "1.4.0",
     "onefx": "1.6.1",
