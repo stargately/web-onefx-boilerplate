@@ -119,7 +119,7 @@
     "@types/koa": "2.0.52",
     "@types/koa-router": "7.0.42",
     "@types/mongoose": "5.5.32",
-    "@types/node-fetch": "2.5.3",
+    "@types/node-fetch": "2.5.4",
     "@types/nodemailer": "4.6.8",
     "@types/nodemailer-mailgun-transport": "1.4.1",
     "@types/react-helmet": "5.0.14",
