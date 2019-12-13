@@ -103,7 +103,8 @@
     "no-suspicious-comment": false,
     "no-use-before-declare": false,
     "react-unused-props-and-state": false,
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "member-access": false
   },
   "jsRules": {
     "quotemark": [true, "double", "jsx-double"],
