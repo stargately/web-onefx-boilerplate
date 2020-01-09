@@ -117,7 +117,7 @@
     "@types/graphql-iso-date": "3.3.3",
     "@types/jsonwebtoken": "8.3.5",
     "@types/koa": "2.11.0",
-    "@types/koa-router": "7.0.42",
+    "@types/koa-router": "7.4.0",
     "@types/mongoose": "5.5.40",
     "@types/node-fetch": "2.5.4",
     "@types/nodemailer": "4.6.8",
