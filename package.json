@@ -128,7 +128,7 @@
     "@types/react-router": "4.4.5",
     "@types/react-router-dom": "4.3.5",
     "@types/styletron-react": "5.0.2",
-    "@types/uuid": "3.4.7",
+    "@types/uuid": "3.4.8",
     "@types/validator": "10.11.3",
     "antd": "3.14.0",
     "apollo-cache-inmemory": "1.6.5",
