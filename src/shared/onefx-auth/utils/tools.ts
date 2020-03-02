@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import dateFormat from "dateformat";
 
+// tslint:disable-next-line:no-default-export
 export default {
   validateId: (str: string) => {
     return /^[a-zA-Z0-9\-_]+$/i.test(str);

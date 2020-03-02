@@ -1,7 +1,11 @@
 import mongoose from "mongoose";
-import { Server } from "onefx/lib/server";
+import { MyServer } from "../start-server";
 
-export function setGateways(server: Server): void {
+export type Gateways = {
+  mongoose: mongoose.Mongoose;
+};
+
+export function setGateways(server: MyServer): void {
   server.gateways = server.gateways || {};
 
   if (
