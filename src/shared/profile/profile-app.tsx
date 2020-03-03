@@ -1,4 +1,4 @@
-import Icon from "antd/lib/icon";
+import { DashboardOutlined, SettingOutlined } from "@ant-design/icons";
 import Layout from "antd/lib/layout";
 import Menu from "antd/lib/menu";
 import { History } from "history";
@@ -51,7 +51,7 @@ class ProfileApp extends PureComponent<Props, State> {
         path: "/profile/",
         tab: (
           <span>
-            <Icon type="dashboard" />
+            <DashboardOutlined />
             {t("profile.home")}
           </span>
         ),
@@ -61,7 +61,7 @@ class ProfileApp extends PureComponent<Props, State> {
         path: "/profile/settings/",
         tab: (
           <span>
-            <Icon type="setting" />
+            <SettingOutlined />
             {t("profile.settings")}
           </span>
         ),
