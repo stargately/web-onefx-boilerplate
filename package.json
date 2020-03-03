@@ -130,7 +130,7 @@
     "@types/styletron-react": "5.0.2",
     "@types/uuid": "3.4.8",
     "@types/validator": "10.11.3",
-    "antd": "3.26.12",
+    "antd": "4.0.0",
     "apollo-cache-inmemory": "1.6.5",
     "apollo-client": "2.6.8",
     "apollo-link-http": "1.5.16",
