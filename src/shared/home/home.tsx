@@ -24,11 +24,8 @@ export class Home extends PureComponent {
   public render(): JSX.Element {
     return (
       <ContentPadding>
-        <Layout tagName={"main"}>
-          <Layout.Content
-            tagName={"main"}
-            style={{ backgroundColor: "#fff", padding: "32px" }}
-          >
+        <Layout>
+          <Layout.Content style={{ backgroundColor: "#fff", padding: "32px" }}>
             <Row justify="center">
               <OneFxIcon src={assetURL("/favicon.svg")} />
             </Row>
