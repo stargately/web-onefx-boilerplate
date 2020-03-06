@@ -1,4 +1,4 @@
-import Icon from "antd/lib/icon";
+import { DashboardOutlined, SettingOutlined } from "@ant-design/icons";
 import Layout from "antd/lib/layout";
 import Menu from "antd/lib/menu";
 import { History } from "history";
@@ -51,7 +51,7 @@ class ProfileApp extends PureComponent<Props, State> {
         path: "/profile/",
         tab: (
           <span>
-            <Icon type="dashboard" />
+            <DashboardOutlined />
             {t("profile.home")}
           </span>
         ),
@@ -61,7 +61,7 @@ class ProfileApp extends PureComponent<Props, State> {
         path: "/profile/settings/",
         tab: (
           <span>
-            <Icon type="setting" />
+            <SettingOutlined />
             {t("profile.settings")}
           </span>
         ),
@@ -73,11 +73,10 @@ class ProfileApp extends PureComponent<Props, State> {
       <RootStyle>
         <Head />
         <TopBar />
-        <Layout tagName={"main"}>
+        <Layout>
           <CommonMargin />
           <ContentPadding>
             <Layout
-              tagName={"section"}
               style={{
                 padding: "24px 0",
                 background: "#fff",
@@ -105,10 +104,7 @@ class ProfileApp extends PureComponent<Props, State> {
                   ))}
                 </Menu>
               </Sider>
-              <Content
-                tagName={"section"}
-                style={{ background: "#fff", margin: "0 16px" }}
-              >
+              <Content style={{ background: "#fff", margin: "0 16px" }}>
                 <Switch>
                   {PANES.map((p, i) => (
                     <Route
@@ -122,7 +118,7 @@ class ProfileApp extends PureComponent<Props, State> {
               </Content>
             </Layout>
 
-            <Footer tagName={"footer"} style={{ textAlign: "center" }}>
+            <Footer style={{ textAlign: "center" }}>
               Copyright © 2019 IoTeX · Built with ❤️ in San Francisco
             </Footer>
           </ContentPadding>

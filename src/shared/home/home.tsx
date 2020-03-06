@@ -1,12 +1,15 @@
+import {
+  CheckCircleTwoTone,
+  CloseCircleTwoTone,
+  LoadingOutlined
+} from "@ant-design/icons";
 import Row from "antd/lib/grid/row";
-import Icon from "antd/lib/icon";
 import Layout from "antd/lib/layout";
 import gql from "graphql-tag";
 import { assetURL } from "onefx/lib/asset-url";
 // @ts-ignore
 import { styled } from "onefx/lib/styletron-react";
-import React from "react";
-import { PureComponent } from "react";
+import React, { PureComponent } from "react";
 import { Query, QueryResult } from "react-apollo";
 import { colors } from "../common/styles/style-color";
 import { ContentPadding } from "../common/styles/style-padding";
@@ -21,21 +24,18 @@ export class Home extends PureComponent {
   public render(): JSX.Element {
     return (
       <ContentPadding>
-        <Layout tagName={"main"}>
-          <Layout.Content
-            tagName={"main"}
-            style={{ backgroundColor: "#fff", padding: "32px" }}
-          >
-            <Row type="flex" justify="center">
+        <Layout>
+          <Layout.Content style={{ backgroundColor: "#fff", padding: "32px" }}>
+            <Row justify="center">
               <OneFxIcon src={assetURL("/favicon.svg")} />
             </Row>
-            <Row type="flex" justify="center">
+            <Row justify="center">
               <Title>OneFx</Title>
             </Row>
-            <Row type="flex" justify="center">
+            <Row justify="center">
               <p>Building Web & Mobile Apps with Speed & Quality</p>
             </Row>
-            <Row type="flex" justify="center">
+            <Row justify="center">
               <a
                 href="/api-gateway/"
                 target="_blank"
@@ -44,7 +44,7 @@ export class Home extends PureComponent {
                 GraphQL Endpoint
               </a>
             </Row>
-            <Row type="flex" justify="center">
+            <Row justify="center">
               <Query query={GET_HEALTH} ssr={false} fetchPolicy="network-only">
                 {({
                   loading,
@@ -54,30 +54,22 @@ export class Home extends PureComponent {
                   if (loading) {
                     return (
                       <div>
-                        <Icon type="loading" /> Checking Status
+                        <LoadingOutlined /> Checking Status
                       </div>
                     );
                   }
                   if (error) {
                     return (
                       <div>
-                        <Icon
-                          type="close-circle"
-                          theme="twoTone"
-                          twoToneColor={colors.error}
-                        />{" "}
-                        Not OK
+                        <CloseCircleTwoTone twoToneColor={colors.error} /> Not
+                        OK
                       </div>
                     );
                   }
 
                   return (
                     <div>
-                      <Icon
-                        type="check-circle"
-                        theme="twoTone"
-                        twoToneColor={colors.success}
-                      />{" "}
+                      <CheckCircleTwoTone twoToneColor={colors.success} />{" "}
                       {data && data.health}
                     </div>
                   );
