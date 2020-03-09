@@ -118,7 +118,7 @@
     "@types/jsonwebtoken": "8.3.8",
     "@types/koa": "2.11.2",
     "@types/koa-router": "7.4.0",
-    "@types/mongoose": "5.7.3",
+    "@types/mongoose": "5.7.4",
     "@types/node-fetch": "2.5.5",
     "@types/nodemailer": "4.6.8",
     "@types/nodemailer-mailgun-transport": "1.4.1",
