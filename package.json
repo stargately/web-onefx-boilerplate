@@ -94,7 +94,7 @@
     "tslint-require-connnect-typing": "1.0.1",
     "uglifyjs-webpack-plugin": "1.3.0",
     "webpack": "4.42.0",
-    "webpack-bundle-analyzer": "3.6.0",
+    "webpack-bundle-analyzer": "3.6.1",
     "webpack-cli": "3.3.11",
     "webpack-manifest-plugin": "2.2.0"
   },
