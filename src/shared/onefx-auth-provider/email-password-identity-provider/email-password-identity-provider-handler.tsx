@@ -4,7 +4,7 @@ import * as React from "react";
 import validator from "validator";
 import { MyServer } from "../../../server/start-server";
 import { TUser } from "../../onefx-auth/model/user-model";
-import { IdentityApp } from "./view/identity-app";
+import { IdentityAppContainer } from "./view/identity-app-container";
 
 const PASSWORD_MIN_LENGTH = 8;
 
@@ -263,7 +263,7 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
 
 function isoRender(ctx: koa.Context): void {
   ctx.body = ctx.isoReactRender({
-    VDom: <IdentityApp />,
+    VDom: <IdentityAppContainer />,
     reducer: noopReducer,
     clientScript: "/identity-provider-main.js"
   });
