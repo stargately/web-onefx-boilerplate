@@ -3,17 +3,12 @@ import { withRouter } from "react-router";
 
 import { App } from "./app";
 
-type Props = {
-  googleTid: string;
-};
-
 export const AppContainer = withRouter(
-  // @ts-ignore
-  connect<Props>(
-    (state: object): Props => {
+  connect(
+    (state: { base: { analytics: { googleTid: string }; locale: string } }) => {
       return {
-        // @ts-ignore
-        googleTid: state.base.analytics.googleTid
+        googleTid: state.base.analytics.googleTid,
+        locale: state.base.locale
       };
     }
   )(App)

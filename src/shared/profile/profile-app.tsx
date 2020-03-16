@@ -119,7 +119,8 @@ class ProfileApp extends PureComponent<Props, State> {
             </Layout>
 
             <Footer style={{ textAlign: "center" }}>
-              Copyright © 2019 IoTeX · Built with ❤️ in San Francisco
+              Copyright © {new Date().getFullYear()} {t("topbar.brand")} · Built
+              with ❤️ in San Francisco
             </Footer>
           </ContentPadding>
         </Layout>

@@ -3,7 +3,7 @@ import { t } from "onefx/lib/iso-i18n";
 import { styled } from "onefx/lib/styletron-react";
 import { Component } from "react";
 import React from "react";
-import { Switch } from "react-router";
+import { RouteComponentProps, Switch } from "react-router";
 import { Link, Route } from "react-router-dom";
 import { Flex } from "../../../common/flex";
 import { Footer, FOOTER_ABOVE } from "../../../common/footer";
@@ -22,7 +22,7 @@ import { SignUp } from "./sign-up";
 
 type Props = {
   googleTid?: string;
-};
+} & RouteComponentProps;
 
 export class IdentityApp extends Component<Props> {
   public componentDidMount(): void {
