@@ -128,7 +128,7 @@
     "@types/react-router": "4.4.5",
     "@types/react-router-dom": "4.3.5",
     "@types/styletron-react": "5.0.2",
-    "@types/uuid": "3.4.8",
+    "@types/uuid": "7.0.2",
     "@types/validator": "10.11.3",
     "antd": "4.0.2",
     "apollo-cache-inmemory": "1.6.5",
@@ -172,7 +172,7 @@
     "ts-node": "8.6.2",
     "type-graphql": "0.17.6",
     "typescript": "3.4.5",
-    "uuid": "3.4.0",
+    "uuid": "7.0.2",
     "validator": "10.11.0"
   },
   "engines": {
