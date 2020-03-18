@@ -80,7 +80,7 @@
     "gulp-nodemon": "2.5.0",
     "gulp-sass": "4.0.2",
     "husky": "4.2.3",
-    "nyc": "14.1.1",
+    "nyc": "15.0.0",
     "plugin-error": "1.0.1",
     "prettier": "1.19.1",
     "pretty-quick": "1.11.1",
