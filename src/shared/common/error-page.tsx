@@ -24,7 +24,7 @@ export class ErrorPage extends PureComponent<Props> {
       <ContentPadding style={{ backgroundColor: colors.black10 }}>
         <Helmet title={`${bar} - ${t("topbar.brand")}`} />
         <Flex {...FOOTER_ABOVE} center={true}>
-          <Image src={assetURL("/favicon.svg")} />
+          <Image src={assetURL("favicon.svg")} />
           <Flex column={true} margin={"8px"}>
             <h1>{title}</h1>
             <div>{info}</div>

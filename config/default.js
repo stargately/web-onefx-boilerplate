@@ -4,6 +4,7 @@ config();
 module.exports = {
   project: "web-onefx-boilerplate",
   server: {
+    routePrefix: "",
     port: process.env.PORT || 5000,
     staticDir: "./dist",
     delayInitMiddleware: false,

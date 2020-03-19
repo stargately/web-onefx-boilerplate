@@ -14,7 +14,7 @@ import { Head } from "../common/head";
 import { colors } from "../common/styles/style-color";
 import { fonts } from "../common/styles/style-font";
 import { ContentPadding } from "../common/styles/style-padding";
-import { TOP_BAR_HEIGHT, TopBar } from "../common/top-bar";
+import { TopBar, TOP_BAR_HEIGHT } from "../common/top-bar";
 import { Settings } from "./settings";
 
 // $FlowFixMe

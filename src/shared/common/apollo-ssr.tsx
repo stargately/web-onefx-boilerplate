@@ -40,7 +40,7 @@ export async function apolloSSR(
   });
 
   const state = ctx.getState();
-  initAssetURL(state.base.manifest);
+  initAssetURL(state.base.manifest, state.base.routePrefix);
   const store = configureStore(state, noopReducer);
   const styletron = new engine.Server({ prefix: "_" });
 
@@ -49,6 +49,7 @@ export async function apolloSSR(
   try {
     await getDataFromTree(
       <RootServer
+        routePrefix={state.base.routePrefix}
         store={store}
         location={ctx.url}
         context={context}

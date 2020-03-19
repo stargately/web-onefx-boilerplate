@@ -27,7 +27,7 @@ export class Home extends PureComponent {
         <Layout>
           <Layout.Content style={{ backgroundColor: "#fff", padding: "32px" }}>
             <Row justify="center">
-              <OneFxIcon src={assetURL("/favicon.svg")} />
+              <OneFxIcon src={assetURL("favicon.svg")} />
             </Row>
             <Row justify="center">
               <Title>OneFx</Title>

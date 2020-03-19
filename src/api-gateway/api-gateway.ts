@@ -27,6 +27,6 @@ export async function setApiGateway(server: MyServer): Promise<void> {
       return {};
     }
   });
-  const gPath = "/api-gateway/";
+  const gPath = `${server.config.server.routePrefix || ""}/api-gateway/`;
   apollo.applyMiddleware({ app: server.app, path: gPath });
 }
