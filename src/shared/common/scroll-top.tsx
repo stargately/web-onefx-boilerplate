@@ -1,31 +1,19 @@
 // @ts-ignore
-import { styled } from "onefx/lib/styletron-react";
-import React from "react";
-import { RouteComponentProps, withRouter } from "react-router";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router";
 
-type PathParamsType = {
-  hash: string;
+type Props = {
+  children: Array<JSX.Element> | JSX.Element | React.Component;
 };
 
-type Props = RouteComponentProps<PathParamsType> & {
-  children: Array<JSX.Element> | JSX.Element;
+export const ScrollToTop: React.FC<Props> = ({ children }) => {
+  const location = useLocation();
+  useEffect(() => {
+    window.document.documentElement.scrollTop = 0;
+    // @ts-ignore
+    // tslint:disable-next-line:no-unused-expression
+    window.ga && window.ga("send", "pageview");
+  }, [location]);
+
+  return <>{children}</>;
 };
-
-class ScrollToTopComponent extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-  public componentDidUpdate(preProps: Props): void {
-    if (preProps.location.pathname !== this.props.location.pathname) {
-      window.document.documentElement.scrollTop = 0;
-      // @ts-ignore
-      // tslint:disable-next-line:no-unused-expression
-      window.ga && window.ga("send", "pageview");
-    }
-  }
-  public render(): Array<JSX.Element> | JSX.Element {
-    return this.props.children;
-  }
-}
-
-export const ScrollToTop = withRouter(ScrollToTopComponent);

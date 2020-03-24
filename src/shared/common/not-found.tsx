@@ -23,7 +23,7 @@ type Props = {
 
 const Status = ({ code, children }: Props): JSX.Element => (
   <Route
-    render={({
+    children={({
       staticContext
     }: RouteComponentProps<{}, router.StaticContext>) => {
       if (staticContext) {
