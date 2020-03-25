@@ -58,8 +58,7 @@ export async function apolloSSR(
         >
           {VDom}
         </RootServer>
-      </ApolloProvider>,
-      context
+      </ApolloProvider>
     );
     const apolloState = apolloClient.extract();
     ctx.setState("apolloState", apolloState);

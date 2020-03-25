@@ -3,8 +3,7 @@ import { t } from "onefx/lib/iso-i18n";
 import { styled } from "onefx/lib/styletron-react";
 import { Component } from "react";
 import React from "react";
-import { Switch } from "react-router";
-import { Link, Route } from "react-router-dom";
+import OnefxRouterDom from "onefx/lib/router/dom";
 import { Flex } from "../../../common/flex";
 import { Footer, FOOTER_ABOVE } from "../../../common/footer";
 // @ts-ignore
@@ -19,6 +18,8 @@ import { ForgotPassword } from "./forgot-password";
 import { ResetPasswordContainer } from "./reset-password";
 import { SignIn } from "./sign-in";
 import { SignUp } from "./sign-up";
+
+const { Link, Route, Switch } = OnefxRouterDom;
 
 type Props = {
   googleTid?: string;

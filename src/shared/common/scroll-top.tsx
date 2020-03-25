@@ -1,6 +1,8 @@
 // @ts-ignore
 import React, { useEffect } from "react";
-import { useLocation } from "react-router";
+import OnefxRouter from "onefx/lib/router";
+
+const { useLocation } = OnefxRouter;
 
 type Props = {
   children: Array<JSX.Element> | JSX.Element | React.Component;
