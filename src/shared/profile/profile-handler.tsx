@@ -13,7 +13,7 @@ export function setProfileHandler(server: Server): void {
     async (ctx: koa.Context, _: Function) => {
       ctx.setState("base.userId", ctx.state.userId);
       // @ts-ignore
-      ctx.body = await apolloSSR(ctx, server.config.apiGatewayUrl, {
+      ctx.body = await apolloSSR(ctx, {
         VDom: <ProfileAppContainer />,
         reducer: noopReducer,
         clientScript: "/profile-main.js"

@@ -20,7 +20,7 @@ export function setServerRoutes(server: MyServer): void {
   server.get("SPA", /^(?!\/?api-gateway\/).+$/, async (ctx: koa.Context) => {
     ctx.setState("base.blah", "this is a sample initial state");
     // @ts-ignore
-    ctx.body = await apolloSSR(ctx, server.config.apiGatewayUrl, {
+    ctx.body = await apolloSSR(ctx, {
       VDom: <AppContainer />,
       reducer: noopReducer,
       clientScript: "/main.js"
