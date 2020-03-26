@@ -6,6 +6,7 @@ module.exports = {
   server: {
     routePrefix: "",
     port: process.env.PORT || 5000,
+    proxy: false,
     staticDir: "./dist",
     delayInitMiddleware: false,
     cookie: {
@@ -48,7 +49,5 @@ module.exports = {
     "media-src": ["self"],
     "object-src": ["self"],
     "script-src": ["self", "https://www.google-analytics.com/"]
-  },
-  apiGatewayUrl:
-    process.env.API_GATEWAY_URL || "http://localhost:5000/api-gateway/"
+  }
 };
