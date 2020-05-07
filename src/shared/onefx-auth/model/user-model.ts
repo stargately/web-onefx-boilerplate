@@ -30,8 +30,6 @@ export class UserModel {
       ip: { type: String },
       avatar: { type: String },
 
-      lifetimeHumanId: { type: "ObjectId", ref: "LifetimeHuman" },
-
       isBlocked: { type: Boolean, default: false },
 
       createAt: { type: Date, default: Date.now },
