@@ -71,7 +71,7 @@
     "ava": "1.1.0",
     "awesome-typescript-loader": "5.2.1",
     "cache-loader": "2.0.1",
-    "del": "3.0.0",
+    "del": "5.1.0",
     "fancy-log": "1.3.3",
     "glob": "7.1.6",
     "gulp": "4.0.2",
