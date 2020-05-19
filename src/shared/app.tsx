@@ -1,8 +1,8 @@
 // @ts-ignore
 import { styled } from "onefx/lib/styletron-react";
 import React, { Component } from "react";
-import { RouteComponentProps, Switch } from "react-router";
-import { Route } from "react-router-dom";
+import OnefxRouter from "onefx/lib/router";
+import OnefxRouterDom from "onefx/lib/router/dom";
 import { Footer, FOOTER_ABOVE } from "./common/footer";
 // @ts-ignore
 import initGoogleAnalytics from "./common/google-analytics";
@@ -14,10 +14,13 @@ import { fonts } from "./common/styles/style-font";
 import { TopBar } from "./common/top-bar";
 import { Home } from "./home/home";
 
+const { Route } = OnefxRouterDom;
+const { Switch } = OnefxRouter;
+
 type Props = {
   googleTid: string;
   locale: string;
-} & RouteComponentProps;
+};
 
 export class App extends Component<Props> {
   public componentDidMount(): void {
@@ -32,8 +35,12 @@ export class App extends Component<Props> {
         <div style={FOOTER_ABOVE}>
           <ScrollToTop>
             <Switch>
-              <Route exact={true} path="/" component={Home} />
-              <Route component={NotFound} />
+              <Route exact={true} path="/">
+                <Home />
+              </Route>
+              <Route path="*">
+                <NotFound />
+              </Route>
             </Switch>
           </ScrollToTop>
         </div>

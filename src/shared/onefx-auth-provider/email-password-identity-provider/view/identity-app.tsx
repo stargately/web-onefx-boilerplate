@@ -3,8 +3,7 @@ import { t } from "onefx/lib/iso-i18n";
 import { styled } from "onefx/lib/styletron-react";
 import { Component } from "react";
 import React from "react";
-import { RouteComponentProps, Switch } from "react-router";
-import { Link, Route } from "react-router-dom";
+import OnefxRouterDom from "onefx/lib/router/dom";
 import { Flex } from "../../../common/flex";
 import { Footer, FOOTER_ABOVE } from "../../../common/footer";
 // @ts-ignore
@@ -20,9 +19,11 @@ import { ResetPasswordContainer } from "./reset-password";
 import { SignIn } from "./sign-in";
 import { SignUp } from "./sign-up";
 
+const { Link, Route, Switch } = OnefxRouterDom;
+
 type Props = {
   googleTid?: string;
-} & RouteComponentProps;
+};
 
 export class IdentityApp extends Component<Props> {
   public componentDidMount(): void {
@@ -35,26 +36,28 @@ export class IdentityApp extends Component<Props> {
         <Head />
         <TopBar />
         <div style={FOOTER_ABOVE}>
-          <Route path="/email-token/*" component={EmailTokenInvalid} />
+          <Route path="/email-token/*">
+            <EmailTokenInvalid />
+          </Route>
           <Switch>
-            <Route exact={true} path="/login" component={SignIn} />
-            <Route exact={true} path="/sign-up" component={SignUp} />
-            <Route
-              exact={true}
-              path="/forgot-password"
-              component={ForgotPassword}
-            />
-            <Route
-              exact={true}
-              path="/email-token/*"
-              component={ForgotPassword}
-            />
-            <Route
-              exact={true}
-              path="/settings/reset-password"
-              component={ResetPasswordContainer}
-            />
-            <Route component={NotFound} />
+            <Route exact={true} path="/login">
+              <SignIn />
+            </Route>
+            <Route exact={true} path="/sign-up">
+              <SignUp />
+            </Route>
+            <Route exact={true} path="/forgot-password">
+              <ForgotPassword />
+            </Route>
+            <Route exact={true} path="/email-token/*">
+              <ForgotPassword />
+            </Route>
+            <Route exact={true} path="/settings/reset-password">
+              <ResetPasswordContainer />
+            </Route>
+            <Route path="*">
+              <NotFound />
+            </Route>
           </Switch>
         </div>
         <Footer />

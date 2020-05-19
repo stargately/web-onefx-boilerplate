@@ -54,15 +54,17 @@ export async function apolloSSR(
 
   try {
     await getDataFromTree(
-      <RootServer
-        routePrefix={state.base.routePrefix}
-        store={store}
-        location={ctx.url}
-        context={context}
-        styletron={styletron}
-      >
-        <ApolloProvider client={apolloClient}>{VDom}</ApolloProvider>
-      </RootServer>
+      <ApolloProvider client={apolloClient}>
+        <RootServer
+          routePrefix={state.base.routePrefix}
+          store={store}
+          location={ctx.url}
+          context={context}
+          styletron={styletron}
+        >
+          {VDom}
+        </RootServer>
+      </ApolloProvider>
     );
     const apolloState = apolloClient.extract();
     ctx.setState("apolloState", apolloState);
