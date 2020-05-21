@@ -3,26 +3,27 @@ import { ApolloClient } from "apollo-client";
 import { createHttpLink } from "apollo-link-http";
 import config from "config";
 import fetch from "isomorphic-unfetch";
-import koa from "koa";
 import { initAssetURL } from "onefx/lib/asset-url";
 import { logger } from "onefx/lib/integrated-gateways/logger";
 import { configureStore } from "onefx/lib/iso-react-render/root/configure-store";
 import { noopReducer } from "onefx/lib/iso-react-render/root/root-reducer";
 import { RootServer } from "onefx/lib/iso-react-render/root/root-server";
+import { Context, ViewState } from "onefx/lib/types";
 import React from "react";
 import { ApolloProvider } from "react-apollo";
 import { getDataFromTree } from "react-apollo";
+import { Reducer } from "redux";
 // @ts-ignore
 import * as engine from "styletron-engine-atomic";
 
 type Opts = {
   VDom: JSX.Element;
-  reducer: Function;
+  reducer: Reducer;
   clientScript: string;
 };
 
 export async function apolloSSR(
-  ctx: koa.Context,
+  ctx: Context,
   { VDom, reducer, clientScript }: Opts
 ): Promise<string> {
   const routePrefix = config.get("server.routePrefix") || "";
@@ -45,7 +46,8 @@ export async function apolloSSR(
     cache: new InMemoryCache()
   });
 
-  const state = ctx.getState();
+  // tslint:disable-next-line:no-any
+  const state = (ctx.getState() as any) as ViewState;
   initAssetURL(state.base.manifest, state.base.routePrefix);
   const store = configureStore(state, noopReducer);
   const styletron = new engine.Server({ prefix: "_" });

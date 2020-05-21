@@ -1,5 +1,5 @@
-import koa from "koa";
 import { noopReducer } from "onefx/lib/iso-react-render/root/root-reducer";
+import { Context } from "onefx/lib/types";
 import * as React from "react";
 import { setApiGateway } from "../api-gateway/api-gateway";
 import { AppContainer } from "../shared/app-container";
@@ -9,7 +9,7 @@ import { MyServer } from "./start-server";
 
 export function setServerRoutes(server: MyServer): void {
   // Health checks
-  server.get("health", "/health", (ctx: koa.Context) => {
+  server.get("health", "/health", (ctx: Context) => {
     ctx.body = "OK";
   });
 
@@ -17,7 +17,7 @@ export function setServerRoutes(server: MyServer): void {
   setEmailPasswordIdentityProviderRoutes(server);
 
   // @ts-ignore
-  server.get("SPA", /^(?!\/?api-gateway\/).+$/, async (ctx: koa.Context) => {
+  server.get("SPA", /^(?!\/?api-gateway\/).+$/, async (ctx: Context) => {
     ctx.setState("base.blah", "this is a sample initial state");
     // @ts-ignore
     ctx.body = await apolloSSR(ctx, {

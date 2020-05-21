@@ -1,8 +1,8 @@
 // @ts-ignore
+import { Switch } from "onefx/lib/react-router";
+import { Route } from "onefx/lib/react-router-dom";
 import { styled } from "onefx/lib/styletron-react";
 import React, { Component } from "react";
-import OnefxRouter from "onefx/lib/router";
-import OnefxRouterDom from "onefx/lib/router/dom";
 import { Footer, FOOTER_ABOVE } from "./common/footer";
 // @ts-ignore
 import initGoogleAnalytics from "./common/google-analytics";
@@ -13,9 +13,6 @@ import { colors } from "./common/styles/style-color";
 import { fonts } from "./common/styles/style-font";
 import { TopBar } from "./common/top-bar";
 import { Home } from "./home/home";
-
-const { Route } = OnefxRouterDom;
-const { Switch } = OnefxRouter;
 
 type Props = {
   googleTid: string;

@@ -2,11 +2,11 @@ import { DashboardOutlined, SettingOutlined } from "@ant-design/icons";
 import Layout from "antd/lib/layout";
 import Menu from "antd/lib/menu";
 import { t } from "onefx/lib/iso-i18n";
+import { Route, Switch, useHistory } from "onefx/lib/react-router";
 // @ts-ignore
 import { styled } from "onefx/lib/styletron-react";
 import React from "react";
 import { connect } from "react-redux";
-import OnefxRouter from "onefx/lib/router";
 import { CommonMargin } from "../common/common-margin";
 import { Head } from "../common/head";
 import { colors } from "../common/styles/style-color";
@@ -14,8 +14,6 @@ import { fonts } from "../common/styles/style-font";
 import { ContentPadding } from "../common/styles/style-padding";
 import { TopBar, TOP_BAR_HEIGHT } from "../common/top-bar";
 import { Settings } from "./settings";
-
-const { Route, Switch, useHistory } = OnefxRouter;
 
 // $FlowFixMe
 const { Footer, Sider, Content } = Layout;

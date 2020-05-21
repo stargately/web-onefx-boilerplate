@@ -1,8 +1,7 @@
-// @ts-ignore
+import { Link } from "onefx/lib/react-router-dom";
 import { styled, StyleObject } from "onefx/lib/styletron-react";
 import { Component } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
-import OnefxRouterDom from "onefx/lib/router/dom";
 
 import { assetURL } from "onefx/lib/asset-url";
 import { t } from "onefx/lib/iso-i18n";
@@ -15,8 +14,6 @@ import { transition } from "./styles/style-animation";
 import { colors } from "./styles/style-color";
 import { media, PALM_WIDTH } from "./styles/style-media";
 import { contentPadding } from "./styles/style-padding";
-
-const { Link } = OnefxRouterDom;
 
 export const TOP_BAR_HEIGHT = 52;
 

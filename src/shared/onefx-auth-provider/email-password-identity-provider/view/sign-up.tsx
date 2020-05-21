@@ -2,11 +2,11 @@ import serialize from "form-serialize";
 import { t } from "onefx/lib/iso-i18n";
 // @ts-ignore
 import Helmet from "onefx/lib/react-helmet";
+import { Link } from "onefx/lib/react-router-dom";
 // @ts-ignore
 import { styled } from "onefx/lib/styletron-react";
 import { Component } from "react";
 import { connect } from "react-redux";
-import OnefxRouterDom from "onefx/lib/router/dom";
 
 import Button from "antd/lib/button";
 import React from "react";
@@ -21,8 +21,6 @@ import { EmailField } from "./email-field";
 import { FieldMargin } from "./field-margin";
 import { FormContainer } from "./form-container";
 import { PasswordField } from "./password-field";
-
-const { Link } = OnefxRouterDom;
 
 const LOGIN_FORM = "signup";
 

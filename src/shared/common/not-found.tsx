@@ -1,9 +1,8 @@
 import { t } from "onefx/lib/iso-i18n";
+import { Route } from "onefx/lib/react-router";
 import * as React from "react";
-import OnefxRouter from "onefx/lib/router";
+import { RouteComponentProps } from "react-router";
 import { ErrorPage } from "./error-page";
-
-const { Route } = OnefxRouter;
 
 export function NotFound(): JSX.Element {
   return (
@@ -24,9 +23,7 @@ type Props = {
 
 const Status = ({ code, children }: Props): JSX.Element => (
   <Route
-    children={({
-      staticContext
-    }: OnefxRouter.RouteComponentProps<{}, OnefxRouter.StaticContext>) => {
+    children={({ staticContext }: RouteComponentProps) => {
       if (staticContext) {
         staticContext.statusCode = code;
       }
