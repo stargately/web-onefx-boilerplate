@@ -1,4 +1,5 @@
-import { DashboardOutlined, SettingOutlined } from "@ant-design/icons";
+import DashboardOutlined from "@ant-design/icons/DashboardOutlined";
+import SettingOutlined from "@ant-design/icons/SettingOutlined";
 import Layout from "antd/lib/layout";
 import Menu from "antd/lib/menu";
 import { t } from "onefx/lib/iso-i18n";

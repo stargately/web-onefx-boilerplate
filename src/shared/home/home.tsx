@@ -1,8 +1,6 @@
-import {
-  CheckCircleTwoTone,
-  CloseCircleTwoTone,
-  LoadingOutlined
-} from "@ant-design/icons";
+import CheckCircleTwoTone from "@ant-design/icons/CheckCircleTwoTone";
+import CloseCircleTwoTone from "@ant-design/icons/CloseCircleTwoTone";
+import LoadingOutlined from "@ant-design/icons/LoadingOutlined";
 import Row from "antd/lib/grid/row";
 import Layout from "antd/lib/layout";
 import gql from "graphql-tag";
