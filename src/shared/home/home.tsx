@@ -43,7 +43,7 @@ export class Home extends PureComponent {
               </a>
             </Row>
             <Row justify="center">
-              <Query query={GET_HEALTH} ssr={false} fetchPolicy="network-only">
+              <Query query={GET_HEALTH}>
                 {({
                   loading,
                   error,
