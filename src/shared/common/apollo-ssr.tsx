@@ -52,7 +52,7 @@ export async function apolloSSR(
 
   // tslint:disable-next-line:no-any
   const state = (ctx.getState() as any) as ViewState;
-  initAssetURL(state.base.manifest, state.base.routePrefix);
+  initAssetURL(state.base.manifest, state.base.routePrefix, state.base.cdnBase);
   const store = configureStore(state, noopReducer);
   const styletron = new engine.Server({ prefix: "_" });
 
