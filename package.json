@@ -135,7 +135,7 @@
     "apollo-client": "2.6.8",
     "apollo-link-http": "1.5.16",
     "apollo-link-timeout": "^1.4.0",
-    "apollo-server-koa": "2.11.0",
+    "apollo-server-koa": "2.14.2",
     "axios": "0.19.2",
     "babel-loader": "8.1.0",
     "babel-plugin-module-resolver": "4.0.0",
