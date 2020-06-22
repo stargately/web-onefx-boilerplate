@@ -14,7 +14,7 @@
     "build-static-html": "NODE_ENV=production ts-node ./src/server/generate-static-html.ts",
     "server": "node server",
     "lint": "pretty-quick --staged && tslint --fix --project tsconfig.json -t stylish",
-    "postinstall": "npm run bp && npm run doc",
+    "postinstall": "npm run bp",
     "cover": "NODE_ENV=test tsc && nyc npm run ava",
     "size": "ls -lh dist/",
     "bp": "npm run build-production && npm run size",
