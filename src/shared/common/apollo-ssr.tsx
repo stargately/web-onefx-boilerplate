@@ -1,7 +1,7 @@
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";
-import { createHttpLink } from "apollo-link-http";
 import { ApolloLink } from "apollo-link";
+import { createHttpLink } from "apollo-link-http";
 import ApolloLinkTimeout from "apollo-link-timeout";
 import config from "config";
 import fetch from "isomorphic-unfetch";
