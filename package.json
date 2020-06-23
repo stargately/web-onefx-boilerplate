@@ -176,7 +176,7 @@
     "@types/dotenv": "6.1.0",
     "@types/form-serialize": "0.7.1",
     "@types/graphql-iso-date": "3.3.3",
-    "@types/jsonwebtoken": "8.3.8",
+    "@types/jsonwebtoken": "8.5.0",
     "@types/koa": "2.11.3",
     "@types/koa-router": "7.4.1",
     "@types/mongoose": "5.7.6",
