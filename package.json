@@ -219,7 +219,7 @@
     "koa": "2.13.0",
     "mongoose": "5.9.20",
     "nodemailer": "6.4.10",
-    "nodemailer-mailgun-transport": "1.4.0",
+    "nodemailer-mailgun-transport": "2.0.0",
     "onefx": "2.0.1",
     "process": "0.11.10",
     "react": "16.13.1",
