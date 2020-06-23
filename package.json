@@ -140,7 +140,7 @@
     "gulp-less": "4.0.1",
     "gulp-livereload": "4.0.2",
     "gulp-nodemon": "2.5.0",
-    "gulp-sass": "4.0.2",
+    "gulp-sass": "4.1.0",
     "husky": "4.2.5",
     "nyc": "15.0.0",
     "plugin-error": "1.0.1",
