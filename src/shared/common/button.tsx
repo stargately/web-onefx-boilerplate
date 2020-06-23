@@ -59,9 +59,9 @@ export class Button extends Component<Props> {
           this.wrapper = r;
         }}
       >
-        {/*
-        // @ts-ignore */}
         <MyButton
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           href={href}
           id={id}
           onClick={(e: React.MouseEvent<HTMLElement>) => {
