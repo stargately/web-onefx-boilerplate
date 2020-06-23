@@ -9,12 +9,12 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v4-dependencies-{{ checksum "package.json" }}
+            - v5-dependencies-{{ checksum "package.json" }}
       - run: npm install
       - save_cache:
           paths:
             - node_modules
-          key: v4-dependencies-{{ checksum "package.json" }}
+          key: v5-dependencies-{{ checksum "package.json" }}
       - run: npm test
       - store_artifacts:
           path: coverage
