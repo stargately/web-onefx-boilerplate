@@ -16,10 +16,9 @@ export function setServerRoutes(server: MyServer): void {
   setApiGateway(server);
   setEmailPasswordIdentityProviderRoutes(server);
 
-  // @ts-ignore
   server.get("SPA", /^(?!\/?api-gateway\/).+$/, async (ctx: Context) => {
     ctx.setState("base.blah", "this is a sample initial state");
-    // @ts-ignore
+
     ctx.body = await apolloSSR(ctx, {
       VDom: <AppContainer />,
       reducer: noopReducer,

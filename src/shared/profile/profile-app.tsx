@@ -4,7 +4,6 @@ import Layout from "antd/lib/layout";
 import Menu from "antd/lib/menu";
 import { t } from "onefx/lib/iso-i18n";
 import { Route, Switch, useHistory } from "onefx/lib/react-router";
-// @ts-ignore
 import { styled } from "onefx/lib/styletron-react";
 import React from "react";
 import { connect } from "react-redux";
@@ -13,26 +12,24 @@ import { Head } from "../common/head";
 import { colors } from "../common/styles/style-color";
 import { fonts } from "../common/styles/style-font";
 import { ContentPadding } from "../common/styles/style-padding";
-import { TopBar, TOP_BAR_HEIGHT } from "../common/top-bar";
+import { TOP_BAR_HEIGHT, TopBar } from "../common/top-bar";
 import { Settings } from "./settings";
 
 // $FlowFixMe
 const { Footer, Sider, Content } = Layout;
 
-type Props = {};
-
 function Empty(): JSX.Element {
   return <div />;
 }
 
-export const RootStyle = styled("div", (_: React.CSSProperties) => ({
+export const RootStyle = styled("div", () => ({
   ...fonts.body,
   backgroundColor: colors.black10,
   color: colors.text01,
   textRendering: "optimizeLegibility"
 }));
 
-const ProfileApp: React.FC<Props> = () => {
+const ProfileApp: React.FC = () => {
   const history = useHistory();
   const PANES = [
     {
@@ -65,21 +62,21 @@ const ProfileApp: React.FC<Props> = () => {
         <CommonMargin />
         <ContentPadding>
           <Layout
+            hasSider
             style={{
               padding: "24px 0",
               background: "#fff",
               minHeight: `calc((100vh - ${TOP_BAR_HEIGHT}px) - 86px)`
             }}
-            hasSider={true}
           >
-            <Sider width={200} style={{ background: "#fff" }}>
+            <Sider style={{ background: "#fff" }} width={200}>
               <Menu
-                mode="inline"
                 defaultSelectedKeys={[
                   String(
                     PANES.findIndex(p => p.path === history.location.pathname)
                   )
                 ]}
+                mode="inline"
                 style={{ height: "100%" }}
               >
                 {PANES.map((p, i) => (
@@ -95,7 +92,7 @@ const ProfileApp: React.FC<Props> = () => {
             <Content style={{ background: "#fff", margin: "0 16px" }}>
               <Switch>
                 {PANES.map((p, i) => (
-                  <Route key={i} path={p.path} exact={true}>
+                  <Route exact key={i} path={p.path}>
                     {p.component}
                   </Route>
                 ))}
@@ -113,15 +110,8 @@ const ProfileApp: React.FC<Props> = () => {
   );
 };
 
-type ConnectProps = {
-  googleTid: string;
-};
-
-export const ProfileAppContainer = connect<ConnectProps>((state: object): {
-  googleTid: string;
-} => {
-  return {
-    // @ts-ignore
+export const ProfileAppContainer = connect(
+  (state: { base: { analytics: { googleTid: string } } }) => ({
     googleTid: state.base.analytics.googleTid
-  };
-})(ProfileApp);
+  })
+)(ProfileApp);

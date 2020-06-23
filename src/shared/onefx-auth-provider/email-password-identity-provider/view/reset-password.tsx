@@ -1,12 +1,11 @@
 import serialize from "form-serialize";
 import { t } from "onefx/lib/iso-i18n";
 import Helmet from "onefx/lib/react-helmet";
-// @ts-ignore
 import { styled } from "onefx/lib/styletron-react";
-import { Component } from "react";
+import React, { Component } from "react";
 
 import Button from "antd/lib/button";
-import React from "react";
+
 import { connect } from "react-redux";
 import { Flex } from "../../../common/flex";
 import { colors } from "../../../common/styles/style-color";
@@ -37,15 +36,11 @@ type State = {
   disableButton: boolean;
 };
 
-type ReduxProps = {
-  token: string;
-};
-
-// $FlowFixMe
-export const ResetPasswordContainer = connect<ReduxProps>(state => ({
-  // @ts-ignore
-  token: state.base.token
-}))(
+export const ResetPasswordContainer = connect(
+  (state: { base: { token: string } }) => ({
+    token: state.base.token
+  })
+)(
   class ResetPassword extends Component<Props, State> {
     constructor(props: Props) {
       super(props);
@@ -61,7 +56,7 @@ export const ResetPasswordContainer = connect<ReduxProps>(state => ({
       };
     }
 
-    public onSubmit(e: Event): void {
+    public onSubmit(e: React.MouseEvent<HTMLElement, MouseEvent>): void {
       e.preventDefault();
       const el = window.document.getElementById(LOGIN_FORM) as HTMLFormElement;
       if (!el) {
@@ -92,15 +87,12 @@ export const ResetPasswordContainer = connect<ReduxProps>(state => ({
               disableButton: false
             });
             if (r.data.shouldRedirect) {
-              window.setInterval(
-                () => (window.location.href = r.data.next),
-                3000
-              );
-
-              return;
+              window.setInterval(() => {
+                window.location.href = r.data.next;
+              }, 3000);
             }
           } else if (r.data.error) {
-            const error = r.data.error;
+            const { error } = r.data;
             const errorState = {
               valuePassword: password,
               valueNewPassword: newPassword,
@@ -136,30 +128,30 @@ export const ResetPasswordContainer = connect<ReduxProps>(state => ({
 
       return (
         <ContentPadding>
-          <Flex minHeight="550px" center={true}>
+          <Flex center minHeight="550px">
             <Form id={LOGIN_FORM}>
               <Helmet title={`login - ${t("topbar.brand")}`} />
-              <Flex column={true}>
+              <Flex column>
                 <h1>{t("auth/reset_password")}</h1>
                 {message && (
                   <Info>
                     <Flex width="100%">
                       <span>{message}</span>
                       <i
-                        role={"button"}
-                        style={{ color: colors.white, cursor: "pointer" }}
-                        onClick={() => this.setState({ message: "" })}
                         className="fas fa-times"
+                        onClick={() => this.setState({ message: "" })}
+                        role="button"
+                        style={{ color: colors.white, cursor: "pointer" }}
                       />
                     </Flex>
                   </Info>
                 )}
                 {token ? (
                   <input
-                    placeholder={""}
-                    name="token"
-                    hidden={true}
                     defaultValue={token}
+                    hidden
+                    name="token"
+                    placeholder=""
                   />
                 ) : (
                   <PasswordField
@@ -171,12 +163,12 @@ export const ResetPasswordContainer = connect<ReduxProps>(state => ({
                   <FieldMargin>
                     <InputLabel>New Password</InputLabel>
                     <TextInput
+                      aria-label="New Password"
                       defaultValue={valueNewPassword}
                       error={errorNewPassword}
-                      type="password"
-                      aria-label="New Password"
                       name="newPassword"
                       placeholder="New Password"
+                      type="password"
                     />
                     <InputError>{errorNewPassword || "\u0020"}</InputError>
                   </FieldMargin>
@@ -184,15 +176,16 @@ export const ResetPasswordContainer = connect<ReduxProps>(state => ({
                 {!message && (
                   <FieldMargin>
                     {/*
-                // @ts-ignore */}
+                     */}
                     <Button
-                      type="primary"
                       htmlType="submit"
-                      // @ts-ignore
-                      onClick={(e: Event) => this.onSubmit(e)}
-                      style={{ width: "100%" }}
-                      size="large"
                       loading={this.state.disableButton}
+                      onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) =>
+                        this.onSubmit(e)
+                      }
+                      size="large"
+                      style={{ width: "100%" }}
+                      type="primary"
                     >
                       {t("auth/button_submit")}
                     </Button>

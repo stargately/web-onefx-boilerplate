@@ -8,7 +8,7 @@ import { ResetPasswordContainer } from "../onefx-auth-provider/email-password-id
 
 export function Settings(): JSX.Element {
   return (
-    <Flex width="100%" column={true} alignItems="flex-start">
+    <Flex alignItems="flex-start" column width="100%">
       <h1>{t("profile.settings")}</h1>
       <CommonMargin />
 
@@ -19,7 +19,7 @@ export function Settings(): JSX.Element {
       <Divider />
 
       <div>
-        <Button secondary={true} href="/logout">
+        <Button href="/logout" secondary>
           {t("auth/sign_out")}
         </Button>
       </div>

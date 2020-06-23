@@ -1,4 +1,3 @@
-/* tslint:disable:non-literal-fs-path */
 import axios from "axios";
 import config from "config";
 import fs from "fs";

@@ -1,10 +1,10 @@
 import { assetURL } from "onefx/lib/asset-url";
 import { t } from "onefx/lib/iso-i18n";
 import Helmet from "onefx/lib/react-helmet";
-// @ts-ignore
+
 import { styled } from "onefx/lib/styletron-react";
-import { PureComponent } from "react";
-import React from "react";
+import React, { PureComponent } from "react";
+
 import { Flex } from "./flex";
 import { FOOTER_ABOVE } from "./footer";
 import { colors } from "./styles/style-color";
@@ -23,9 +23,9 @@ export class ErrorPage extends PureComponent<Props> {
     return (
       <ContentPadding style={{ backgroundColor: colors.black10 }}>
         <Helmet title={`${bar} - ${t("topbar.brand")}`} />
-        <Flex {...FOOTER_ABOVE} center={true}>
+        <Flex {...FOOTER_ABOVE} center>
           <Image src={assetURL("favicon.svg")} />
-          <Flex column={true} margin={"8px"}>
+          <Flex column margin="8px">
             <h1>{title}</h1>
             <div>{info}</div>
           </Flex>

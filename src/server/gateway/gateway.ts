@@ -8,19 +8,14 @@ export type Gateways = {
 export function setGateways(server: MyServer): void {
   server.gateways = server.gateways || {};
 
-  if (
-    // @ts-ignore
-    !(server.config.gateways.mongoose && server.config.gateways.mongoose.uri)
-  ) {
+  if (!server.config.gateways.mongoose) {
     server.logger.warn(
-      "cannot start server without gateways.mongoose.uri provided in configuration"
+      "cannot connect to the database without gateways.mongoose.uri provided in configuration"
     );
   } else {
-    // @ts-ignore
     mongoose.connect(server.config.gateways.mongoose.uri).catch(err => {
       server.logger.warn(`failed to connect mongoose: ${err}`);
     });
+    server.gateways.mongoose = mongoose;
   }
-  // @ts-ignore
-  server.gateways.mongoose = mongoose;
 }

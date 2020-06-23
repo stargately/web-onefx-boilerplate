@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
 import tools from "../utils/tools";
-import { baseModel } from "./base-model";
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 type TNewUser = {
   password: string;
@@ -23,55 +22,27 @@ export type TUser = mongoose.Document &
 export class UserModel {
   public Model: mongoose.Model<TUser>;
 
-  constructor({ mongoose }: { mongoose: mongoose.Mongoose }) {
-    const UserSchema = new Schema({
-      password: { type: String },
-      email: { type: String },
-      ip: { type: String },
-      avatar: { type: String },
+  constructor({ mongoose: mInstance }: { mongoose: mongoose.Mongoose }) {
+    const UserSchema = new Schema(
+      {
+        password: { type: String },
+        email: { type: String },
+        ip: { type: String },
 
-      isBlocked: { type: Boolean, default: false },
+        isBlocked: { type: Boolean, default: false },
 
-      createAt: { type: Date, default: Date.now },
-      updateAt: { type: Date, default: Date.now }
-    });
-
-    UserSchema.virtual("id").get(function onId(): void {
-      // @ts-ignore
-      return this._id;
-    });
-    UserSchema.virtual("avatarUrl").get(function onAvatarUrl(): void {
-      // @ts-ignore
-      let url = this.avatar || tools.makeGravatar(this.email.toLowerCase());
-
-      // tslint:disable-next-line
-      if (url.indexOf("http:") === 0) {
-        url = url.slice(5);
+        createAt: { type: Date, default: Date.now },
+        updateAt: { type: Date, default: Date.now }
+      },
+      {
+        timestamps: { createdAt: "createAt", updatedAt: "updateAt" },
+        id: true
       }
-
-      // 如果是 github 的头像，则限制大小
-      if (url.indexOf("githubusercontent") !== -1) {
-        url += "&s=120";
-      }
-
-      return url;
-    });
+    );
 
     UserSchema.index({ email: 1 }, { unique: true });
 
-    UserSchema.plugin(baseModel);
-    UserSchema.pre("save", function onSave(next: Function): void {
-      // @ts-ignore
-      this.updateAt = new Date();
-      next();
-    });
-    UserSchema.pre("find", function onFind(next: Function): void {
-      // @ts-ignore
-      this.updateAt = new Date();
-      next();
-    });
-
-    this.Model = mongoose.model("User", UserSchema);
+    this.Model = mInstance.model("User", UserSchema);
   }
 
   public async getById(id: string): Promise<TUser | null> {
@@ -82,7 +53,7 @@ export class UserModel {
     return this.Model.findOne({ email });
   }
 
-  public async newAndSave(user: TNewUser): Promise<TUser | null> {
+  public async newAndSave(user: TNewUser): Promise<TUser> {
     const hashed = {
       ...user,
       password: await tools.bhash(user.password)

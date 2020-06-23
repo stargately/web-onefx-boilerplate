@@ -1,15 +1,16 @@
-// @ts-ignore
 import { styled } from "onefx/lib/styletron-react";
+import { StyleObjectFn } from "styletron-react";
 import { colors } from "../../../common/styles/style-color";
 import { fonts } from "../../../common/styles/style-font";
 
-export const inputStyle = (
-  props: React.CSSProperties & { error: boolean }
-) => ({
+export const inputStyle: StyleObjectFn<{
+  error?: string;
+  color?: string;
+}> = (props: { error?: string; color?: string }) => ({
   color: `${props.color || colors.text01} !important`,
   borderRadius: "0px !important",
   backgroundColor: `${colors.white} !important`,
-  position: "relative !important",
+  position: "relative",
   display: "block !important",
   width: "100% !important",
   border: `1px solid ${props.error ? colors.error : colors.black20}`,
@@ -25,5 +26,4 @@ export const inputStyle = (
   backgroundClip: "padding-box"
 });
 
-// @ts-ignore
 export const TextInput = styled("input", inputStyle);

@@ -1,9 +1,7 @@
-import { StyleObject } from "styletron-standard";
-
 const fontFamily =
   "Noto Sans,Helvetica Neue,sans-serif,Microsoft YaHei !important";
 
-export const fonts: { [key: string]: StyleObject } = {
+export const fonts = {
   body: {
     fontFamily
   },

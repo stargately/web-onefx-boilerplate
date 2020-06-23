@@ -2,54 +2,63 @@ import { noopReducer } from "onefx/lib/iso-react-render/root/root-reducer";
 import { Context } from "onefx/lib/types";
 import * as React from "react";
 import validator from "validator";
+import koa from "koa";
 import { MyServer } from "../../../server/start-server";
-import { TUser } from "../../onefx-auth/model/user-model";
 import { IdentityAppContainer } from "./view/identity-app-container";
 
 const PASSWORD_MIN_LENGTH = 8;
 
-type Handler = (ctx: Context, next: Function) => Promise<{}>;
+type Handler = (ctx: Context, next: koa.Next) => Promise<void>;
 
 export function emailValidator(): Handler {
-  return async (ctx: Context, next: Function) => {
+  return async (ctx: Context, next: koa.Next) => {
     let { email } = ctx.request.body;
     email = String(email).toLowerCase();
     email = validator.trim(email);
     if (!validator.isEmail(email)) {
-      return (ctx.response.body = {
+      ctx.response.body = {
         ok: false,
         error: {
           code: "auth/invalid-email",
           message: ctx.t("auth/invalid-email")
         }
-      });
+      };
+      return;
     }
 
     ctx.request.body.email = email;
-    return next(ctx);
+    await next();
   };
 }
 
 export function passwordValidator(): Handler {
-  return async (ctx: Context, next: Function) => {
+  return async (ctx: Context, next: koa.Next) => {
     let { password } = ctx.request.body;
     password = String(password);
     if (password.length < PASSWORD_MIN_LENGTH) {
-      return (ctx.response.body = {
+      ctx.response.body = {
         ok: false,
         error: {
           code: "auth/weak-password",
           message: ctx.t("auth/weak-password")
         }
-      });
+      };
+      return;
     }
 
     ctx.request.body.password = password;
-    return next(ctx);
+    await next();
   };
 }
 
-// tslint:disable-next-line
+function isoRender(ctx: Context): void {
+  ctx.body = ctx.isoReactRender({
+    VDom: <IdentityAppContainer />,
+    reducer: noopReducer,
+    clientScript: "/identity-provider-main.js"
+  });
+}
+
 export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
   // view routes
   server.get(
@@ -86,7 +95,7 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
     "reset-password",
     "/settings/reset-password",
     async (ctx: Context) => {
-      const token = ctx.query.token;
+      const { token } = ctx.query;
       const found = await server.auth.emailToken.findOne(token);
       ctx.setState("base.token", found && found.token);
       return isoRender(ctx);
@@ -96,12 +105,13 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
   server.get(
     "email-token",
     "/email-token/:token",
-    async (ctx: Context, next: Function) => {
+    async (ctx: Context, next: koa.Next): Promise<void> => {
       const et = await server.auth.emailToken.findOneAndDelete(
         ctx.params.token
       );
       if (!et || !et.userId) {
-        return isoRender(ctx);
+        isoRender(ctx);
+        return;
       }
 
       const newToken = await server.auth.emailToken.newAndSave(et.userId);
@@ -120,15 +130,15 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
     "/api/sign-up/",
     emailValidator(),
     passwordValidator(),
-    async (ctx: Context, next: Function) => {
+    async (ctx: Context, next: koa.Next) => {
       const { email, password } = ctx.request.body;
       try {
-        const user: TUser = await server.auth.user.newAndSave({
+        const user = await server.auth.user.newAndSave({
           email,
           password,
           ip: ctx.headers["x-forwarded-for"]
         });
-        ctx.state.userId = user && user._id;
+        ctx.state.userId = user._id;
         await next();
       } catch (err) {
         if (err.name === "MongoError" && err.code === 11000) {
@@ -139,7 +149,6 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
               message: ctx.t("auth/email-already-in-use")
             }
           };
-          return;
         }
       }
     },
@@ -150,7 +159,7 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
     "api-sign-in",
     "/api/sign-in/",
     emailValidator(),
-    async (ctx: Context, next: Function) => {
+    async (ctx: Context, next: koa.Next) => {
       const { email, password } = ctx.request.body;
       const user = await server.auth.user.getByMail(email);
       if (!user) {
@@ -197,7 +206,7 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
     "api-forgot-password",
     "/api/forgot-password/",
     emailValidator(),
-    async (ctx: Context) => {
+    async (ctx: Context): Promise<void> => {
       const { email } = ctx.request.body;
 
       const user = await server.auth.user.getByMail(email);
@@ -205,9 +214,9 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
         await server.auth.sendResetPasswordLink(user.id, user.email, ctx.t);
       }
 
-      return (ctx.response.body = {
+      ctx.response.body = {
         ok: true
-      });
+      };
     }
   );
 
@@ -215,12 +224,13 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
     "reset-password",
     "/api/reset-password/",
     server.auth.authRequired,
-    async (ctx: Context) => {
+    async (ctx: Context): Promise<void> => {
       const { token, password, newPassword } = ctx.request.body;
       if (token) {
         const verified = Boolean(await server.auth.emailToken.findOne(token));
         if (!verified) {
-          return ctx.redirect(`${server.auth.config.emailTokenLink}invalid`);
+          ctx.redirect(`${server.auth.config.emailTokenLink}invalid`);
+          return;
         }
       } else {
         const verified = await server.auth.user.verifyPassword(
@@ -228,24 +238,26 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
           password
         );
         if (!verified) {
-          return (ctx.response.body = {
+          ctx.response.body = {
             ok: false,
             error: {
               code: "auth/wrong-password",
               message: ctx.t("auth/wrong-password")
             }
-          });
+          };
+          return;
         }
       }
 
       if (newPassword.length < PASSWORD_MIN_LENGTH) {
-        return (ctx.response.body = {
+        ctx.response.body = {
           ok: false,
           error: {
             code: "auth/weak-password",
             message: ctx.t("auth/weak-password")
           }
-        });
+        };
+        return;
       }
 
       await server.auth.user.updatePassword(ctx.state.userId, newPassword);
@@ -259,12 +271,4 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
       await server.auth.emailToken.findOneAndDelete(token);
     }
   );
-}
-
-function isoRender(ctx: Context): void {
-  ctx.body = ctx.isoReactRender({
-    VDom: <IdentityAppContainer />,
-    reducer: noopReducer,
-    clientScript: "/identity-provider-main.js"
-  });
 }

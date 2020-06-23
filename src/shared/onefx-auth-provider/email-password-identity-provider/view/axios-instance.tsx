@@ -1,5 +1,6 @@
 import axios from "axios";
 import isBrowser from "is-browser";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import JsonGlobal from "safe-json-globals/get";
 

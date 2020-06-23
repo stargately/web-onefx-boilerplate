@@ -1,3 +1,0 @@
-type ReduxState = {
-  base: object,
-}

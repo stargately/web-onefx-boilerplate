@@ -1,4 +1,4 @@
-import { styled, StyleObject } from "onefx/lib/styletron-react";
+import { StyleObject, styled } from "onefx/lib/styletron-react";
 import React from "react";
 
 import { Flex } from "../flex";
@@ -27,16 +27,18 @@ export const topBottomContentPadding = {
 
 const Pd = styled("div", contentPadding);
 
-export const ContentPadding = ({
+export function ContentPadding({
   children,
   style
 }: {
   children?: JSX.Element | null | Array<JSX.Element>;
   style?: StyleObject;
-}) => (
-  <Pd style={style}>
-    <Flex width="100%" center={true}>
-      <div style={{ maxWidth: "1320px", width: "100%" }}>{children}</div>
-    </Flex>
-  </Pd>
-);
+}): JSX.Element {
+  return (
+    <Pd style={style}>
+      <Flex center width="100%">
+        <div style={{ maxWidth: "1320px", width: "100%" }}>{children}</div>
+      </Flex>
+    </Pd>
+  );
+}

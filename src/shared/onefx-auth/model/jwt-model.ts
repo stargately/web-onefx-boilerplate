@@ -2,8 +2,7 @@ import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import { promisify } from "util";
 
-const Schema = mongoose.Schema;
-import { baseModel } from "./base-model";
+const { Schema } = mongoose;
 
 const sign = promisify(jwt.sign);
 const verify = promisify(jwt.verify);
@@ -31,40 +30,39 @@ type AuthJwtModel = mongoose.Document &
     updateAt: Date;
   };
 
+function getExpireEpochDays(days: number): number {
+  return Date.now() + days * 24 * 60 * 60 * 1000;
+}
+
 export class JwtModel {
   public secret: string;
+
   public Model: mongoose.Model<AuthJwtModel>;
 
-  constructor({ secret, mongoose, expDays }: Opts) {
+  constructor({ secret, mongoose: mInstance, expDays }: Opts) {
     this.secret = secret;
 
-    const JwtSchema = new Schema({
-      userId: { type: Schema.Types.ObjectId },
-      expireAt: {
-        type: Date,
-        default: () => new Date(getExpireEpochDays(expDays)),
-        index: { expires: `${expDays}d` }
-      },
+    const JwtSchema = new Schema(
+      {
+        userId: { type: Schema.Types.ObjectId },
+        expireAt: {
+          type: Date,
+          default: () => new Date(getExpireEpochDays(expDays)),
+          index: { expires: `${expDays}d` }
+        },
 
-      createAt: { type: Date, default: Date.now },
-      updateAt: { type: Date, default: Date.now }
-    });
+        createAt: { type: Date, default: Date.now },
+        updateAt: { type: Date, default: Date.now }
+      },
+      {
+        timestamps: { createdAt: "createAt", updatedAt: "updateAt" },
+        id: true
+      }
+    );
 
     JwtSchema.index({ userId: 1 });
 
-    JwtSchema.plugin(baseModel);
-    JwtSchema.pre("save", function onSave(next: Function): void {
-      // @ts-ignore
-      this.updateAt = new Date();
-      next();
-    });
-    JwtSchema.pre("find", function onFind(next: Function): void {
-      // @ts-ignore
-      this.updateAt = new Date();
-      next();
-    });
-
-    this.Model = mongoose.model("Jwt", JwtSchema);
+    this.Model = mInstance.model("Jwt", JwtSchema);
   }
 
   public async create(userId: string): Promise<string> {
@@ -87,7 +85,7 @@ export class JwtModel {
     try {
       decoded = (await verify(token, this.secret)) as AuthJwt;
     } catch (e) {
-      return undefined;
+      return;
     }
     await this.Model.deleteOne({ _id: decoded.jti });
   }
@@ -110,8 +108,4 @@ export class JwtModel {
 
     return found.userId;
   }
-}
-
-function getExpireEpochDays(days: number): number {
-  return Date.now() + days * 24 * 60 * 60 * 1000;
 }

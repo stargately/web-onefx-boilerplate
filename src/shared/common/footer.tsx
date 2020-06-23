@@ -1,4 +1,3 @@
-// @ts-ignore
 import { styled } from "onefx/lib/styletron-react";
 import React from "react";
 import { Flex } from "./flex";
@@ -21,7 +20,7 @@ export function Footer(): JSX.Element {
   );
 }
 
-const Align = styled("div", (_: React.CSSProperties) => ({
+const Align = styled("div", () => ({
   ...contentPadding,
   display: "flex",
   flexDirection: "row",

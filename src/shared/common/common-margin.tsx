@@ -1,6 +1,5 @@
-// @ts-ignore
 import { styled } from "onefx/lib/styletron-react";
 
-export const CommonMargin = styled("div", (_: React.CSSProperties) => ({
+export const CommonMargin = styled("div", () => ({
   margin: "8px"
 }));

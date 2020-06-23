@@ -28,6 +28,9 @@ module.exports = {
     logger: {
       enabled: true,
       level: "debug"
+    },
+    mongoose: {
+      uri: process.env.MONGODB_URI
     }
   },
   analytics: {

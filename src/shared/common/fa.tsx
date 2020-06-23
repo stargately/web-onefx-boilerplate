@@ -1,4 +1,3 @@
-// @ts-ignore
 import { styled } from "onefx/lib/styletron-react";
 
 import { colorHover } from "./color-hover";

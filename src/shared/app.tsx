@@ -1,9 +1,10 @@
-// @ts-ignore
 import { Switch } from "onefx/lib/react-router";
 import { Route } from "onefx/lib/react-router-dom";
 import { styled } from "onefx/lib/styletron-react";
 import React, { Component } from "react";
-import { Footer, FOOTER_ABOVE } from "./common/footer";
+import { FOOTER_ABOVE, Footer } from "./common/footer";
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import initGoogleAnalytics from "./common/google-analytics";
 import { Head } from "./common/head";
@@ -32,7 +33,7 @@ export class App extends Component<Props> {
         <div style={FOOTER_ABOVE}>
           <ScrollToTop>
             <Switch>
-              <Route exact={true} path="/">
+              <Route exact path="/">
                 <Home />
               </Route>
               <Route path="*">

@@ -10,9 +10,7 @@ type State = {
   };
 };
 
-export const IdentityAppContainer = connect((state: State) => {
-  return {
-    googleTid: state.base.analytics.googleTid,
-    locale: state.base.locale
-  };
-})(IdentityApp);
+export const IdentityAppContainer = connect((state: State) => ({
+  googleTid: state.base.analytics.googleTid,
+  locale: state.base.locale
+}))(IdentityApp);

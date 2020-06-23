@@ -12,11 +12,13 @@ import { noopReducer } from "onefx/lib/iso-react-render/root/root-reducer";
 import { RootServer } from "onefx/lib/iso-react-render/root/root-server";
 import { Context, ViewState } from "onefx/lib/types";
 import React from "react";
-import { ApolloProvider } from "react-apollo";
-import { getDataFromTree } from "react-apollo";
+import { ApolloProvider, getDataFromTree } from "react-apollo";
+
 import { Reducer } from "redux";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import * as engine from "styletron-engine-atomic";
+
 const ROUTE_PREFIX = config.get("server.routePrefix") || "";
 const timeoutLink = new ApolloLinkTimeout(100);
 
@@ -50,7 +52,7 @@ export async function apolloSSR(
     cache: new InMemoryCache()
   });
 
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const state = (ctx.getState() as any) as ViewState;
   initAssetURL(state.base.manifest, state.base.routePrefix, state.base.cdnBase);
   const store = configureStore(state, noopReducer);
@@ -62,10 +64,10 @@ export async function apolloSSR(
     await getDataFromTree(
       <ApolloProvider client={apolloClient}>
         <RootServer
+          context={context}
+          location={ctx.url}
           routePrefix={state.base.routePrefix}
           store={store}
-          location={ctx.url}
-          context={context}
           styletron={styletron}
         >
           {VDom}
