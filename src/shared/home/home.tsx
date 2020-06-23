@@ -5,7 +5,6 @@ import Row from "antd/lib/grid/row";
 import Layout from "antd/lib/layout";
 import gql from "graphql-tag";
 import { assetURL } from "onefx/lib/asset-url";
-// @ts-ignore
 import { styled } from "onefx/lib/styletron-react";
 import React, { PureComponent } from "react";
 import { Query, QueryResult } from "react-apollo";
@@ -19,66 +18,59 @@ const GET_HEALTH = gql`
 `;
 
 export class Home extends PureComponent {
-  public render(): JSX.Element {
-    return (
-      <ContentPadding>
-        <Layout>
-          <Layout.Content style={{ backgroundColor: "#fff", padding: "32px" }}>
-            <Row justify="center">
-              <OneFxIcon src={assetURL("favicon.svg")} />
-            </Row>
-            <Row justify="center">
-              <Title>OneFx</Title>
-            </Row>
-            <Row justify="center">
-              <p>Building Web & Mobile Apps with Speed & Quality</p>
-            </Row>
-            <Row justify="center">
-              <a
-                href="/api-gateway/"
-                target="_blank"
-                rel="noreferrer nofollow noopener"
-              >
-                GraphQL Endpoint
-              </a>
-            </Row>
-            <Row justify="center">
-              <Query query={GET_HEALTH}>
-                {({
-                  loading,
-                  error,
-                  data
-                }: QueryResult<{ health: string }>) => {
-                  if (loading) {
-                    return (
-                      <div>
-                        <LoadingOutlined /> Checking Status
-                      </div>
-                    );
-                  }
-                  if (error) {
-                    return (
-                      <div>
-                        <CloseCircleTwoTone twoToneColor={colors.error} /> Not
-                        OK
-                      </div>
-                    );
-                  }
-
+  public render = (): JSX.Element => (
+    <ContentPadding>
+      <Layout>
+        <Layout.Content style={{ backgroundColor: "#fff", padding: "32px" }}>
+          <Row justify="center">
+            <OneFxIcon src={assetURL("favicon.svg")} />
+          </Row>
+          <Row justify="center">
+            <Title>OneFx</Title>
+          </Row>
+          <Row justify="center">
+            <p>Building Web & Mobile Apps with Speed & Quality</p>
+          </Row>
+          <Row justify="center">
+            <a
+              href="/api-gateway/"
+              rel="noreferrer nofollow noopener"
+              target="_blank"
+            >
+              GraphQL Endpoint
+            </a>
+          </Row>
+          <Row justify="center">
+            <Query query={GET_HEALTH}>
+              {({ loading, error, data }: QueryResult<{ health: string }>) => {
+                if (loading) {
                   return (
                     <div>
-                      <CheckCircleTwoTone twoToneColor={colors.success} />{" "}
-                      {data && data.health}
+                      <LoadingOutlined /> Checking Status
                     </div>
                   );
-                }}
-              </Query>
-            </Row>
-          </Layout.Content>
-        </Layout>
-      </ContentPadding>
-    );
-  }
+                }
+                if (error) {
+                  return (
+                    <div>
+                      <CloseCircleTwoTone twoToneColor={colors.error} /> Not OK
+                    </div>
+                  );
+                }
+
+                return (
+                  <div>
+                    <CheckCircleTwoTone twoToneColor={colors.success} />{" "}
+                    {data && data.health}
+                  </div>
+                );
+              }}
+            </Query>
+          </Row>
+        </Layout.Content>
+      </Layout>
+    </ContentPadding>
+  );
 }
 
 const OneFxIcon = styled("img", {

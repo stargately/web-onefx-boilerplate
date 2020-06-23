@@ -3,6 +3,7 @@ import { ApolloClient } from "apollo-client";
 import { HttpLink } from "apollo-link-http";
 import isBrowser from "is-browser";
 import fetch from "isomorphic-unfetch";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import JsonGlobal from "safe-json-globals/get";
 

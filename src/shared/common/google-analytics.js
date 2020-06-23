@@ -1,3 +1,4 @@
+/* eslint-disable */
 let loaded = false;
 module.exports = function initGoogleAnalytics({ tid, userId, cb }) {
   if (loaded) {
@@ -32,3 +33,4 @@ module.exports = function initGoogleAnalytics({ tid, userId, cb }) {
   ga("send", "pageview");
   cb && cb();
 };
+/* eslint-enable */

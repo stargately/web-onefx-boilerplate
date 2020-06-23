@@ -1,5 +1,4 @@
 import test from "ava";
-// @ts-ignore
 import { Server } from "onefx";
 import { startServer } from "../start-server";
 

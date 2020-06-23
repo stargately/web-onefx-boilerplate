@@ -1,11 +1,10 @@
 import { t } from "onefx/lib/iso-i18n";
 import { Link, Route, Switch } from "onefx/lib/react-router-dom";
-// @ts-ignore
 import { styled } from "onefx/lib/styletron-react";
-import { Component } from "react";
-import React from "react";
+import React, { Component } from "react";
 import { Flex } from "../../../common/flex";
-import { Footer, FOOTER_ABOVE } from "../../../common/footer";
+import { FOOTER_ABOVE, Footer } from "../../../common/footer";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import initGoogleAnalytics from "../../../common/google-analytics";
 import { Head } from "../../../common/head";
@@ -28,43 +27,41 @@ export class IdentityApp extends Component<Props> {
     initGoogleAnalytics({ tid: this.props.googleTid });
   }
 
-  public render(): JSX.Element {
-    return (
-      <RootStyle>
-        <Head />
-        <TopBar />
-        <div style={FOOTER_ABOVE}>
-          <Route path="/email-token/*">
-            <EmailTokenInvalid />
+  public render = (): JSX.Element => (
+    <RootStyle>
+      <Head />
+      <TopBar />
+      <div style={FOOTER_ABOVE}>
+        <Route path="/email-token/*">
+          <EmailTokenInvalid />
+        </Route>
+        <Switch>
+          <Route exact path="/login">
+            <SignIn />
           </Route>
-          <Switch>
-            <Route exact={true} path="/login">
-              <SignIn />
-            </Route>
-            <Route exact={true} path="/sign-up">
-              <SignUp />
-            </Route>
-            <Route exact={true} path="/forgot-password">
-              <ForgotPassword />
-            </Route>
-            <Route exact={true} path="/email-token/*">
-              <ForgotPassword />
-            </Route>
-            <Route exact={true} path="/settings/reset-password">
-              <ResetPasswordContainer />
-            </Route>
-            <Route path="*">
-              <NotFound />
-            </Route>
-          </Switch>
-        </div>
-        <Footer />
-      </RootStyle>
-    );
-  }
+          <Route exact path="/sign-up">
+            <SignUp />
+          </Route>
+          <Route exact path="/forgot-password">
+            <ForgotPassword />
+          </Route>
+          <Route exact path="/email-token/*">
+            <ForgotPassword />
+          </Route>
+          <Route exact path="/settings/reset-password">
+            <ResetPasswordContainer />
+          </Route>
+          <Route path="*">
+            <NotFound />
+          </Route>
+        </Switch>
+      </div>
+      <Footer />
+    </RootStyle>
+  );
 }
 
-const RootStyle = styled("div", (_: React.CSSProperties) => ({
+const RootStyle = styled("div", () => ({
   ...fonts.body,
   backgroundColor: colors.black10,
   color: colors.text01,
@@ -78,7 +75,7 @@ function EmailTokenInvalid(): JSX.Element {
         <Flex>
           {t("auth/forgot_password.email_token_failure")}
           <Link to="/forgot-password/">
-            <i style={{ color: colors.white }} className="fas fa-times" />
+            <i className="fas fa-times" style={{ color: colors.white }} />
           </Link>
         </Flex>
       </ContentPadding>

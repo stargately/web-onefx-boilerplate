@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
 import uuidV4 from "uuid/v4";
 
-const Schema = mongoose.Schema;
-import { baseModel } from "./base-model";
+const { Schema } = mongoose;
 
 type Opts = {
   mongoose: mongoose.Mongoose;
@@ -21,38 +20,36 @@ type EmailTokenModelType = mongoose.Document &
     updateAt: Date;
   };
 
+function getExpireEpochMins(mins: number): number {
+  return Date.now() + mins * 60 * 1000;
+}
+
 export class EmailTokenModel {
   public Model: mongoose.Model<EmailTokenModelType>;
 
-  constructor({ mongoose, expMins }: Opts) {
-    const EmailTokenSchema = new Schema({
-      token: { type: String, default: uuidV4 },
-      userId: { type: Schema.Types.ObjectId },
-      expireAt: {
-        type: Date,
-        default: () => new Date(getExpireEpochMins(expMins)),
-        index: { expires: `${expMins}m` }
-      },
+  constructor({ mongoose: mInstance, expMins }: Opts) {
+    const EmailTokenSchema = new Schema(
+      {
+        token: { type: String, default: uuidV4 },
+        userId: { type: Schema.Types.ObjectId },
+        expireAt: {
+          type: Date,
+          default: () => new Date(getExpireEpochMins(expMins)),
+          index: { expires: `${expMins}m` }
+        },
 
-      createAt: { type: Date, default: Date.now },
-      updateAt: { type: Date, default: Date.now }
-    });
+        createAt: { type: Date, default: Date.now },
+        updateAt: { type: Date, default: Date.now }
+      },
+      {
+        timestamps: { createdAt: "createAt", updatedAt: "updateAt" },
+        id: true
+      }
+    );
 
     EmailTokenSchema.index({ token: 1 });
 
-    EmailTokenSchema.plugin(baseModel);
-    EmailTokenSchema.pre("save", function onSave(next: Function): void {
-      // @ts-ignore
-      this.updateAt = new Date();
-      next();
-    });
-    EmailTokenSchema.pre("find", function onFind(next: Function): void {
-      // @ts-ignore
-      this.updateAt = new Date();
-      next();
-    });
-
-    this.Model = mongoose.model("email_tokens", EmailTokenSchema);
+    this.Model = mInstance.model("email_tokens", EmailTokenSchema);
   }
 
   public async newAndSave(userId: string): Promise<EmailToken> {
@@ -66,8 +63,4 @@ export class EmailTokenModel {
   public async findOne(token: string): Promise<EmailToken | null> {
     return this.Model.findOne({ token });
   }
-}
-
-function getExpireEpochMins(mins: number): number {
-  return Date.now() + mins * 60 * 1000;
 }

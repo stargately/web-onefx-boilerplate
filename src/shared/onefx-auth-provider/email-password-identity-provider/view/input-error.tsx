@@ -1,4 +1,3 @@
-// @ts-ignore
 import { styled } from "onefx/lib/styletron-react";
 import { fonts } from "../../../common/styles/style-font";
 

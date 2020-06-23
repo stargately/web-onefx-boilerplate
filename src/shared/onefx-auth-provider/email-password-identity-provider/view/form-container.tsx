@@ -1,42 +1,24 @@
-/* tslint:disable:typedef */
 import React from "react";
 import { connect } from "react-redux";
 
 type Props = {
-  children: Array<JSX.Element> | JSX.Element;
+  children?: Array<JSX.Element> | JSX.Element;
   csrfToken: string;
-  qs: string;
-  csrfInQuery: string;
-  dispatch: string;
-  // @ts-ignore
-  otherProps;
+  id: string;
+  onSubmit?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 };
 
-function Form({
-  children,
-  csrfToken,
-  qs,
-  csrfInQuery,
-  dispatch,
-  ...otherProps
-}: Props): JSX.Element {
+function Form({ children, csrfToken, id }: Props): JSX.Element {
   return (
-    <form method="POST" {...otherProps}>
-      <input type="hidden" name="_csrf" value={csrfToken} />
+    <form method="POST" id={id}>
+      <input name="_csrf" type="hidden" value={csrfToken} />
       {children}
     </form>
   );
 }
 
-type ConnectProps = {
-  csrfToken: string;
-};
-
-// $FlowFixMe
-export const FormContainer = connect<ConnectProps>(state => ({
-  // @ts-ignore
-  csrfToken: state.base.csrfToken
-}))(
-  // @ts-ignore
-  Form
-);
+export const FormContainer = connect(
+  (state: { base: { csrfToken: string } }) => ({
+    csrfToken: state.base.csrfToken
+  })
+)(Form);

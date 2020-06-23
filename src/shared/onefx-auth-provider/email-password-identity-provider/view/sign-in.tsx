@@ -1,12 +1,10 @@
 import Button from "antd/lib/button";
 import serialize from "form-serialize";
 import { t } from "onefx/lib/iso-i18n";
-// @ts-ignore
 import Helmet from "onefx/lib/react-helmet";
-// @ts-ignore
 import { styled } from "onefx/lib/styletron-react";
-import { Component } from "react";
-import React from "react";
+import React, { Component } from "react";
+
 import { connect } from "react-redux";
 import { Flex } from "../../../common/flex";
 import { fullOnPalm } from "../../../common/styles/style-media";
@@ -45,7 +43,7 @@ class SignInInner extends Component<Props, State> {
     disableButton: false
   };
 
-  public onSubmit(e: Event): void {
+  public async onSubmit(e: React.MouseEvent<HTMLElement>): Promise<void> {
     e.preventDefault();
     const el = window.document.getElementById(LOGIN_FORM) as HTMLFormElement;
     if (!el) {
@@ -63,42 +61,42 @@ class SignInInner extends Component<Props, State> {
       valueEmail: email,
       valuePassword: password
     });
-    axiosInstance
-      .post("/api/sign-in/", {
+    try {
+      const r = await axiosInstance.post("/api/sign-in/", {
         email,
         password,
         next
-      })
-      .then(r => {
-        if (r.data.ok && r.data.shouldRedirect) {
-          return (window.location.href = r.data.next);
-        } else if (r.data.error) {
-          const error = r.data.error;
-          const errorState = {
-            valueEmail: email,
-            valuePassword: this.state.valuePassword,
-            errorEmail: "",
-            errorPassword: "",
-            disableButton: false
-          };
-          switch (error.code) {
-            case "auth/invalid-email":
-            case "auth/user-disabled":
-            case "auth/user-not-found": {
-              errorState.errorEmail = error.message;
-              break;
-            }
-            default:
-            case "auth/wrong-password": {
-              errorState.errorPassword = error.message;
-            }
-          }
-          this.setState(errorState);
-        }
-      })
-      .catch(err => {
-        window.console.error(`failed to post sign-in: ${err}`);
       });
+      if (r.data.ok && r.data.shouldRedirect) {
+        window.location.href = r.data.next;
+        return;
+      }
+      if (r.data.error) {
+        const { error } = r.data;
+        const errorState = {
+          valueEmail: email,
+          valuePassword: this.state.valuePassword,
+          errorEmail: "",
+          errorPassword: "",
+          disableButton: false
+        };
+        switch (error.code) {
+          case "auth/invalid-email":
+          case "auth/user-disabled":
+          case "auth/user-not-found": {
+            errorState.errorEmail = error.message;
+            break;
+          }
+          default:
+          case "auth/wrong-password": {
+            errorState.errorPassword = error.message;
+          }
+        }
+        this.setState(errorState);
+      }
+    } catch (err) {
+      window.console.error(`failed to post sign-in: ${err}`);
+    }
   }
 
   public render(): JSX.Element {
@@ -106,39 +104,39 @@ class SignInInner extends Component<Props, State> {
 
     return (
       <ContentPadding>
-        <Flex minHeight="550px" center={true}>
+        <Flex center minHeight="550px">
           <Form id={LOGIN_FORM} onSubmit={this.onSubmit}>
             <Helmet title={`login - ${t("topbar.brand")}`} />
-            <Flex column={true}>
+            <Flex column>
               <h1>{t("auth/sign_in.title")}</h1>
-              <EmailField error={errorEmail} defaultValue={valueEmail} />
-              {/* tslint:disable-next-line:react-a11y-input-elements */}
-              <input hidden={true} name="next" defaultValue={this.props.next} />
+              <EmailField defaultValue={valueEmail} error={errorEmail} />
+              <input defaultValue={this.props.next} hidden name="next" />
               <PasswordField
-                error={errorPassword}
                 defaultValue={valuePassword}
+                error={errorPassword}
               />
               <FieldMargin>
                 {/*
-                // @ts-ignore */}
+                 */}
                 <Button
-                  type="primary"
                   htmlType="submit"
-                  // @ts-ignore
-                  onClick={(e: Event) => this.onSubmit(e)}
-                  style={{ width: "100%" }}
-                  size="large"
                   loading={this.state.disableButton}
+                  onClick={(e: React.MouseEvent<HTMLElement>) =>
+                    this.onSubmit(e)
+                  }
+                  size="large"
+                  style={{ width: "100%" }}
+                  type="primary"
                 >
                   {t("auth/button_submit")}
                 </Button>
               </FieldMargin>
             </Flex>
-            {/*<FieldMargin>*/}
-            {/*  <StyleLink to="/forgot-password">*/}
-            {/*    {t("auth/sign_in.forgot_password")}*/}
-            {/*  </StyleLink>*/}
-            {/*</FieldMargin>*/}
+            {/* <FieldMargin> */}
+            {/*  <StyleLink to="/forgot-password"> */}
+            {/*    {t("auth/sign_in.forgot_password")} */}
+            {/*  </StyleLink> */}
+            {/* </FieldMargin> */}
             <FieldMargin>
               <StyleLink to="/sign-up">
                 {t("auth/sign_in.switch_to_sign_up")}
@@ -156,7 +154,6 @@ const Form = styled(FormContainer, {
   ...fullOnPalm
 });
 
-export const SignIn = connect(
-  // tslint:disable-next-line:no-any
-  (state: any) => ({ next: state.base.next })
-)(SignInInner);
+export const SignIn = connect((state: { base: { next: string } }) => ({
+  next: state.base.next
+}))(SignInInner);

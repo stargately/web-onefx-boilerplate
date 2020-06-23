@@ -9,8 +9,8 @@ export function NotFound(): JSX.Element {
     <Status code={404}>
       <ErrorPage
         bar={t("not_found.bar")}
-        title={t("not_found.title")}
         info={t("not_found.info")}
+        title={t("not_found.title")}
       />
     </Status>
   );
@@ -21,13 +21,15 @@ type Props = {
   children: Array<JSX.Element> | JSX.Element;
 };
 
-const Status = ({ code, children }: Props): JSX.Element => (
-  <Route
-    children={({ staticContext }: RouteComponentProps) => {
-      if (staticContext) {
-        staticContext.statusCode = code;
-      }
-      return children;
-    }}
-  />
-);
+function Status({ code, children }: Props): JSX.Element {
+  return (
+    <Route>
+      {({ staticContext }: RouteComponentProps) => {
+        if (staticContext) {
+          staticContext.statusCode = code;
+        }
+        return children;
+      }}
+    </Route>
+  );
+}

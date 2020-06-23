@@ -1,5 +1,4 @@
-// @ts-ignore
-import { styled, StyleObject } from "onefx/lib/styletron-react";
+import { StyleObject, styled } from "onefx/lib/styletron-react";
 import { fonts } from "../../../common/styles/style-font";
 
 const style: StyleObject = {

@@ -1,13 +1,11 @@
 import serialize from "form-serialize";
 import { t } from "onefx/lib/iso-i18n";
-// @ts-ignore
 import Helmet from "onefx/lib/react-helmet";
-// @ts-ignore
 import { styled } from "onefx/lib/styletron-react";
-import { Component } from "react";
+import React, { Component } from "react";
 
 import Button from "antd/lib/button";
-import React from "react";
+
 import { Flex } from "../../../common/flex";
 import { fullOnPalm } from "../../../common/styles/style-media";
 import { ContentPadding } from "../../../common/styles/style-padding";
@@ -26,10 +24,10 @@ type State = {
   disableButton: boolean;
 };
 
-export class ForgotPassword extends Component<{}, State> {
-  public email: string = "";
+export class ForgotPassword extends Component<unknown, State> {
+  public email = "";
 
-  constructor(props: {}) {
+  constructor(props: unknown) {
     super(props);
     this.state = {
       errorEmail: "",
@@ -39,7 +37,7 @@ export class ForgotPassword extends Component<{}, State> {
     };
   }
 
-  public onSubmit(e: Event): void {
+  public onSubmit(e: React.MouseEvent<HTMLElement, MouseEvent>): void {
     e.preventDefault();
     const el = window.document.getElementById(
       FORGOT_PASSWORD_FORM
@@ -60,10 +58,8 @@ export class ForgotPassword extends Component<{}, State> {
       .then(r => {
         if (r.data.ok) {
           this.setState({ sent: true });
-
-          return;
         } else if (r.data.error) {
-          const error = r.data.error;
+          const { error } = r.data;
           const errorState = {
             valueEmail: email,
             errorEmail: "",
@@ -85,31 +81,32 @@ export class ForgotPassword extends Component<{}, State> {
 
     return (
       <ContentPadding>
-        <Flex minHeight="550px" center={true}>
+        <Flex center minHeight="550px">
           <Form id={FORGOT_PASSWORD_FORM}>
             <Helmet
               title={`${t("auth/forgot_password")} - ${t("meta.title")}`}
             />
 
             {sent ? (
-              <Flex column={true}>
+              <Flex column>
                 <h1>{t("auth/forgot_password")}</h1>
                 <p>{t("auth/forgot_password.sent", { email: this.email })}</p>
               </Flex>
             ) : (
-              <Flex column={true}>
+              <Flex column>
                 <h1>{t("auth/forgot_password")}</h1>
                 <p>{t("auth/forgot_password.desc")}</p>
-                <EmailField error={errorEmail} defaultValue={valueEmail} />
+                <EmailField defaultValue={valueEmail} error={errorEmail} />
                 <FieldMargin>
                   <Button
-                    type="primary"
                     htmlType="submit"
-                    // @ts-ignore
-                    onClick={(e: Event) => this.onSubmit(e)}
-                    style={{ width: "100%" }}
-                    size="large"
                     loading={this.state.disableButton}
+                    onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) =>
+                      this.onSubmit(e)
+                    }
+                    size="large"
+                    style={{ width: "100%" }}
+                    type="primary"
                   >
                     {t("auth/forgot_password.send")}
                   </Button>

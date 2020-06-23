@@ -14,14 +14,14 @@ export function EmailField({ error, defaultValue }: Props): JSX.Element {
     <FieldMargin>
       <InputLabel htmlFor="email">Email</InputLabel>
       <TextInput
-        defaultValue={defaultValue}
-        id="email"
-        type="email"
         aria-label="email"
+        defaultValue={defaultValue}
+        error={error}
+        id="email"
         name="email"
         placeholder="email@example.com"
-        required={true}
-        error={error}
+        required
+        type="email"
       />
       <InputError>{error || "\u0020"}</InputError>
     </FieldMargin>

@@ -1,18 +1,17 @@
-import { Link } from "onefx/lib/react-router-dom";
-import { styled, StyleObject } from "onefx/lib/styletron-react";
-import { Component } from "react";
+import { StyleObject, styled } from "onefx/lib/styletron-react";
+import React, { Component } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 
 import { assetURL } from "onefx/lib/asset-url";
 import { t } from "onefx/lib/iso-i18n";
-import React from "react";
+
 import { CommonMargin } from "./common-margin";
 import { Icon } from "./icon";
 import { Cross } from "./icons/cross.svg";
 import { Hamburger } from "./icons/hamburger.svg";
 import { transition } from "./styles/style-animation";
 import { colors } from "./styles/style-color";
-import { media, PALM_WIDTH } from "./styles/style-media";
+import { PALM_WIDTH, media } from "./styles/style-media";
 import { contentPadding } from "./styles/style-padding";
 
 export const TOP_BAR_HEIGHT = 52;
@@ -21,8 +20,10 @@ type State = {
   displayMobileMenu: boolean;
 };
 
-export class TopBar extends Component<{}, State> {
-  constructor(props: {}) {
+type Props = unknown;
+
+export class TopBar extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       displayMobileMenu: false
@@ -42,27 +43,27 @@ export class TopBar extends Component<{}, State> {
     });
   }
 
-  public displayMobileMenu = () => {
+  public displayMobileMenu = (): void => {
     this.setState({
       displayMobileMenu: true
     });
   };
 
-  public hideMobileMenu = () => {
+  public hideMobileMenu = (): void => {
     this.setState({
       displayMobileMenu: false
     });
   };
 
-  public renderMenu = () => {
-    return [
-      <A key={0} href="/" onClick={this.hideMobileMenu}>
+  public renderMenu = (): JSX.Element => (
+    <>
+      <A href="/" key={0} onClick={this.hideMobileMenu}>
         {t("topbar.home")}
       </A>
-    ];
-  };
+    </>
+  );
 
-  public renderMobileMenu = () => {
+  public renderMobileMenu = (): JSX.Element | null => {
     if (!this.state.displayMobileMenu) {
       return null;
     }
@@ -75,7 +76,7 @@ export class TopBar extends Component<{}, State> {
   };
 
   public render(): JSX.Element {
-    const displayMobileMenu = this.state.displayMobileMenu;
+    const { displayMobileMenu } = this.state;
 
     return (
       <div>
@@ -89,8 +90,8 @@ export class TopBar extends Component<{}, State> {
             <Menu>{this.renderMenu()}</Menu>
           </Flex>
           <HamburgerBtn
-            onClick={this.displayMobileMenu}
             displayMobileMenu={displayMobileMenu}
+            onClick={this.displayMobileMenu}
           >
             <Hamburger />
           </HamburgerBtn>
@@ -123,7 +124,7 @@ const Bar = styled("div", {
   boxSizing: "border-box"
 });
 
-const BarPlaceholder = styled("div", (_: React.CSSProperties) => {
+const BarPlaceholder = styled("div", () => {
   const height = TOP_BAR_HEIGHT / 2;
   return {
     display: "block",
@@ -139,7 +140,7 @@ function HamburgerBtn({
 }: {
   displayMobileMenu: boolean;
   children: Array<JSX.Element> | JSX.Element;
-  onClick: Function;
+  onClick: () => void;
 }): JSX.Element {
   const Styled = styled("div", {
     ":hover": {
@@ -153,14 +154,7 @@ function HamburgerBtn({
     cursor: "pointer",
     justifyContent: "center"
   });
-  return (
-    <Styled
-      // @ts-ignore
-      onClick={onClick}
-    >
-      {children}
-    </Styled>
-  );
+  return <Styled onClick={onClick}>{children}</Styled>;
 }
 
 function CrossBtn({
@@ -221,10 +215,8 @@ const BrandText = styled("a", {
   marginLeft: 0,
   [media.palm]: {}
 });
-// @ts-ignore
-const StyledLink = styled(Link, menuItem);
 
-const Flex = styled("div", (_: React.CSSProperties) => ({
+const Flex = styled("div", () => ({
   flexDirection: "row",
   display: "flex",
   boxSizing: "border-box"

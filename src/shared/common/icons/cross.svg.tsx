@@ -1,27 +1,26 @@
-/* tslint:disable:no-http-string */
 import React from "react";
 
 function Cross(): JSX.Element {
   return (
     <svg
-      width="20"
       height="20"
-      viewBox="0 0 20 20"
       version="1.1"
+      viewBox="0 0 20 20"
+      width="20"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
     >
       <g
+        fill="none"
+        fillRule="evenodd"
         id="Icons"
         stroke="currentColor"
         strokeWidth="1"
-        fill="none"
-        fillRule="evenodd"
       >
         <g
+          fill="currentColor"
           id="Utils"
           transform="translate(-380.000000, -100.000000)"
-          fill="currentColor"
         >
           <g id="icons" transform="translate(20.000000, 20.000000)">
             <polygon
