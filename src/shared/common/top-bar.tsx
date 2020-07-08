@@ -1,4 +1,4 @@
-import { StyleObject, styled } from "onefx/lib/styletron-react";
+import { StyleObject } from "onefx/lib/styletron-react";
 import React, { Component } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 
@@ -13,6 +13,7 @@ import { transition } from "./styles/style-animation";
 import { colors } from "./styles/style-color";
 import { PALM_WIDTH, media } from "./styles/style-media";
 import { contentPadding } from "./styles/style-padding";
+import { styled, Theme, THEME } from "./styles/theme-provider";
 
 export const TOP_BAR_HEIGHT = 52;
 
@@ -106,22 +107,22 @@ export class TopBar extends Component<Props, State> {
   }
 }
 
-const Bar = styled("div", {
+const Bar = styled("div", ({ $theme = THEME }: { $theme?: Theme }) => ({
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
   alignItems: "center",
   lineHeight: `${TOP_BAR_HEIGHT}px`,
   height: `${TOP_BAR_HEIGHT}px`,
-  backgroundColor: colors.nav01,
-  color: colors.white,
+  backgroundColor: $theme.colors.nav01,
+  color: $theme.colors.white,
   position: "fixed",
   top: "0px",
   left: "0px",
   "z-index": "70",
   ...contentPadding,
   boxSizing: "border-box"
-});
+}));
 
 const BarPlaceholder = styled("div", () => {
   const height = TOP_BAR_HEIGHT / 2;

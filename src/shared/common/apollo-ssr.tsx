@@ -18,6 +18,7 @@ import { Reducer } from "redux";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import * as engine from "styletron-engine-atomic";
+import { ThemeProvider } from "./styles/theme-provider";
 
 const ROUTE_PREFIX = config.get("server.routePrefix") || "";
 const timeoutLink = new ApolloLinkTimeout(100);
@@ -62,17 +63,17 @@ export async function apolloSSR(
 
   try {
     await getDataFromTree(
-      <ApolloProvider client={apolloClient}>
-        <RootServer
-          context={context}
-          location={ctx.url}
-          routePrefix={state.base.routePrefix}
-          store={store}
-          styletron={styletron}
-        >
-          {VDom}
-        </RootServer>
-      </ApolloProvider>
+      <RootServer
+        context={context}
+        location={ctx.url}
+        routePrefix={state.base.routePrefix}
+        store={store}
+        styletron={styletron}
+      >
+        <ApolloProvider client={apolloClient}>
+          <ThemeProvider>{VDom}</ThemeProvider>
+        </ApolloProvider>
+      </RootServer>
     );
     const apolloState = apolloClient.extract();
     ctx.setState("apolloState", apolloState);
@@ -80,7 +81,11 @@ export async function apolloSSR(
     logger.error(`failed to hydrate apollo SSR: ${e}`);
   }
   return ctx.isoReactRender({
-    VDom: <ApolloProvider client={apolloClient}>{VDom}</ApolloProvider>,
+    VDom: (
+      <ApolloProvider client={apolloClient}>
+        <ThemeProvider>{VDom}</ThemeProvider>
+      </ApolloProvider>
+    ),
     clientScript,
     reducer
   });

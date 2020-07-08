@@ -1,6 +1,5 @@
 import { Switch } from "onefx/lib/react-router";
 import { Route } from "onefx/lib/react-router-dom";
-import { styled } from "onefx/lib/styletron-react";
 import React, { Component } from "react";
 import { FOOTER_ABOVE, Footer } from "./common/footer";
 
@@ -10,10 +9,10 @@ import initGoogleAnalytics from "./common/google-analytics";
 import { Head } from "./common/head";
 import { NotFound } from "./common/not-found";
 import { ScrollToTop } from "./common/scroll-top";
-import { colors } from "./common/styles/style-color";
 import { fonts } from "./common/styles/style-font";
 import { TopBar } from "./common/top-bar";
 import { Home } from "./home/home";
+import { styled, Theme, THEME } from "./common/styles/theme-provider";
 
 type Props = {
   googleTid: string;
@@ -48,9 +47,9 @@ export class App extends Component<Props> {
   }
 }
 
-const RootStyle = styled("div", () => ({
+const RootStyle = styled("div", ({ $theme = THEME }: { $theme?: Theme }) => ({
   ...fonts.body,
-  backgroundColor: colors.black10,
-  color: colors.text01,
+  backgroundColor: $theme?.colors.black10,
+  color: $theme?.colors.text01,
   textRendering: "optimizeLegibility"
 }));

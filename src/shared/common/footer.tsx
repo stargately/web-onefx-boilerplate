@@ -1,8 +1,8 @@
-import { styled } from "onefx/lib/styletron-react";
 import React from "react";
 import { Flex } from "./flex";
 import { colors } from "./styles/style-color";
 import { contentPadding } from "./styles/style-padding";
+import { styled, Theme, THEME } from "./styles/theme-provider";
 import { TOP_BAR_HEIGHT } from "./top-bar";
 
 export const FOOTER_HEIGHT = 89;
@@ -20,7 +20,7 @@ export function Footer(): JSX.Element {
   );
 }
 
-const Align = styled("div", () => ({
+const Align = styled("div", ({ $theme = THEME }: { $theme?: Theme }) => ({
   ...contentPadding,
   display: "flex",
   flexDirection: "row",
@@ -29,6 +29,6 @@ const Align = styled("div", () => ({
   paddingTop: "32px",
   paddingBottom: "32px",
   minHeight: `${FOOTER_HEIGHT}px`,
-  backgroundColor: colors.nav02,
+  backgroundColor: $theme.colors.nav02,
   color: colors.white
 }));
