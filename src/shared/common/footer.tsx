@@ -1,6 +1,5 @@
 import React from "react";
 import { Flex } from "./flex";
-import { colors } from "./styles/style-color";
 import { contentPadding } from "./styles/style-padding";
 import { styled, Theme, THEME } from "./styles/theme-provider";
 import { TOP_BAR_HEIGHT } from "./top-bar";
