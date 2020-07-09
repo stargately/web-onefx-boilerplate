@@ -30,5 +30,5 @@ const Align = styled("div", ({ $theme = THEME }: { $theme?: Theme }) => ({
   paddingBottom: "32px",
   minHeight: `${FOOTER_HEIGHT}px`,
   backgroundColor: $theme.colors.nav02,
-  color: colors.white
+  color: $theme?.colors.textReverse
 }));

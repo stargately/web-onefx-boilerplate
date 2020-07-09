@@ -6,8 +6,15 @@ import Helmet from "onefx/lib/react-helmet";
 import React from "react";
 import { connect } from "react-redux";
 import { colors } from "./styles/style-color";
+import { noFlashColorMode } from "./styles/theme-provider";
 
-function HeadInner({ locale }: { locale: string }): JSX.Element {
+function HeadInner({
+  locale,
+  nonce
+}: {
+  locale: string;
+  nonce: string;
+}): JSX.Element {
   return (
     <Helmet
       link={[
@@ -53,10 +60,16 @@ function HeadInner({ locale }: { locale: string }): JSX.Element {
       title={`${t("meta.title")} - ${t("meta.description")}`}
     >
       <html lang={locale} />
+      <script type={"text/javascript"} nonce={nonce}>
+        {noFlashColorMode({ defaultMode: "light" })}
+      </script>
     </Helmet>
   );
 }
 
-export const Head = connect((state: { base: { locale: string } }) => ({
-  locale: state.base.locale
-}))(HeadInner);
+export const Head = connect(
+  (state: { base: { locale: string; nonce: string } }) => ({
+    locale: state.base.locale,
+    nonce: state.base.nonce
+  })
+)(HeadInner);

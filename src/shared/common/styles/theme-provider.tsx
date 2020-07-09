@@ -1,11 +1,59 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { createStyled, StyletronWrapper } from "styletron-react";
 import { driver, getInitialStyle } from "styletron-standard";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import window from "global/window";
-import { colors, colorsDark } from "./style-color";
+import { actionSetTheme as setTheme } from "../base-reducer";
+import { colors } from "./style-color";
+
+// Need to be inlined to prevent dark mode FOUC
+// Make sure that the 'storageKey' is the same as the one in `base-reducer.ts`
+const storageKey = "theme";
+export const noFlashColorMode = ({
+  defaultMode,
+  respectPrefersColorScheme = true
+}: {
+  defaultMode: ThemeCode;
+  respectPrefersColorScheme?: boolean;
+}): string => {
+  return `(function() {
+  var defaultMode = '${defaultMode}';
+  var respectPrefersColorScheme = ${respectPrefersColorScheme};
+
+  function setDataThemeAttribute(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+
+  function getStoredTheme() {
+    var theme = null;
+    try {
+      theme = localStorage.getItem('${storageKey}');
+    } catch (err) {}
+    return theme;
+  }
+
+  var storedTheme = getStoredTheme();
+  if (storedTheme !== null) {
+    setDataThemeAttribute(storedTheme);
+  } else {
+    if (
+      respectPrefersColorScheme &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    ) {
+      setDataThemeAttribute('dark');
+    } else if (
+      respectPrefersColorScheme &&
+      window.matchMedia('(prefers-color-scheme: light)').matches
+    ) {
+      setDataThemeAttribute('light');
+    } else {
+      setDataThemeAttribute(defaultMode === 'dark' ? 'dark' : 'light');
+    }
+  }
+})();`;
+};
 
 export type Theme = {
   colors: {
@@ -21,6 +69,7 @@ export type Theme = {
     black10: string;
 
     text01: string;
+    textReverse: string;
 
     white: string;
 
@@ -41,38 +90,47 @@ export const THEME: Theme = {
   sizing: ["2px", "6px", "10px", "16px", "24px", "32px"]
 };
 
-const THEME_DARK: Theme = {
-  colors: colorsDark,
-  sizing: ["2px", "6px", "10px", "16px", "24px", "32px"]
-};
+const THEME_DARK: Theme = THEME; // we actually depends on the main.css for the colors.
 
-export enum ThemeCode {
-  light = 0,
-  dark = 1
-}
+export type ThemeCode = "light" | "dark";
 
 const { Provider, Consumer } = React.createContext(THEME);
 
-const isDefaultDarkMode =
-  window.matchMedia &&
-  window.matchMedia("(prefers-color-scheme: dark)").matches;
+export const defaultThemeCode =
+  window.document && window.document.documentElement.getAttribute("data-theme");
 
 export const ThemeProvider = connect(
   (state: { base: { themeCode?: ThemeCode } }) => ({
     themeCode:
-      state.base.themeCode ||
-      (isDefaultDarkMode ? ThemeCode.dark : ThemeCode.light)
+      state.base.themeCode || (defaultThemeCode === "dark" ? "dark" : "light")
+  }),
+  dispatch => ({
+    actionSetTheme: (t: "dark" | "light") => {
+      return dispatch(setTheme(t));
+    }
   })
 )(
   ({
     children,
-    themeCode
+    themeCode,
+    actionSetTheme
   }: {
     themeCode?: ThemeCode;
     children: React.ReactNode;
-  }): JSX.Element => (
-    <Provider value={themeCode ? THEME_DARK : THEME}>{children}</Provider>
-  )
+    actionSetTheme: (t: "dark" | "light") => void;
+  }): JSX.Element => {
+    useEffect(() => {
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addListener(({ matches }: { matches: boolean }) => {
+          actionSetTheme(matches ? "dark" : "light");
+        });
+    }, []);
+
+    return (
+      <Provider value={themeCode ? THEME_DARK : THEME}>{children}</Provider>
+    );
+  }
 );
 
 const wrapper: StyletronWrapper = StyledComponent =>

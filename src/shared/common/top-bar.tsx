@@ -1,4 +1,3 @@
-import { StyleObject } from "onefx/lib/styletron-react";
 import React, { Component } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 
@@ -115,7 +114,7 @@ const Bar = styled("div", ({ $theme = THEME }: { $theme?: Theme }) => ({
   lineHeight: `${TOP_BAR_HEIGHT}px`,
   height: `${TOP_BAR_HEIGHT}px`,
   backgroundColor: $theme.colors.nav01,
-  color: $theme.colors.white,
+  color: $theme.colors.textReverse,
   position: "fixed",
   top: "0px",
   left: "0px",
@@ -193,12 +192,12 @@ function Logo(): JSX.Element {
   );
 }
 
-const menuItem: StyleObject = {
-  color: colors.white,
+const menuItem = ({ $theme = THEME }: { $theme?: Theme }) => ({
+  color: $theme.colors.textReverse,
   marginLeft: "14px",
   textDecoration: "none",
   ":hover": {
-    color: colors.primary
+    color: $theme.colors.primary
   },
   transition,
   fontWeight: "bold",
@@ -208,13 +207,18 @@ const menuItem: StyleObject = {
     padding: "16px 0 16px 0",
     borderBottom: "1px #EDEDED solid"
   }
-};
+});
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 const A = styled("a", menuItem);
-const BrandText = styled("a", {
-  ...menuItem,
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const BrandText = styled("a", props => ({
+  ...menuItem(props),
   marginLeft: 0,
   [media.palm]: {}
-});
+}));
 
 const Flex = styled("div", () => ({
   flexDirection: "row",

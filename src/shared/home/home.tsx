@@ -8,7 +8,7 @@ import { assetURL } from "onefx/lib/asset-url";
 import React, { PureComponent } from "react";
 import { Query, QueryResult } from "react-apollo";
 import { connect } from "react-redux";
-import { actionToggleTheme } from "../common/base-reducer";
+import { actionSetTheme } from "../common/base-reducer";
 import { colors } from "../common/styles/style-color";
 import { ContentPadding } from "../common/styles/style-padding";
 import { THEME, Theme, styled } from "../common/styles/theme-provider";
@@ -40,12 +40,20 @@ const StyledContent = styled(
   })
 );
 
-export const Home = connect(null, dispatch => ({
-  actionToggleTheme: () => {
-    dispatch(actionToggleTheme());
-  }
-}))(
-  class HomeInner extends PureComponent<{ actionToggleTheme: () => void }> {
+export const Home = connect(
+  (state: { base: { themeCode: "dark" | "light" } }) => ({
+    themeCode: state.base.themeCode
+  }),
+  dispatch => ({
+    actionSetTheme: (themeCode: "dark" | "light") => {
+      dispatch(actionSetTheme(themeCode));
+    }
+  })
+)(
+  class HomeInner extends PureComponent<{
+    actionSetTheme: (themeCode: "dark" | "light") => void;
+    themeCode: "dark" | "light";
+  }> {
     public render = (): JSX.Element => (
       <ContentPadding>
         <Layout>
@@ -101,8 +109,14 @@ export const Home = connect(null, dispatch => ({
               </Query>
             </Row>
             <Row justify={"center"}>
-              <ExampleButton onClick={() => this.props.actionToggleTheme()}>
-                Toggle Dark Mode
+              <ExampleButton
+                onClick={() =>
+                  this.props.actionSetTheme(
+                    this.props.themeCode === "dark" ? "light" : "dark"
+                  )
+                }
+              >
+                Toggle {this.props.themeCode === "dark" ? "light" : "dark"} mode
               </ExampleButton>
             </Row>
           </StyledContent>

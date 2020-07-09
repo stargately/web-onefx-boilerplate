@@ -1,20 +1,38 @@
-import { ThemeCode } from "./styles/theme-provider";
+import { defaultThemeCode, ThemeCode } from "./styles/theme-provider";
+
+const storeTheme = (newTheme: "light" | "dark") => {
+  try {
+    localStorage.setItem("theme", newTheme);
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 export function baseReducer(
-  initialState: { themeCode?: ThemeCode } = {},
-  action: { type: string }
+  initialState: { themeCode?: ThemeCode } = { themeCode: defaultThemeCode },
+  action: { type: string; payload: "light" | "dark" }
 ): { themeCode?: ThemeCode } {
-  if (action.type === "TOGGLE_THEME") {
+  if (action.type === "SET_THEME") {
+    const themeCode = action.payload === "light" ? "light" : "dark";
+    window.document &&
+      window.document.documentElement.setAttribute("data-theme", themeCode);
+    storeTheme(themeCode);
     return {
       ...initialState,
-      themeCode: initialState.themeCode ? ThemeCode.light : ThemeCode.dark
+      themeCode
     };
+  }
+  if (!initialState.themeCode) {
+    initialState.themeCode = defaultThemeCode;
   }
   return initialState;
 }
 
-export function actionToggleTheme(): { type: string } {
+export function actionSetTheme(
+  themeCode: "light" | "dark"
+): { type: string; payload: "light" | "dark" } {
   return {
-    type: "TOGGLE_THEME"
+    type: "SET_THEME",
+    payload: themeCode
   };
 }
