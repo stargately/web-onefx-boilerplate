@@ -4,6 +4,7 @@ const storeTheme = (newTheme: "light" | "dark") => {
   try {
     localStorage.setItem("theme", newTheme);
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error(err);
   }
 };
