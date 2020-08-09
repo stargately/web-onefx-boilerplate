@@ -212,7 +212,7 @@
     "eslint-plugin-react": "7.20.5",
     "form-serialize": "0.7.2",
     "global": "4.4.0",
-    "graphql": "14.6.0",
+    "graphql": "14.7.0",
     "graphql-iso-date": "3.6.1",
     "graphql-tag": "2.10.3",
     "is-browser": "2.1.0",
