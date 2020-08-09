@@ -159,7 +159,7 @@
     "webpack-manifest-plugin": "2.2.0"
   },
   "dependencies": {
-    "@ant-design/icons": "4.2.1",
+    "@ant-design/icons": "4.2.2",
     "@babel/cli": "7.10.3",
     "@babel/core": "7.10.3",
     "@babel/plugin-proposal-class-properties": "7.10.1",
