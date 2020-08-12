@@ -209,7 +209,7 @@
     "dateformat": "3.0.3",
     "dayjs": "1.8.33",
     "dotenv": "8.2.0",
-    "eslint-plugin-react": "7.20.5",
+    "eslint-plugin-react": "7.20.6",
     "form-serialize": "0.7.2",
     "global": "4.4.0",
     "graphql": "14.7.0",
