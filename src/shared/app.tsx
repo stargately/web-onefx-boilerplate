@@ -1,6 +1,6 @@
 import { Switch } from "onefx/lib/react-router";
 import { Route } from "onefx/lib/react-router-dom";
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { FOOTER_ABOVE, Footer } from "./common/footer";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -16,35 +16,31 @@ import { styled, Theme, THEME } from "./common/styles/theme-provider";
 
 type Props = {
   googleTid: string;
-  locale: string;
 };
 
-export class App extends Component<Props> {
-  public componentDidMount(): void {
-    initGoogleAnalytics({ tid: this.props.googleTid });
-  }
-
-  public render(): JSX.Element {
-    return (
-      <RootStyle>
-        <Head />
-        <TopBar />
-        <div style={FOOTER_ABOVE}>
-          <ScrollToTop>
-            <Switch>
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Route path="*">
-                <NotFound />
-              </Route>
-            </Switch>
-          </ScrollToTop>
-        </div>
-        <Footer />
-      </RootStyle>
-    );
-  }
+export function App(props: Props): JSX.Element {
+  useEffect(() => {
+    initGoogleAnalytics({ tid: props.googleTid });
+  }, []);
+  return (
+    <RootStyle>
+      <Head />
+      <TopBar />
+      <div style={FOOTER_ABOVE}>
+        <ScrollToTop>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="*">
+              <NotFound />
+            </Route>
+          </Switch>
+        </ScrollToTop>
+      </div>
+      <Footer />
+    </RootStyle>
+  );
 }
 
 const RootStyle = styled("div", ({ $theme = THEME }: { $theme?: Theme }) => ({
