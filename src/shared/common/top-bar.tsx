@@ -1,110 +1,85 @@
 import { styled, Theme } from "onefx/lib/styletron-react";
-import React, { Component } from "react";
-import OutsideClickHandler from "react-outside-click-handler";
-
 import { assetURL } from "onefx/lib/asset-url";
 import { t } from "onefx/lib/iso-i18n";
-
+import React, { useEffect, useState } from "react";
+import OutsideClickHandler from "react-outside-click-handler";
 import { CommonMargin } from "./common-margin";
 import { Icon } from "./icon";
 import { Cross } from "./icons/cross.svg";
 import { Hamburger } from "./icons/hamburger.svg";
 import { transition } from "./styles/style-animation";
 import { colors } from "./styles/style-color";
-import { PALM_WIDTH, media } from "./styles/style-media";
+import { media, PALM_WIDTH } from "./styles/style-media";
 import { contentPadding } from "./styles/style-padding";
 
 export const TOP_BAR_HEIGHT = 52;
 
-type State = {
-  displayMobileMenu: boolean;
-};
+export const TopBar = (): JSX.Element => {
+  const [displayMobileMenu, setDisplayMobileMenu] = useState(false);
 
-type Props = unknown;
-
-export class TopBar extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      displayMobileMenu: false
-    };
-  }
-
-  public componentDidMount(): void {
+  useEffect(() => {
     window.addEventListener("resize", () => {
       if (
         document.documentElement &&
         document.documentElement.clientWidth > PALM_WIDTH
       ) {
-        this.setState({
-          displayMobileMenu: false
-        });
+        setDisplayMobileMenu(false);
       }
     });
-  }
+  }, []);
 
-  public displayMobileMenu = (): void => {
-    this.setState({
-      displayMobileMenu: true
-    });
+  const hideMobileMenu = (): void => {
+    setDisplayMobileMenu(false);
   };
 
-  public hideMobileMenu = (): void => {
-    this.setState({
-      displayMobileMenu: false
-    });
-  };
-
-  public renderMenu = (): JSX.Element => (
+  const renderMenu = (): JSX.Element => (
     <>
-      <A href="/" key={0} onClick={this.hideMobileMenu}>
+      <A href="/" key={0} onClick={hideMobileMenu}>
         {t("topbar.home")}
       </A>
     </>
   );
 
-  public renderMobileMenu = (): JSX.Element | null => {
-    if (!this.state.displayMobileMenu) {
+  const renderMobileMenu = (): JSX.Element | null => {
+    if (!displayMobileMenu) {
       return null;
     }
 
     return (
-      <OutsideClickHandler onOutsideClick={this.hideMobileMenu}>
-        <Dropdown>{this.renderMenu()}</Dropdown>
+      <OutsideClickHandler onOutsideClick={hideMobileMenu}>
+        <Dropdown>{renderMenu()}</Dropdown>
       </OutsideClickHandler>
     );
   };
 
-  public render(): JSX.Element {
-    const { displayMobileMenu } = this.state;
-
-    return (
-      <div>
-        <Bar>
-          <Flex>
-            <Logo />
-            <CommonMargin />
-            <BrandText href="/">{t("topbar.brand")}</BrandText>
-          </Flex>
-          <Flex>
-            <Menu>{this.renderMenu()}</Menu>
-          </Flex>
-          <HamburgerBtn
-            displayMobileMenu={displayMobileMenu}
-            onClick={this.displayMobileMenu}
-          >
-            <Hamburger />
-          </HamburgerBtn>
-          <CrossBtn displayMobileMenu={displayMobileMenu}>
-            <Cross />
-          </CrossBtn>
-        </Bar>
-        <BarPlaceholder />
-        {this.renderMobileMenu()}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Bar>
+        <Flex>
+          <Logo />
+          <CommonMargin />
+          <BrandText href="/">{t("topbar.brand")}</BrandText>
+        </Flex>
+        <Flex>
+          <Menu>{renderMenu()}</Menu>
+        </Flex>
+        <HamburgerBtn
+          displayMobileMenu={displayMobileMenu}
+          onClick={() => {
+            setDisplayMobileMenu(true);
+          }}
+        >
+          <Hamburger />
+        </HamburgerBtn>
+        <CrossBtn displayMobileMenu={displayMobileMenu}>
+          <Cross />
+        </CrossBtn>
+      </Bar>
+      <BarPlaceholder />
+      {renderMobileMenu()}
+    </div>
+  );
+};
 
 const Bar = styled("div", ({ $theme }) => ({
   display: "flex",

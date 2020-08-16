@@ -1,7 +1,7 @@
 import { t } from "onefx/lib/iso-i18n";
 import { Link, Route, Switch } from "onefx/lib/react-router-dom";
 import { styled } from "onefx/lib/styletron-react";
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { Flex } from "@/shared/common/flex";
 import { FOOTER_ABOVE, Footer } from "@/shared/common/footer";
 import { Head } from "@/shared/common/head";
@@ -21,12 +21,13 @@ type Props = {
   googleTid?: string;
 };
 
-export class IdentityApp extends Component<Props> {
-  public componentDidMount(): void {
-    initGoogleAnalytics({ tid: this.props.googleTid });
-  }
-
-  public render = (): JSX.Element => (
+export const IdentityApp = ({ googleTid }: Props): JSX.Element => {
+  useEffect(() => {
+    if (googleTid) {
+      initGoogleAnalytics({ tid: googleTid });
+    }
+  }, [googleTid]);
+  return (
     <RootStyle>
       <Head />
       <TopBar />
@@ -58,7 +59,7 @@ export class IdentityApp extends Component<Props> {
       <Footer />
     </RootStyle>
   );
-}
+};
 
 const RootStyle = styled("div", () => ({
   ...fonts.body,

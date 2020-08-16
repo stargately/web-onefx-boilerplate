@@ -1,13 +1,11 @@
+import Button from "antd/lib/button";
 import serialize from "form-serialize";
 import { t } from "onefx/lib/iso-i18n";
 import Helmet from "onefx/lib/react-helmet";
 import { Link } from "onefx/lib/react-router-dom";
 import { styled } from "onefx/lib/styletron-react";
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-
-import Button from "antd/lib/button";
-
 import { colorHover } from "@/shared/common/color-hover";
 import { Flex } from "@/shared/common/flex";
 import { transition } from "@/shared/common/styles/style-animation";
@@ -22,34 +20,20 @@ import { PasswordField } from "./password-field";
 
 const LOGIN_FORM = "signup";
 
-type State = {
-  errorEmail: string;
-  errorPassword: string;
-
-  valueEmail: string;
-  valuePassword: string;
-
-  disableButton: boolean;
-};
-
 type Props = {
   next: string;
 };
 
-export class SignUpInner extends Component<Props, State> {
-  public state: State = {
-    errorEmail: "",
-    errorPassword: "",
+const SignUpInner = (props: Props): JSX.Element => {
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
+  const [valueEmail, setValueEmail] = useState("");
+  const [valuePassword, setValuePassword] = useState("");
+  const [disableButton, setDisableButton] = useState(false);
 
-    valueEmail: "",
-    valuePassword: "",
-
-    disableButton: false
-  };
-
-  public async onSubmit(
+  const onSubmit = async (
     e: React.MouseEvent<HTMLElement, MouseEvent>
-  ): Promise<void> {
+  ): Promise<void> => {
     e.preventDefault();
     const el = window.document.getElementById(LOGIN_FORM) as HTMLFormElement;
     const { email = "", password = "", next = "" } = serialize(el, {
@@ -59,11 +43,9 @@ export class SignUpInner extends Component<Props, State> {
       password: string;
       next: string;
     };
-    this.setState({
-      disableButton: true,
-      valueEmail: email,
-      valuePassword: password
-    });
+    setDisableButton(true);
+    setValueEmail(email);
+    setValuePassword(password);
     try {
       const r = await axiosInstance.post("/api/sign-up/", {
         email,
@@ -76,85 +58,76 @@ export class SignUpInner extends Component<Props, State> {
       }
       if (r.data.error) {
         const { error } = r.data;
-        const errorState = {
-          valueEmail: email,
-          errorEmail: "",
-          errorPassword: "",
-          disableButton: false
-        };
+        setValueEmail(email);
+        setErrorEmail("");
+        setErrorPassword("");
+        setDisableButton(false);
         switch (error.code) {
           case "auth/email-already-in-use":
           case "auth/invalid-email": {
-            errorState.errorEmail = error.message;
+            setErrorEmail(error.message);
             break;
           }
           default:
           case "auth/weak-password": {
-            errorState.errorPassword = error.message;
+            setErrorPassword(error.message);
           }
         }
-        this.setState(errorState);
       }
     } catch (err) {
       window.console.error(`failed to post sign-in: ${err}`);
     }
-  }
+  };
 
-  public render(): JSX.Element {
-    const { errorEmail, errorPassword, valueEmail, valuePassword } = this.state;
-    return (
-      <ContentPadding>
-        <Flex center minHeight="550px">
-          <Form id={LOGIN_FORM} onSubmit={this.onSubmit}>
-            <Helmet title={`Sign Up - ${t("topbar.brand")}`} />
-            <Flex column>
-              <h1>Create Account</h1>
-              <EmailField defaultValue={valueEmail} error={errorEmail} />
-              <input defaultValue={this.props.next} hidden name="next" />
-              <PasswordField
-                defaultValue={valuePassword}
-                error={errorPassword}
-              />
-              <FieldMargin>
-                {/*
-                 */}
-                <Button
-                  htmlType="submit"
-                  loading={this.state.disableButton}
-                  onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) =>
-                    this.onSubmit(e)
-                  }
-                  size="large"
-                  style={{ width: "100%" }}
-                  type="primary"
-                >
-                  {t("auth/button_submit")}
-                </Button>
-              </FieldMargin>
-            </Flex>
+  return (
+    <ContentPadding>
+      <Flex center minHeight="550px">
+        <Form id={LOGIN_FORM} onSubmit={onSubmit}>
+          <Helmet title={`Sign Up - ${t("topbar.brand")}`} />
+          <Flex column>
+            <h1>Create Account</h1>
+            <EmailField defaultValue={valueEmail} error={errorEmail} />
+            <input defaultValue={props.next} hidden name="next" />
+            <PasswordField defaultValue={valuePassword} error={errorPassword} />
             <FieldMargin>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: t("auth/consent", {
-                    tosUrl: "/legal/terms-of-service",
-                    policyUrl: "/legal/privacy-policy"
-                  })
-                }}
-                style={{ fontSize: "10px" }}
-              />
+              {/*
+               */}
+              <Button
+                htmlType="submit"
+                loading={disableButton}
+                onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) =>
+                  onSubmit(e)
+                }
+                size="large"
+                style={{ width: "100%" }}
+                type="primary"
+              >
+                {t("auth/button_submit")}
+              </Button>
             </FieldMargin>
+          </Flex>
+          <FieldMargin>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: t("auth/consent", {
+                  tosUrl: "/legal/terms-of-service",
+                  policyUrl: "/legal/privacy-policy"
+                })
+              }}
+              style={{ fontSize: "10px" }}
+            />
+          </FieldMargin>
 
-            <FieldMargin>
-              <StyleLink to="/login/">
-                {t("auth/sign_up.switch_to_sign_in")}
-              </StyleLink>
-            </FieldMargin>
-          </Form>
-        </Flex>
-      </ContentPadding>
-    );
-  }
-}
+          <FieldMargin>
+            <StyleLink to="/login/">
+              {t("auth/sign_up.switch_to_sign_in")}
+            </StyleLink>
+          </FieldMargin>
+        </Form>
+      </Flex>
+    </ContentPadding>
+  );
+};
 
 export const StyleLink = styled(Link, {
   ...colorHover(colors.primary),
