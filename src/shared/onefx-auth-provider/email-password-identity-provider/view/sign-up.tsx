@@ -8,12 +8,12 @@ import { connect } from "react-redux";
 
 import Button from "antd/lib/button";
 
-import { colorHover } from "../../../common/color-hover";
-import { Flex } from "../../../common/flex";
-import { transition } from "../../../common/styles/style-animation";
-import { colors } from "../../../common/styles/style-color";
-import { fullOnPalm } from "../../../common/styles/style-media";
-import { ContentPadding } from "../../../common/styles/style-padding";
+import { colorHover } from "@/shared/common/color-hover";
+import { Flex } from "@/shared/common/flex";
+import { transition } from "@/shared/common/styles/style-animation";
+import { colors } from "@/shared/common/styles/style-color";
+import { fullOnPalm } from "@/shared/common/styles/style-media";
+import { ContentPadding } from "@/shared/common/styles/style-padding";
 import { axiosInstance } from "./axios-instance";
 import { EmailField } from "./email-field";
 import { FieldMargin } from "./field-margin";

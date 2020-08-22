@@ -7,10 +7,10 @@ import React, { Component } from "react";
 import Button from "antd/lib/button";
 
 import { connect } from "react-redux";
-import { Flex } from "../../../common/flex";
-import { colors } from "../../../common/styles/style-color";
-import { fullOnPalm } from "../../../common/styles/style-media";
-import { ContentPadding } from "../../../common/styles/style-padding";
+import { Flex } from "@/shared/common/flex";
+import { colors } from "@/shared/common/styles/style-color";
+import { fullOnPalm } from "@/shared/common/styles/style-media";
+import { ContentPadding } from "@/shared/common/styles/style-padding";
 import { axiosInstance } from "./axios-instance";
 import { FieldMargin } from "./field-margin";
 import { FormContainer } from "./form-container";

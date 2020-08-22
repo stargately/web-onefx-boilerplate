@@ -8,10 +8,10 @@ import { assetURL } from "onefx/lib/asset-url";
 import React, { PureComponent } from "react";
 import { Query, QueryResult } from "react-apollo";
 import { connect } from "react-redux";
-import { actionSetTheme } from "../common/base-reducer";
-import { colors } from "../common/styles/style-color";
-import { ContentPadding } from "../common/styles/style-padding";
-import { THEME, Theme, styled } from "../common/styles/theme-provider";
+import { THEME, Theme, styled } from "@/shared/common/styles/theme-provider";
+import { actionSetTheme } from "@/shared/common/base-reducer";
+import { colors } from "@/shared/common/styles/style-color";
+import { ContentPadding } from "@/shared/common/styles/style-padding";
 
 const GET_HEALTH = gql`
   {

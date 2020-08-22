@@ -7,6 +7,7 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 const process = require("global/process");
 const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 const ANALYZE = false;
 const PROD = process.env.NODE_ENV === "production";
@@ -30,19 +31,21 @@ module.exports = {
   ...(PROD ? {} : { devtool: "source-map" }),
   module: {
     rules: [
-      { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
-      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
       {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
-        use: {
-          loader: "babel-loader",
-          options: require("./babel.config")
-        }
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: "ts-loader",
+            options: {
+              transpileOnly: true
+            }
+          }
+        ]
       }
     ]
   },
   resolve: {
+    plugins: [new TsconfigPathsPlugin({ configFile: "tsconfig.json" })],
     // options for resolving module requests
     // (does not apply to resolving to loaders)
     modules: ["node_modules", path.resolve(__dirname, "src")],

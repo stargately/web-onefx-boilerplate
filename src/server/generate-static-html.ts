@@ -1,7 +1,7 @@
 import axios from "axios";
 import config from "config";
 import fs from "fs";
-import { startServer } from "./start-server";
+import { startServer } from "@/server/start-server";
 
 const port = config.get("server.port");
 

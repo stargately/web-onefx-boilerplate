@@ -6,9 +6,9 @@ import React, { Component } from "react";
 
 import Button from "antd/lib/button";
 
-import { Flex } from "../../../common/flex";
-import { fullOnPalm } from "../../../common/styles/style-media";
-import { ContentPadding } from "../../../common/styles/style-padding";
+import { Flex } from "@/shared/common/flex";
+import { fullOnPalm } from "@/shared/common/styles/style-media";
+import { ContentPadding } from "@/shared/common/styles/style-padding";
 import { axiosInstance } from "./axios-instance";
 import { EmailField } from "./email-field";
 import { FieldMargin } from "./field-margin";

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { MyServer } from "../start-server";
+import { MyServer } from "@/server/start-server";
 
 export type Gateways = {
   mongoose: mongoose.Mongoose;

@@ -2,21 +2,20 @@ import { t } from "onefx/lib/iso-i18n";
 import { Link, Route, Switch } from "onefx/lib/react-router-dom";
 import { styled } from "onefx/lib/styletron-react";
 import React, { Component } from "react";
-import { Flex } from "../../../common/flex";
-import { FOOTER_ABOVE, Footer } from "../../../common/footer";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import initGoogleAnalytics from "../../../common/google-analytics";
-import { Head } from "../../../common/head";
-import { NotFound } from "../../../common/not-found";
-import { colors } from "../../../common/styles/style-color";
-import { fonts } from "../../../common/styles/style-font";
-import { ContentPadding } from "../../../common/styles/style-padding";
-import { TopBar } from "../../../common/top-bar";
+import { Flex } from "@/shared/common/flex";
+import { FOOTER_ABOVE, Footer } from "@/shared/common/footer";
+import { Head } from "@/shared/common/head";
+import { NotFound } from "@/shared/common/not-found";
+import { colors } from "@/shared/common/styles/style-color";
+import { fonts } from "@/shared/common/styles/style-font";
+import { ContentPadding } from "@/shared/common/styles/style-padding";
+import { TopBar } from "@/shared/common/top-bar";
 import { ForgotPassword } from "./forgot-password";
 import { ResetPasswordContainer } from "./reset-password";
 import { SignIn } from "./sign-in";
 import { SignUp } from "./sign-up";
+
+const initGoogleAnalytics = require("../../../common/google-analytics");
 
 type Props = {
   googleTid?: string;

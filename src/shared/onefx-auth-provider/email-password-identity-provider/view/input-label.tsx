@@ -1,5 +1,5 @@
 import { StyleObject, styled } from "onefx/lib/styletron-react";
-import { fonts } from "../../../common/styles/style-font";
+import { fonts } from "@/shared/common/styles/style-font";
 
 const style: StyleObject = {
   ...fonts.inputLabel,

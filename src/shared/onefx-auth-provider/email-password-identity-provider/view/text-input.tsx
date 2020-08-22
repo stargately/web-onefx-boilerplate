@@ -1,7 +1,7 @@
 import { styled } from "onefx/lib/styletron-react";
 import { StyleObjectFn } from "styletron-react";
-import { colors } from "../../../common/styles/style-color";
-import { fonts } from "../../../common/styles/style-font";
+import { colors } from "@/shared/common/styles/style-color";
+import { fonts } from "@/shared/common/styles/style-font";
 
 export const inputStyle: StyleObjectFn<{
   error?: string;

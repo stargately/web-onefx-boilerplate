@@ -7,12 +7,12 @@ import { Route, Switch, useHistory } from "onefx/lib/react-router";
 import { styled } from "onefx/lib/styletron-react";
 import React from "react";
 import { connect } from "react-redux";
-import { CommonMargin } from "../common/common-margin";
-import { Head } from "../common/head";
-import { colors } from "../common/styles/style-color";
-import { fonts } from "../common/styles/style-font";
-import { ContentPadding } from "../common/styles/style-padding";
-import { TOP_BAR_HEIGHT, TopBar } from "../common/top-bar";
+import { CommonMargin } from "@/shared/common/common-margin";
+import { Head } from "@/shared/common/head";
+import { colors } from "@/shared/common/styles/style-color";
+import { fonts } from "@/shared/common/styles/style-font";
+import { ContentPadding } from "@/shared/common/styles/style-padding";
+import { TOP_BAR_HEIGHT, TopBar } from "@/shared/common/top-bar";
 import { Settings } from "./settings";
 
 // $FlowFixMe
