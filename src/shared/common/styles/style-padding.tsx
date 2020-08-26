@@ -1,4 +1,4 @@
-import { StyleObject, styled } from "onefx/lib/styletron-react";
+import { styled, StyleObject } from "onefx/lib/styletron-react";
 import React from "react";
 
 import { Flex } from "../flex";

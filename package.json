@@ -36,6 +36,17 @@
       "browser": true
     },
     "rules": {
+      "no-restricted-imports": [
+        "error",
+        {
+          "name": "antd",
+          "message": "import antd/lib/* instead."
+        },
+        {
+          "name": "styletron-react",
+          "message": "import onefx/lib/styletron-react instead."
+        }
+      ],
       "@typescript-eslint/no-var-requires": 0,
       "curly": [
         "error",
@@ -224,7 +235,7 @@
     "mongoose": "5.10.0",
     "nodemailer": "6.4.11",
     "nodemailer-mailgun-transport": "2.0.0",
-    "onefx": "2.1.0",
+    "onefx": "2.2.0",
     "process": "0.11.10",
     "react": "16.13.1",
     "react-apollo": "3.1.5",

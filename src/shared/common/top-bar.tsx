@@ -1,3 +1,4 @@
+import { styled, Theme } from "onefx/lib/styletron-react";
 import React, { Component } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 
@@ -12,7 +13,6 @@ import { transition } from "./styles/style-animation";
 import { colors } from "./styles/style-color";
 import { PALM_WIDTH, media } from "./styles/style-media";
 import { contentPadding } from "./styles/style-padding";
-import { styled, Theme, THEME } from "./styles/theme-provider";
 
 export const TOP_BAR_HEIGHT = 52;
 
@@ -106,15 +106,15 @@ export class TopBar extends Component<Props, State> {
   }
 }
 
-const Bar = styled("div", ({ $theme = THEME }: { $theme?: Theme }) => ({
+const Bar = styled("div", ({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
   alignItems: "center",
   lineHeight: `${TOP_BAR_HEIGHT}px`,
   height: `${TOP_BAR_HEIGHT}px`,
-  backgroundColor: $theme.colors.nav01,
-  color: $theme.colors.textReverse,
+  backgroundColor: theme.colors.nav01,
+  color: theme.colors.textReverse,
   position: "fixed",
   top: "0px",
   left: "0px",
@@ -192,12 +192,12 @@ function Logo(): JSX.Element {
   );
 }
 
-const menuItem = ({ $theme = THEME }: { $theme?: Theme }) => ({
-  color: $theme.colors.textReverse,
+const A = styled("a", ({ theme }: { theme: Theme }) => ({
+  color: theme.colors.textReverse,
   marginLeft: "14px",
   textDecoration: "none",
   ":hover": {
-    color: $theme.colors.primary
+    color: theme.colors.primary
   },
   transition,
   fontWeight: "bold",
@@ -207,17 +207,17 @@ const menuItem = ({ $theme = THEME }: { $theme?: Theme }) => ({
     padding: "16px 0 16px 0",
     borderBottom: "1px #EDEDED solid"
   }
-});
+}));
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-const A = styled("a", menuItem);
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-const BrandText = styled("a", props => ({
-  ...menuItem(props),
-  marginLeft: 0,
-  [media.palm]: {}
+const BrandText = styled("a", ({ theme }) => ({
+  color: theme.colors.textReverse,
+  textDecoration: "none",
+  ":hover": {
+    color: theme.colors.primary
+  },
+  transition,
+  fontWeight: "bold",
+  marginLeft: 0
 }));
 
 const Flex = styled("div", () => ({
