@@ -232,7 +232,7 @@
     "isomorphic-unfetch": "3.0.0",
     "jsonwebtoken": "8.5.1",
     "koa": "2.13.0",
-    "mongoose": "5.10.0",
+    "mongoose": "5.10.1",
     "nodemailer": "6.4.11",
     "nodemailer-mailgun-transport": "2.0.0",
     "onefx": "2.2.2",
