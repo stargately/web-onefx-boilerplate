@@ -19,21 +19,21 @@ const GET_HEALTH = gql`
   }
 `;
 
-const ExampleButton = styled("button", props => {
+const ExampleButton = styled("button", ({ $theme }) => {
   return {
-    backgroundColor: props.theme.colors.white,
-    borderColor: props.theme.colors.black,
-    color: props.theme.colors.text01,
-    fontSize: props.theme.sizing[3],
-    padding: props.theme.sizing[1],
-    borderRadius: props.theme.sizing[1],
+    backgroundColor: $theme.colors.white,
+    borderColor: $theme.colors.black,
+    color: $theme.colors.text01,
+    fontSize: $theme.sizing[3],
+    padding: $theme.sizing[1],
+    borderRadius: $theme.sizing[1],
     outline: "none"
   };
 });
 
-const StyledContent = styled(Layout.Content, ({ theme }) => ({
-  backgroundColor: theme.colors.white,
-  padding: theme.sizing[5]
+const StyledContent = styled(Layout.Content, ({ $theme }) => ({
+  backgroundColor: $theme.colors.white,
+  padding: $theme.sizing[5]
 }));
 
 export const Home = connect(

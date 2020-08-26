@@ -106,15 +106,15 @@ export class TopBar extends Component<Props, State> {
   }
 }
 
-const Bar = styled("div", ({ theme }) => ({
+const Bar = styled("div", ({ $theme }) => ({
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
   alignItems: "center",
   lineHeight: `${TOP_BAR_HEIGHT}px`,
   height: `${TOP_BAR_HEIGHT}px`,
-  backgroundColor: theme.colors.nav01,
-  color: theme.colors.textReverse,
+  backgroundColor: $theme.colors.nav01,
+  color: $theme.colors.textReverse,
   position: "fixed",
   top: "0px",
   left: "0px",
@@ -192,12 +192,12 @@ function Logo(): JSX.Element {
   );
 }
 
-const A = styled("a", ({ theme }: { theme: Theme }) => ({
-  color: theme.colors.textReverse,
+const A = styled("a", ({ $theme }: { $theme: Theme }) => ({
+  color: $theme.colors.textReverse,
   marginLeft: "14px",
   textDecoration: "none",
   ":hover": {
-    color: theme.colors.primary
+    color: $theme.colors.primary
   },
   transition,
   fontWeight: "bold",
@@ -209,11 +209,11 @@ const A = styled("a", ({ theme }: { theme: Theme }) => ({
   }
 }));
 
-const BrandText = styled("a", ({ theme }) => ({
-  color: theme.colors.textReverse,
+const BrandText = styled("a", ({ $theme }) => ({
+  color: $theme.colors.textReverse,
   textDecoration: "none",
   ":hover": {
-    color: theme.colors.primary
+    color: $theme.colors.primary
   },
   transition,
   fontWeight: "bold",

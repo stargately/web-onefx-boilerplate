@@ -19,7 +19,7 @@ export function Footer(): JSX.Element {
   );
 }
 
-const Align = styled("div", ({ theme }) => ({
+const Align = styled("div", ({ $theme }) => ({
   ...contentPadding,
   display: "flex",
   flexDirection: "row",
@@ -28,6 +28,6 @@ const Align = styled("div", ({ theme }) => ({
   paddingTop: "32px",
   paddingBottom: "32px",
   minHeight: `${FOOTER_HEIGHT}px`,
-  backgroundColor: theme.colors.nav02,
-  color: theme?.colors.textReverse
+  backgroundColor: $theme.colors.nav02,
+  color: $theme?.colors.textReverse
 }));

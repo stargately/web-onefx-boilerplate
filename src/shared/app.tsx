@@ -41,9 +41,9 @@ export function App(props: Props): JSX.Element {
   );
 }
 
-const RootStyle = styled("div", ({ theme }) => ({
+const RootStyle = styled("div", ({ $theme }) => ({
   ...fonts.body,
-  backgroundColor: theme?.colors.black10,
-  color: theme?.colors.text01,
+  backgroundColor: $theme?.colors.black10,
+  color: $theme?.colors.text01,
   textRendering: "optimizeLegibility"
 }));
