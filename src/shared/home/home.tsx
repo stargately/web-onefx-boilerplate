@@ -1,23 +1,13 @@
-import CheckCircleTwoTone from "@ant-design/icons/CheckCircleTwoTone";
-import CloseCircleTwoTone from "@ant-design/icons/CloseCircleTwoTone";
-import LoadingOutlined from "@ant-design/icons/LoadingOutlined";
-import Row from "antd/lib/grid/row";
-import Layout from "antd/lib/layout";
-import gql from "graphql-tag";
-import { assetURL } from "onefx/lib/asset-url";
-import { styled } from "onefx/lib/styletron-react";
-import React, { PureComponent } from "react";
-import { Query, QueryResult } from "react-apollo";
-import { connect } from "react-redux";
 import { actionSetTheme } from "@/shared/common/base-reducer";
 import { colors } from "@/shared/common/styles/style-color";
 import { ContentPadding } from "@/shared/common/styles/style-padding";
-
-const GET_HEALTH = gql`
-  {
-    health
-  }
-`;
+import { HealthController } from "@/shared/home/health-controller";
+import Row from "antd/lib/grid/row";
+import Layout from "antd/lib/layout";
+import { assetURL } from "onefx/lib/asset-url";
+import { styled } from "onefx/lib/styletron-react";
+import React from "react";
+import { connect } from "react-redux";
 
 const ExampleButton = styled("button", ({ $theme }) => {
   return {
@@ -46,11 +36,11 @@ export const Home = connect(
     }
   })
 )(
-  class HomeInner extends PureComponent<{
+  (props: {
     actionSetTheme: (themeCode: "dark" | "light") => void;
     themeCode: "dark" | "light";
-  }> {
-    public render = (): JSX.Element => (
+  }): JSX.Element => {
+    return (
       <ContentPadding>
         <Layout>
           <StyledContent>
@@ -73,46 +63,17 @@ export const Home = connect(
               </a>
             </Row>
             <Row justify="center">
-              <Query query={GET_HEALTH}>
-                {({
-                  loading,
-                  error,
-                  data
-                }: QueryResult<{ health: string }>) => {
-                  if (loading) {
-                    return (
-                      <div>
-                        <LoadingOutlined /> Checking Status
-                      </div>
-                    );
-                  }
-                  if (error) {
-                    return (
-                      <div>
-                        <CloseCircleTwoTone twoToneColor={colors.error} /> Not
-                        OK
-                      </div>
-                    );
-                  }
-
-                  return (
-                    <div>
-                      <CheckCircleTwoTone twoToneColor={colors.success} />{" "}
-                      {data && data.health}
-                    </div>
-                  );
-                }}
-              </Query>
+              <HealthController />
             </Row>
             <Row justify={"center"}>
               <ExampleButton
                 onClick={() =>
-                  this.props.actionSetTheme(
-                    this.props.themeCode === "dark" ? "light" : "dark"
+                  props.actionSetTheme(
+                    props.themeCode === "dark" ? "light" : "dark"
                   )
                 }
               >
-                Toggle {this.props.themeCode === "dark" ? "light" : "dark"} mode
+                Toggle {props.themeCode === "dark" ? "light" : "dark"} mode
               </ExampleButton>
             </Row>
           </StyledContent>
