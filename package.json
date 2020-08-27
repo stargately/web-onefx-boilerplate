@@ -212,7 +212,7 @@
     "apollo-client": "2.6.10",
     "apollo-link": "1.2.14",
     "apollo-link-http": "1.5.17",
-    "apollo-link-timeout": "1.4.1",
+    "apollo-link-timeout": "2.0.1",
     "apollo-server-koa": "2.17.0",
     "axios": "0.20.0",
     "babel-loader": "8.1.0",
