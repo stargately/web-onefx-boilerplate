@@ -1,4 +1,4 @@
-import { GetHealth } from "@/shared/home/data/__generated__/getHealth";
+import { GetHealth } from "@/shared/home/data/__generated__/GetHealth";
 import { getHealth } from "@/shared/home/data/quries";
 import { useQuery } from "react-apollo";
 
