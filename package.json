@@ -155,7 +155,7 @@
     "gulp-nodemon": "2.5.0",
     "gulp-sass": "4.1.0",
     "husky": "4.3.0",
-    "nyc": "15.0.0",
+    "nyc": "15.1.0",
     "plugin-error": "1.0.1",
     "prettier": "1.19.1",
     "pretty-quick": "2.0.2",
