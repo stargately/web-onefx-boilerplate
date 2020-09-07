@@ -1,3 +1,4 @@
+import React from "react";
 import { actionSetTheme } from "@/shared/common/base-reducer";
 import { colors } from "@/shared/common/styles/style-color";
 import { ContentPadding } from "@/shared/common/styles/style-padding";
@@ -6,7 +7,6 @@ import Row from "antd/lib/grid/row";
 import Layout from "antd/lib/layout";
 import { assetURL } from "onefx/lib/asset-url";
 import { styled } from "onefx/lib/styletron-react";
-import React from "react";
 import { connect } from "react-redux";
 
 const ExampleButton = styled("button", ({ $theme }) => {
@@ -91,7 +91,7 @@ const OneFxIcon = styled("img", {
   borderRadius: "50%",
   overflow: "hidden",
   boxShadow: "0 5px 15px 0px rgba(0,0,0,0.6)",
-  transform: "translatey(0px)",
+  transform: "translate-y(0px)",
   animation: "float 6s ease-in-out infinite"
 });
 
