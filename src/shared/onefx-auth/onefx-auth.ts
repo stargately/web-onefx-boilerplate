@@ -2,7 +2,7 @@ import { Server } from "onefx";
 import { logger } from "onefx/lib/integrated-gateways/logger";
 import { Context, Dict } from "onefx/lib/types";
 import koa from "koa";
-import { MyServer } from "../../server/start-server";
+import { MyServer } from "@/server/start-server";
 import {
   AuthConfig,
   allowedLoginNext,

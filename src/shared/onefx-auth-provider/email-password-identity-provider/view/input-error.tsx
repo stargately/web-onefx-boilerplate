@@ -1,5 +1,5 @@
 import { styled } from "onefx/lib/styletron-react";
-import { fonts } from "../../../common/styles/style-font";
+import { fonts } from "@/shared/common/styles/style-font";
 
 export const InputError = styled("div", {
   ...fonts.inputError,

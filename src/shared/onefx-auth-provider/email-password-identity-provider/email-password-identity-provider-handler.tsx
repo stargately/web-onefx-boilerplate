@@ -3,7 +3,7 @@ import { Context } from "onefx/lib/types";
 import * as React from "react";
 import validator from "validator";
 import koa from "koa";
-import { MyServer } from "../../../server/start-server";
+import { MyServer } from "@/server/start-server";
 import { IdentityAppContainer } from "./view/identity-app-container";
 
 const PASSWORD_MIN_LENGTH = 8;

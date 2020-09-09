@@ -3,10 +3,10 @@ import { t } from "onefx/lib/iso-i18n";
 import { mobileViewPortContent } from "onefx/lib/iso-react-render/root/mobile-view-port-content";
 
 import Helmet from "onefx/lib/react-helmet";
+import { noFlashColorMode } from "onefx/lib/styletron-react";
 import React from "react";
 import { connect } from "react-redux";
 import { colors } from "./styles/style-color";
-import { noFlashColorMode } from "./styles/theme-provider";
 
 function HeadInner({
   locale,

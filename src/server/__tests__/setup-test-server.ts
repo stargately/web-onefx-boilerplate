@@ -1,6 +1,6 @@
 import test from "ava";
 import { Server } from "onefx";
-import { startServer } from "../start-server";
+import { startServer } from "@/server";
 
 let server: Server;
 
