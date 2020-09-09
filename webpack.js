@@ -20,13 +20,13 @@ module.exports = {
       Object.assign(entries, {
         [entry
           .replace("./src/client/javascripts/", "")
-          .replace(/(\.ts|\.tsx)$/, "")]: entry
+          .replace(/(\.ts|\.tsx)$/, "")]: entry,
       }),
     {}
   ),
   output: {
     filename: PROD ? "[name]-[chunkhash].js" : "[name].js",
-    path: path.resolve(__dirname, OUTPUT_DIR)
+    path: path.resolve(__dirname, OUTPUT_DIR),
   },
   ...(PROD ? {} : { devtool: "source-map" }),
   module: {
@@ -37,12 +37,12 @@ module.exports = {
           {
             loader: "ts-loader",
             options: {
-              transpileOnly: true
-            }
-          }
-        ]
-      }
-    ]
+              transpileOnly: true,
+            },
+          },
+        ],
+      },
+    ],
   },
   resolve: {
     plugins: [new TsconfigPathsPlugin({ configFile: "tsconfig.json" })],
@@ -52,27 +52,27 @@ module.exports = {
     // directories where to look for modules
     extensions: [".js", ".json", ".jsx", ".ts", ".tsx"],
     // extensions that are used
-    alias: {}
+    alias: {},
     /* Alternative alias syntax (click to show) */
     /* Advanced resolve configuration (click to show) */
   },
   plugins: [
     new ManifestPlugin({
       basePath: "/",
-      fileName: "asset-manifest.json"
+      fileName: "asset-manifest.json",
     }),
     ...(ANALYZE ? [new BundleAnalyzerPlugin()] : []),
     ...(PROD
       ? [
           new UglifyJSPlugin({
             cache: true,
-            parallel: true
+            parallel: true,
           }),
           new webpack.DefinePlugin({
             "process.env": {
-              NODE_ENV: JSON.stringify("production")
-            }
-          })
+              NODE_ENV: JSON.stringify("production"),
+            },
+          }),
         ]
       : []),
     new SWPrecacheWebpackPlugin({
@@ -88,8 +88,8 @@ module.exports = {
       dynamicUrlToDependencies: {
         "/index.html": glob.sync(path.resolve(`${OUTPUT_DIR}/**/*.js`)),
         "/notes": glob.sync(path.resolve(`${OUTPUT_DIR}/**/*.js`)),
-        "/notes/": glob.sync(path.resolve(`${OUTPUT_DIR}/**/*.js`))
-      }
-    })
-  ]
+        "/notes/": glob.sync(path.resolve(`${OUTPUT_DIR}/**/*.js`)),
+      },
+    }),
+  ],
 };

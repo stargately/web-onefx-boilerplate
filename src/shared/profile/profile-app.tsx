@@ -26,7 +26,7 @@ export const RootStyle = styled("div", () => ({
   ...fonts.body,
   backgroundColor: colors.black10,
   color: colors.text01,
-  textRendering: "optimizeLegibility"
+  textRendering: "optimizeLegibility",
 }));
 
 const ProfileApp: React.FC = () => {
@@ -40,7 +40,7 @@ const ProfileApp: React.FC = () => {
           {t("profile.home")}
         </span>
       ),
-      component: Empty
+      component: Empty,
     },
     {
       path: "/profile/settings/",
@@ -50,8 +50,8 @@ const ProfileApp: React.FC = () => {
           {t("profile.settings")}
         </span>
       ),
-      component: Settings
-    }
+      component: Settings,
+    },
   ];
 
   return (
@@ -66,15 +66,15 @@ const ProfileApp: React.FC = () => {
             style={{
               padding: "24px 0",
               background: "#fff",
-              minHeight: `calc((100vh - ${TOP_BAR_HEIGHT}px) - 86px)`
+              minHeight: `calc((100vh - ${TOP_BAR_HEIGHT}px) - 86px)`,
             }}
           >
             <Sider style={{ background: "#fff" }} width={200}>
               <Menu
                 defaultSelectedKeys={[
                   String(
-                    PANES.findIndex(p => p.path === history.location.pathname)
-                  )
+                    PANES.findIndex((p) => p.path === history.location.pathname)
+                  ),
                 ]}
                 mode="inline"
                 style={{ height: "100%" }}
@@ -112,6 +112,6 @@ const ProfileApp: React.FC = () => {
 
 export const ProfileAppContainer = connect(
   (state: { base: { analytics: { googleTid: string } } }) => ({
-    googleTid: state.base.analytics.googleTid
+    googleTid: state.base.analytics.googleTid,
   })
 )(ProfileApp);

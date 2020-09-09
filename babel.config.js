@@ -6,12 +6,12 @@ module.exports = {
       "@babel/preset-env",
       {
         targets: {
-          node: "current"
-        }
-      }
+          node: "current",
+        },
+      },
     ],
     ["@babel/preset-react"],
-    ["@babel/preset-typescript"]
+    ["@babel/preset-typescript"],
   ],
   plugins: [
     [
@@ -20,10 +20,10 @@ module.exports = {
         extensions: [".js", ".jsx", ".ts", ".tsx"],
         root: ["./src"],
         alias: {
-          "@": path.resolve(__dirname, "src")
-        }
-      }
-    ]
+          "@": path.resolve(__dirname, "src"),
+        },
+      },
+    ],
   ],
-  ignore: [/node_modules\/(?!onefx)/g]
+  ignore: [/node_modules\/(?!onefx)/g],
 };

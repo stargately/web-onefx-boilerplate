@@ -95,7 +95,7 @@ const Bar = styled("div", ({ $theme }) => ({
   left: "0px",
   "z-index": "70",
   ...contentPadding,
-  boxSizing: "border-box"
+  boxSizing: "border-box",
 }));
 
 const BarPlaceholder = styled("div", () => {
@@ -103,14 +103,14 @@ const BarPlaceholder = styled("div", () => {
   return {
     display: "block",
     padding: `${height}px ${height}px ${height}px ${height}px`,
-    backgroundColor: colors.nav01
+    backgroundColor: colors.nav01,
   };
 });
 
 function HamburgerBtn({
   displayMobileMenu,
   children,
-  onClick
+  onClick,
 }: {
   displayMobileMenu: boolean;
   children: Array<JSX.Element> | JSX.Element;
@@ -118,45 +118,45 @@ function HamburgerBtn({
 }): JSX.Element {
   const Styled = styled("div", {
     ":hover": {
-      color: colors.primary
+      color: colors.primary,
     },
     display: "none!important",
     [media.palm]: {
       display: "flex!important",
-      ...(displayMobileMenu ? { display: "none!important" } : {})
+      ...(displayMobileMenu ? { display: "none!important" } : {}),
     },
     cursor: "pointer",
-    justifyContent: "center"
+    justifyContent: "center",
   });
   return <Styled onClick={onClick}>{children}</Styled>;
 }
 
 function CrossBtn({
   displayMobileMenu,
-  children
+  children,
 }: {
   displayMobileMenu: boolean;
   children: Array<JSX.Element> | JSX.Element;
 }): JSX.Element {
   const Styled = styled("div", {
     ":hover": {
-      color: colors.primary
+      color: colors.primary,
     },
     display: "none!important",
     [media.palm]: {
       display: "none!important",
-      ...(displayMobileMenu ? { display: "flex!important" } : {})
+      ...(displayMobileMenu ? { display: "flex!important" } : {}),
     },
     cursor: "pointer",
     justifyContent: "center",
-    padding: "5px"
+    padding: "5px",
   });
   return <Styled>{children}</Styled>;
 }
 
 const LogoWrapper = styled("a", {
   width: `${TOP_BAR_HEIGHT}px`,
-  height: `${TOP_BAR_HEIGHT}px`
+  height: `${TOP_BAR_HEIGHT}px`,
 });
 
 function Logo(): JSX.Element {
@@ -172,7 +172,7 @@ const A = styled("a", ({ $theme }: { $theme: Theme }) => ({
   marginLeft: "14px",
   textDecoration: "none",
   ":hover": {
-    color: $theme.colors.primary
+    color: $theme.colors.primary,
   },
   transition,
   fontWeight: "bold",
@@ -180,32 +180,32 @@ const A = styled("a", ({ $theme }: { $theme: Theme }) => ({
     boxSizing: "border-box",
     width: "100%",
     padding: "16px 0 16px 0",
-    borderBottom: "1px #EDEDED solid"
-  }
+    borderBottom: "1px #EDEDED solid",
+  },
 }));
 
 const BrandText = styled("a", ({ $theme }) => ({
   color: $theme.colors.textReverse,
   textDecoration: "none",
   ":hover": {
-    color: $theme.colors.primary
+    color: $theme.colors.primary,
   },
   transition,
   fontWeight: "bold",
-  marginLeft: 0
+  marginLeft: 0,
 }));
 
 const Flex = styled("div", () => ({
   flexDirection: "row",
   display: "flex",
-  boxSizing: "border-box"
+  boxSizing: "border-box",
 }));
 
 const Menu = styled("div", {
   display: "flex!important",
   [media.palm]: {
-    display: "none!important"
-  }
+    display: "none!important",
+  },
 });
 
 const Dropdown = styled("div", {
@@ -219,5 +219,5 @@ const Dropdown = styled("div", {
   width: "100vw",
   height: "100vh",
   alignItems: "flex-end!important",
-  boxSizing: "border-box"
+  boxSizing: "border-box",
 });

@@ -9,7 +9,7 @@ export function setupTestServer(): void {
     server = await startServer();
   });
 
-  test.after.cb("Teardown server", t => {
+  test.after.cb("Teardown server", (t) => {
     server.close(t.end);
   });
 }

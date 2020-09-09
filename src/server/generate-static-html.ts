@@ -12,6 +12,6 @@ async function generateStaticHtml(): Promise<void> {
   fs.writeFileSync(`${__dirname}/../../dist/index.html`, html);
 }
 
-generateStaticHtml().catch(err => {
+generateStaticHtml().catch((err) => {
   window.console.error(`failed to generate static HTML: ${err}`);
 });

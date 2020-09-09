@@ -4,7 +4,7 @@ import { useQuery } from "react-apollo";
 
 export const useGetHealth = () => {
   const { loading, data, error, refetch } = useQuery<GetHealth>(getHealth, {
-    ssr: false
+    ssr: false,
   });
   return { loading, data, error, refetch };
 };

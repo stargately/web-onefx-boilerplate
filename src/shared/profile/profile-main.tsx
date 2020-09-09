@@ -11,5 +11,5 @@ clientReactRender({
       <ProfileAppContainer />
     </ApolloProvider>
   ),
-  reducer: noopReducer
+  reducer: noopReducer,
 });

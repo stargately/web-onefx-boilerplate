@@ -17,7 +17,7 @@ type Props = {
 
 const Image = styled("img", {
   maxWidth: "160px",
-  ...fullOnPalm
+  ...fullOnPalm,
 });
 
 const ErrorPageInner = ({ bar, title, info }: Props): JSX.Element => {

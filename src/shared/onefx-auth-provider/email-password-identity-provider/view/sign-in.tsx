@@ -35,7 +35,7 @@ const SignInInner = (props: Props): JSX.Element => {
       return;
     }
     const { email = "", password = "", next = "" } = serialize(el, {
-      hash: true
+      hash: true,
     }) as {
       email: string;
       password: string;
@@ -48,7 +48,7 @@ const SignInInner = (props: Props): JSX.Element => {
       const r = await axiosInstance.post("/api/sign-in/", {
         email,
         password,
-        next
+        next,
       });
       if (r.data.ok && r.data.shouldRedirect) {
         window.location.href = r.data.next;
@@ -122,9 +122,9 @@ const SignInInner = (props: Props): JSX.Element => {
 
 const Form = styled(FormContainer, {
   width: "320px",
-  ...fullOnPalm
+  ...fullOnPalm,
 });
 
 export const SignIn = connect((state: { base: { next: string } }) => ({
-  next: state.base.next
+  next: state.base.next,
 }))(SignInInner);

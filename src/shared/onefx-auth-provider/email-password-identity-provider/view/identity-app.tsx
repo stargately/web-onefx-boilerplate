@@ -65,7 +65,7 @@ const RootStyle = styled("div", () => ({
   ...fonts.body,
   backgroundColor: colors.black10,
   color: colors.text01,
-  textRendering: "optimizeLegibility"
+  textRendering: "optimizeLegibility",
 }));
 
 function EmailTokenInvalid(): JSX.Element {
@@ -86,5 +86,5 @@ function EmailTokenInvalid(): JSX.Element {
 const Alert = styled("div", {
   padding: "16px 0 16px 0",
   backgroundColor: colors.error,
-  color: colors.white
+  color: colors.white,
 });

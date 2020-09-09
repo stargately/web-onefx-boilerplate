@@ -45,5 +45,5 @@ const RootStyle = styled("div", ({ $theme }) => ({
   ...fonts.body,
   backgroundColor: $theme?.colors.black10,
   color: $theme?.colors.text01,
-  textRendering: "optimizeLegibility"
+  textRendering: "optimizeLegibility",
 }));

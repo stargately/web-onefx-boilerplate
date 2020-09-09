@@ -7,7 +7,7 @@ import { TOP_BAR_HEIGHT } from "./top-bar";
 export const FOOTER_HEIGHT = 89;
 
 export const FOOTER_ABOVE = {
-  minHeight: `calc(100vh - ${FOOTER_HEIGHT + TOP_BAR_HEIGHT}px)`
+  minHeight: `calc(100vh - ${FOOTER_HEIGHT + TOP_BAR_HEIGHT}px)`,
 };
 
 export function Footer(): JSX.Element {
@@ -29,5 +29,5 @@ const Align = styled("div", ({ $theme }) => ({
   paddingBottom: "32px",
   minHeight: `${FOOTER_HEIGHT}px`,
   backgroundColor: $theme.colors.nav02,
-  color: $theme?.colors.textReverse
+  color: $theme?.colors.textReverse,
 }));

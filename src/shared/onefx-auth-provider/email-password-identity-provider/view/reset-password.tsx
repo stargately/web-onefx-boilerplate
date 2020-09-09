@@ -38,7 +38,7 @@ const ResetPassword = (props: Props): JSX.Element => {
       return;
     }
     const { newPassword = "", password = "", token = "" } = serialize(el, {
-      hash: true
+      hash: true,
     }) as { newPassword: string; password: string; token: string };
     setDisableButton(true);
     setValueNewPassword(newPassword);
@@ -47,9 +47,9 @@ const ResetPassword = (props: Props): JSX.Element => {
       .post("/api/reset-password/", {
         password,
         newPassword,
-        token
+        token,
       })
-      .then(r => {
+      .then((r) => {
         if (r.data.ok) {
           setMessage(t("auth/reset_password.success"));
           setErrorPassword("");
@@ -78,7 +78,7 @@ const ResetPassword = (props: Props): JSX.Element => {
           }
         }
       })
-      .catch(err => {
+      .catch((err) => {
         window.console.error(`failed to post reset-password: ${err}`);
       });
   };
@@ -157,18 +157,18 @@ const ResetPassword = (props: Props): JSX.Element => {
 
 export const ResetPasswordContainer = connect(
   (state: { base: { token: string } }) => ({
-    token: state.base.token
+    token: state.base.token,
   })
 )(ResetPassword);
 
 const Form = styled(FormContainer, {
   width: "320px",
-  ...fullOnPalm
+  ...fullOnPalm,
 });
 
 const Info = styled("div", {
   padding: "16px",
   width: "100%",
   backgroundColor: colors.success,
-  color: colors.white
+  color: colors.white,
 });

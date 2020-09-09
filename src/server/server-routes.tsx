@@ -22,7 +22,7 @@ export function setServerRoutes(server: MyServer): void {
     ctx.body = await apolloSSR(ctx, {
       VDom: <AppContainer />,
       reducer: noopReducer,
-      clientScript: "/main.js"
+      clientScript: "/main.js",
     });
   });
 }

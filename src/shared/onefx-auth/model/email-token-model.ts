@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import uuidV4 from "uuid/v4";
+import { v4 as uuidV4 } from "uuid";
 
 const { Schema } = mongoose;
 
@@ -35,15 +35,15 @@ export class EmailTokenModel {
         expireAt: {
           type: Date,
           default: () => new Date(getExpireEpochMins(expMins)),
-          index: { expires: `${expMins}m` }
+          index: { expires: `${expMins}m` },
         },
 
         createAt: { type: Date, default: Date.now },
-        updateAt: { type: Date, default: Date.now }
+        updateAt: { type: Date, default: Date.now },
       },
       {
         timestamps: { createdAt: "createAt", updatedAt: "updateAt" },
-        id: true
+        id: true,
       }
     );
 

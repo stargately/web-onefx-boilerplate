@@ -13,7 +13,7 @@ export const TextInput = styled(
     width: "100% !important",
     border: `1px solid ${props.error ? colors.error : colors.black20}`,
     ":focus": {
-      border: `1px solid ${props.error ? colors.error : colors.primary}`
+      border: `1px solid ${props.error ? colors.error : colors.primary}`,
     },
     ...fonts.textBox,
     lineHeight: "24px !important",
@@ -21,6 +21,6 @@ export const TextInput = styled(
     outline: "none",
     transition: "all 200ms ease",
     boxSizing: "border-box",
-    backgroundClip: "padding-box"
+    backgroundClip: "padding-box",
   })
 );

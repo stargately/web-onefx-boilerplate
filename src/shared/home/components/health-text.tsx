@@ -13,7 +13,7 @@ type Props = {
 export const HealthText: React.FC<Props> = ({
   loading,
   health,
-  error
+  error,
 }: Props) => {
   if (loading) {
     return (

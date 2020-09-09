@@ -37,7 +37,7 @@ const SignUpInner = (props: Props): JSX.Element => {
     e.preventDefault();
     const el = window.document.getElementById(LOGIN_FORM) as HTMLFormElement;
     const { email = "", password = "", next = "" } = serialize(el, {
-      hash: true
+      hash: true,
     }) as {
       email: string;
       password: string;
@@ -50,7 +50,7 @@ const SignUpInner = (props: Props): JSX.Element => {
       const r = await axiosInstance.post("/api/sign-up/", {
         email,
         password,
-        next
+        next,
       });
       if (r.data.ok && r.data.shouldRedirect) {
         window.location.href = r.data.next;
@@ -111,8 +111,8 @@ const SignUpInner = (props: Props): JSX.Element => {
               dangerouslySetInnerHTML={{
                 __html: t("auth/consent", {
                   tosUrl: "/legal/terms-of-service",
-                  policyUrl: "/legal/privacy-policy"
-                })
+                  policyUrl: "/legal/privacy-policy",
+                }),
               }}
               style={{ fontSize: "10px" }}
             />
@@ -132,14 +132,14 @@ const SignUpInner = (props: Props): JSX.Element => {
 export const StyleLink = styled(Link, {
   ...colorHover(colors.primary),
   textDecoration: "none",
-  transition
+  transition,
 });
 
 const Form = styled(FormContainer, {
   width: "320px",
-  ...fullOnPalm
+  ...fullOnPalm,
 });
 
 export const SignUp = connect((state: { base: { next: string } }) => ({
-  next: state.base.next
+  next: state.base.next,
 }))(SignUpInner);
