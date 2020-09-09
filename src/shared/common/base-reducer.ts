@@ -1,6 +1,9 @@
-import { defaultThemeCode, ThemeCode } from "./styles/theme-provider";
+import {
+  defaultThemeCode,
+  ThemeCode,
+} from "onefx/lib/styletron-react/theme-provider";
 
-const storeTheme = (newTheme: "light" | "dark") => {
+const storeTheme = (newTheme: ThemeCode) => {
   try {
     localStorage.setItem("theme", newTheme);
   } catch (err) {
@@ -11,7 +14,7 @@ const storeTheme = (newTheme: "light" | "dark") => {
 
 export function baseReducer(
   initialState: { themeCode?: ThemeCode } = { themeCode: defaultThemeCode },
-  action: { type: string; payload: "light" | "dark" }
+  action: { type: string; payload: ThemeCode }
 ): { themeCode?: ThemeCode } {
   if (action.type === "SET_THEME") {
     const themeCode = action.payload === "light" ? "light" : "dark";
@@ -20,7 +23,7 @@ export function baseReducer(
     storeTheme(themeCode);
     return {
       ...initialState,
-      themeCode
+      themeCode,
     };
   }
   if (!initialState.themeCode) {
@@ -30,10 +33,10 @@ export function baseReducer(
 }
 
 export function actionSetTheme(
-  themeCode: "light" | "dark"
-): { type: string; payload: "light" | "dark" } {
+  themeCode: ThemeCode
+): { type: string; payload: ThemeCode } {
   return {
     type: "SET_THEME",
-    payload: themeCode
+    payload: themeCode,
   };
 }

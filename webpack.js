@@ -7,6 +7,7 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 const process = require("global/process");
 const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 const ANALYZE = false;
 const PROD = process.env.NODE_ENV === "production";
@@ -19,57 +20,59 @@ module.exports = {
       Object.assign(entries, {
         [entry
           .replace("./src/client/javascripts/", "")
-          .replace(/(\.ts|\.tsx)$/, "")]: entry
+          .replace(/(\.ts|\.tsx)$/, "")]: entry,
       }),
     {}
   ),
   output: {
     filename: PROD ? "[name]-[chunkhash].js" : "[name].js",
-    path: path.resolve(__dirname, OUTPUT_DIR)
+    path: path.resolve(__dirname, OUTPUT_DIR),
   },
   ...(PROD ? {} : { devtool: "source-map" }),
   module: {
     rules: [
-      { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
-      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
       {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
-        use: {
-          loader: "babel-loader",
-          options: require("./babel.config")
-        }
-      }
-    ]
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: "ts-loader",
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
+      },
+    ],
   },
   resolve: {
+    plugins: [new TsconfigPathsPlugin({ configFile: "tsconfig.json" })],
     // options for resolving module requests
     // (does not apply to resolving to loaders)
     modules: ["node_modules", path.resolve(__dirname, "src")],
     // directories where to look for modules
     extensions: [".js", ".json", ".jsx", ".ts", ".tsx"],
     // extensions that are used
-    alias: {}
+    alias: {},
     /* Alternative alias syntax (click to show) */
     /* Advanced resolve configuration (click to show) */
   },
   plugins: [
     new ManifestPlugin({
       basePath: "/",
-      fileName: "asset-manifest.json"
+      fileName: "asset-manifest.json",
     }),
     ...(ANALYZE ? [new BundleAnalyzerPlugin()] : []),
     ...(PROD
       ? [
           new UglifyJSPlugin({
             cache: true,
-            parallel: true
+            parallel: true,
           }),
           new webpack.DefinePlugin({
             "process.env": {
-              NODE_ENV: JSON.stringify("production")
-            }
-          })
+              NODE_ENV: JSON.stringify("production"),
+            },
+          }),
         ]
       : []),
     new SWPrecacheWebpackPlugin({
@@ -85,8 +88,8 @@ module.exports = {
       dynamicUrlToDependencies: {
         "/index.html": glob.sync(path.resolve(`${OUTPUT_DIR}/**/*.js`)),
         "/notes": glob.sync(path.resolve(`${OUTPUT_DIR}/**/*.js`)),
-        "/notes/": glob.sync(path.resolve(`${OUTPUT_DIR}/**/*.js`))
-      }
-    })
-  ]
+        "/notes/": glob.sync(path.resolve(`${OUTPUT_DIR}/**/*.js`)),
+      },
+    }),
+  ],
 };

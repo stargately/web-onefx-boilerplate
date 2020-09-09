@@ -2,12 +2,12 @@ import { Server } from "onefx";
 import { logger } from "onefx/lib/integrated-gateways/logger";
 import { Context, Dict } from "onefx/lib/types";
 import koa from "koa";
-import { MyServer } from "../../server/start-server";
+import { MyServer } from "@/server/start-server";
 import {
   AuthConfig,
   allowedLoginNext,
   allowedLogoutNext,
-  authConfig
+  authConfig,
 } from "./auth-config";
 import { Mailgun } from "./mailgun";
 import { EmailTokenModel } from "./model/email-token-model";
@@ -36,16 +36,16 @@ export class OnefxAuth {
     this.jwt = new JwtModel({
       mongoose,
       secret: this.config.secret,
-      expDays: this.config.ttl
+      expDays: this.config.ttl,
     });
     this.emailToken = new EmailTokenModel({
       mongoose,
-      expMins: config.emailTokenTtl
+      expMins: config.emailTokenTtl,
     });
     this.mailgun = new Mailgun(config.mailgun);
     this.config.cookieOpts = {
       ...this.config.cookieOpts,
-      expires: new Date(getExpireEpochDays(this.config.ttl))
+      expires: new Date(getExpireEpochDays(this.config.ttl)),
     };
   }
 
@@ -63,7 +63,7 @@ export class OnefxAuth {
       from: `"${t("meta.title")}" <noreply@${this.config.mailgun.domain}>`,
       to: email,
       subject: t("auth/forgot_password.email_title"),
-      html: emailContent
+      html: emailContent,
     });
   }
 

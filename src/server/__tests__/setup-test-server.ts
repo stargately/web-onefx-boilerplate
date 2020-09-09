@@ -1,6 +1,6 @@
 import test from "ava";
 import { Server } from "onefx";
-import { startServer } from "../start-server";
+import { startServer } from "@/server";
 
 let server: Server;
 
@@ -9,7 +9,7 @@ export function setupTestServer(): void {
     server = await startServer();
   });
 
-  test.after.cb("Teardown server", t => {
+  test.after.cb("Teardown server", (t) => {
     server.close(t.end);
   });
 }

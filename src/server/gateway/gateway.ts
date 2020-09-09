@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { MyServer } from "../start-server";
+import { MyServer } from "@/server/start-server";
 
 export type Gateways = {
   mongoose: mongoose.Mongoose;
@@ -13,7 +13,7 @@ export function setGateways(server: MyServer): void {
       "cannot connect to the database without gateways.mongoose.uri provided in configuration"
     );
   } else {
-    mongoose.connect(server.config.gateways.mongoose.uri).catch(err => {
+    mongoose.connect(server.config.gateways.mongoose.uri).catch((err) => {
       server.logger.warn(`failed to connect mongoose: ${err}`);
     });
     server.gateways.mongoose = mongoose;
