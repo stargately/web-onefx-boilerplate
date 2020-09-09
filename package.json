@@ -143,7 +143,7 @@
     "ava": "3.11.1",
     "cache-loader": "4.1.0",
     "del": "5.1.0",
-    "eslint": "7.7.0",
+    "eslint": "7.8.1",
     "eslint-config-airbnb-base": "14.2.0",
     "eslint-config-prettier": "6.11.0",
     "eslint-plugin-import": "2.22.0",
