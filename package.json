@@ -159,7 +159,7 @@
     "plugin-error": "1.0.1",
     "prettier": "2.1.1",
     "pretty-quick": "3.0.0",
-    "source-map-loader": "0.2.4",
+    "source-map-loader": "1.1.0",
     "stylelint": "13.7.0",
     "stylelint-config-prettier": "8.0.2",
     "stylelint-config-recess-order": "2.1.0",
