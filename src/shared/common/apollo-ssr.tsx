@@ -1,5 +1,5 @@
 import { InMemoryCache } from "apollo-cache-inmemory";
-import { ApolloClient } from "apollo-client";
+import { ApolloClient } from "@apollo/client";
 import { ApolloLink } from "apollo-link";
 import { createHttpLink } from "apollo-link-http";
 import ApolloLinkTimeout from "apollo-link-timeout";
@@ -44,13 +44,13 @@ export async function apolloSSR(
     fetch,
     credentials: "same-origin",
     headers: {
-      cookie: ctx.get("Cookie")
-    }
+      cookie: ctx.get("Cookie"),
+    },
   });
   const apolloClient = new ApolloClient({
     ssrMode: true,
     link: ApolloLink.from([timeoutLink, httpLink]),
-    cache: new InMemoryCache()
+    cache: new InMemoryCache(),
   });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -87,6 +87,6 @@ export async function apolloSSR(
       </ApolloProvider>
     ),
     clientScript,
-    reducer
+    reducer,
   });
 }
