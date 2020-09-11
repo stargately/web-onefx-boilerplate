@@ -3,7 +3,6 @@ export default `
 <html>
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:; connect-src 'self'">
     <title>500 Internal Server Error</title>
     <style type="text/css" media="screen">
     </style>
@@ -19,7 +18,7 @@ export default `
           shortly.</p>
         </div>
         <div class="col-5 col-offset-1 text-center">
-          <img src="./500 Internal Server Error - Airbnb_files/404-Airbnb_final-d652ff855b1335dd3eedc3baa8dc8b69.gif" width="313" height="428" alt="Girl has dropped her ice cream.">
+          <img src="/error-page.gif" width="313" height="428" alt="Girl has dropped her ice cream.">
         </div>
       </div>
     </div>
