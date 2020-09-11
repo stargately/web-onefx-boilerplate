@@ -63,6 +63,24 @@ function HeadInner({
         { property: "twitter:card", content: "summary" },
       ]}
       title={`${t("meta.title")} - ${t("meta.description")}`}
+      noscript={[
+        {
+          innerHTML: `
+            <style>
+              #root {
+                display: none;
+              }
+              .no-script {
+                padding: 0.75rem;
+                text-align: center;
+              }
+            </style>
+          `,
+        },
+        {
+          innerHTML: `<p class="no-script">${t("page.noscript")}</p>`,
+        },
+      ]}
     >
       <html lang={locale} />
       <script type={"text/javascript"} nonce={nonce}>
