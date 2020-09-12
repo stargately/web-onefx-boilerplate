@@ -6,7 +6,7 @@ import ApolloLinkTimeout from "apollo-link-timeout";
 import config from "config";
 import fetch from "isomorphic-unfetch";
 import { initAssetURL } from "onefx/lib/asset-url";
-import { logger } from "onefx/lib/integrated-gateways/logger";
+// import { logger } from "onefx/lib/integrated-gateways/logger";
 import { configureStore } from "onefx/lib/iso-react-render/root/configure-store";
 import { noopReducer } from "onefx/lib/iso-react-render/root/root-reducer";
 import { RootServer } from "onefx/lib/iso-react-render/root/root-server";
@@ -19,6 +19,7 @@ import { Reducer } from "redux";
 // @ts-ignore
 import * as engine from "styletron-engine-atomic";
 import { ThemeProvider } from "./styles/theme-provider";
+import errorPage from "../error-page";
 
 const ROUTE_PREFIX = config.get("server.routePrefix") || "";
 const timeoutLink = new ApolloLinkTimeout(100);
@@ -44,13 +45,13 @@ export async function apolloSSR(
     fetch,
     credentials: "same-origin",
     headers: {
-      cookie: ctx.get("Cookie")
-    }
+      cookie: ctx.get("Cookie"),
+    },
   });
   const apolloClient = new ApolloClient({
     ssrMode: true,
     link: ApolloLink.from([timeoutLink, httpLink]),
-    cache: new InMemoryCache()
+    cache: new InMemoryCache(),
   });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -78,7 +79,8 @@ export async function apolloSSR(
     const apolloState = apolloClient.extract();
     ctx.setState("apolloState", apolloState);
   } catch (e) {
-    logger.error(`failed to hydrate apollo SSR: ${e}`);
+    return errorPage;
+    // logger.error(`failed to hydrate apollo SSR: ${e}`);
   }
   return ctx.isoReactRender({
     VDom: (
@@ -87,6 +89,6 @@ export async function apolloSSR(
       </ApolloProvider>
     ),
     clientScript,
-    reducer
+    reducer,
   });
 }
