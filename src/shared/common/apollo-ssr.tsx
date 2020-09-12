@@ -1,7 +1,4 @@
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { ApolloClient } from "apollo-client";
-import { ApolloLink } from "apollo-link";
-import { createHttpLink } from "apollo-link-http";
+import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
 import ApolloLinkTimeout from "apollo-link-timeout";
 import config from "config";
 import fetch from "isomorphic-unfetch";
@@ -50,7 +47,7 @@ export async function apolloSSR(
   });
   const apolloClient = new ApolloClient({
     ssrMode: true,
-    link: ApolloLink.from([timeoutLink, httpLink]),
+    link: timeoutLink.concat(httpLink),
     cache: new InMemoryCache(),
   });
 
