@@ -17,23 +17,23 @@ const ExampleButton = styled("button", ({ $theme }) => {
     fontSize: $theme.sizing[3],
     padding: $theme.sizing[1],
     borderRadius: $theme.sizing[1],
-    outline: "none"
+    outline: "none",
   };
 });
 
 const StyledContent = styled(Layout.Content, ({ $theme }) => ({
   backgroundColor: $theme.colors.white,
-  padding: $theme.sizing[5]
+  padding: $theme.sizing[5],
 }));
 
 export const Home = connect(
   (state: { base: { themeCode: "dark" | "light" } }) => ({
-    themeCode: state.base.themeCode
+    themeCode: state.base.themeCode,
   }),
-  dispatch => ({
+  (dispatch) => ({
     actionSetTheme: (themeCode: "dark" | "light") => {
       dispatch(actionSetTheme(themeCode));
-    }
+    },
   })
 )(
   (props: {
@@ -92,10 +92,10 @@ const OneFxIcon = styled("img", {
   overflow: "hidden",
   boxShadow: "0 5px 15px 0px rgba(0,0,0,0.6)",
   transform: "translate-y(0px)",
-  animation: "float 6s ease-in-out infinite"
+  animation: "float 6s ease-in-out infinite",
 });
 
 const Title = styled("h1", {
   color: colors.secondary,
-  margin: "16px"
+  margin: "16px",
 });

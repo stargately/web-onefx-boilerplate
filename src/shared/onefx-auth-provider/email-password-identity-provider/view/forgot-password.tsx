@@ -17,7 +17,7 @@ const FORGOT_PASSWORD_FORM = "forgot_password";
 
 const Form = styled(FormContainer, {
   width: "320px",
-  ...fullOnPalm
+  ...fullOnPalm,
 });
 
 const ForgotPassword = (): JSX.Element => {
@@ -42,9 +42,9 @@ const ForgotPassword = (): JSX.Element => {
     setValueEmail(email);
     axiosInstance
       .post("/api/forgot-password/", {
-        email
+        email,
       })
-      .then(r => {
+      .then((r) => {
         if (r.data.ok) {
           setSent(true);
         } else if (r.data.error) {
@@ -57,7 +57,7 @@ const ForgotPassword = (): JSX.Element => {
           }
         }
       })
-      .catch(err => {
+      .catch((err) => {
         window.console.error(`failed to post forgot password: ${err}`);
       });
   };

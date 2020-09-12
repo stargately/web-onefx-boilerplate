@@ -18,6 +18,6 @@ clientReactRender({
   ),
   reducer: combineReducers({
     base: baseReducer,
-    apolloState: noopReducer
-  })
+    apolloState: noopReducer,
+  }),
 });

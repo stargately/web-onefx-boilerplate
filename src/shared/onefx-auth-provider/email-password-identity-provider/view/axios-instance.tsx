@@ -10,5 +10,5 @@ const routePrefix = state && state.base.routePrefix;
 export const axiosInstance = axios.create({
   timeout: 10000,
   baseURL: routePrefix,
-  headers: { "x-csrf-token": csrfToken }
+  headers: { "x-csrf-token": csrfToken },
 });

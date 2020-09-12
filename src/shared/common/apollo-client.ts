@@ -1,6 +1,4 @@
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { ApolloClient } from "apollo-client";
-import { HttpLink } from "apollo-link-http";
+import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 import isBrowser from "is-browser";
 import fetch from "isomorphic-unfetch";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -18,7 +16,7 @@ export const apolloClient = new ApolloClient({
     uri: apiGatewayUrl,
     fetch,
     credentials: "same-origin",
-    headers: { "x-csrf-token": csrfToken }
+    headers: { "x-csrf-token": csrfToken },
   }),
-  cache: new InMemoryCache().restore(apolloState)
+  cache: new InMemoryCache().restore(apolloState),
 });

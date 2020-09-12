@@ -1,6 +1,6 @@
 import {
   defaultThemeCode,
-  ThemeCode
+  ThemeCode,
 } from "onefx/lib/styletron-react/theme-provider";
 
 const storeTheme = (newTheme: ThemeCode) => {
@@ -23,7 +23,7 @@ export function baseReducer(
     storeTheme(themeCode);
     return {
       ...initialState,
-      themeCode
+      themeCode,
     };
   }
   if (!initialState.themeCode) {
@@ -37,6 +37,6 @@ export function actionSetTheme(
 ): { type: string; payload: ThemeCode } {
   return {
     type: "SET_THEME",
-    payload: themeCode
+    payload: themeCode,
   };
 }

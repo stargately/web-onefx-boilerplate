@@ -20,8 +20,8 @@ export function emailValidator(): Handler {
         ok: false,
         error: {
           code: "auth/invalid-email",
-          message: ctx.t("auth/invalid-email")
-        }
+          message: ctx.t("auth/invalid-email"),
+        },
       };
       return;
     }
@@ -40,8 +40,8 @@ export function passwordValidator(): Handler {
         ok: false,
         error: {
           code: "auth/weak-password",
-          message: ctx.t("auth/weak-password")
-        }
+          message: ctx.t("auth/weak-password"),
+        },
       };
       return;
     }
@@ -55,7 +55,7 @@ function isoRender(ctx: Context): void {
   ctx.body = ctx.isoReactRender({
     VDom: <IdentityAppContainer />,
     reducer: noopReducer,
-    clientScript: "/identity-provider-main.js"
+    clientScript: "/identity-provider-main.js",
   });
 }
 
@@ -136,7 +136,7 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
         const user = await server.auth.user.newAndSave({
           email,
           password,
-          ip: ctx.headers["x-forwarded-for"]
+          ip: ctx.headers["x-forwarded-for"],
         });
         ctx.state.userId = user._id;
         await next();
@@ -146,8 +146,8 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
             ok: false,
             error: {
               code: "auth/email-already-in-use",
-              message: ctx.t("auth/email-already-in-use")
-            }
+              message: ctx.t("auth/email-already-in-use"),
+            },
           };
         }
       }
@@ -167,8 +167,8 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
           ok: false,
           error: {
             code: "auth/user-not-found",
-            message: ctx.t("auth/user-not-found")
-          }
+            message: ctx.t("auth/user-not-found"),
+          },
         };
         return;
       }
@@ -181,8 +181,8 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
           ok: false,
           error: {
             code: "auth/wrong-password",
-            message: ctx.t("auth/wrong-password")
-          }
+            message: ctx.t("auth/wrong-password"),
+          },
         };
         return;
       }
@@ -191,8 +191,8 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
           ok: false,
           error: {
             code: "auth/user-disabled",
-            message: ctx.t("auth/user-disabled")
-          }
+            message: ctx.t("auth/user-disabled"),
+          },
         };
         return;
       }
@@ -215,7 +215,7 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
       }
 
       ctx.response.body = {
-        ok: true
+        ok: true,
       };
     }
   );
@@ -242,8 +242,8 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
             ok: false,
             error: {
               code: "auth/wrong-password",
-              message: ctx.t("auth/wrong-password")
-            }
+              message: ctx.t("auth/wrong-password"),
+            },
           };
           return;
         }
@@ -254,8 +254,8 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
           ok: false,
           error: {
             code: "auth/weak-password",
-            message: ctx.t("auth/weak-password")
-          }
+            message: ctx.t("auth/weak-password"),
+          },
         };
         return;
       }

@@ -3,32 +3,32 @@ import { connect } from "react-redux";
 import {
   ThemeProvider as ExternalProvider,
   ThemeCode,
-  Theme
+  Theme,
 } from "onefx/lib/styletron-react";
 import { actionSetTheme as setTheme } from "../base-reducer";
 import { colors } from "./style-color";
 
 export const THEME: Theme = {
   colors,
-  sizing: ["2px", "6px", "10px", "16px", "24px", "32px"]
+  sizing: ["2px", "6px", "10px", "16px", "24px", "32px"],
 };
 
 const THEME_DARK: Theme = THEME; // we actually depends on the main.css for the colors.
 
 export const ThemeProvider = connect(
   (state: { base: { themeCode?: ThemeCode } }) => ({
-    themeCode: state.base.themeCode
+    themeCode: state.base.themeCode,
   }),
-  dispatch => ({
+  (dispatch) => ({
     actionSetTheme: (t: "dark" | "light") => {
       return dispatch(setTheme(t));
-    }
+    },
   })
 )(
   ({
     children,
     themeCode,
-    actionSetTheme
+    actionSetTheme,
   }: {
     themeCode?: ThemeCode;
     children: React.ReactNode;

@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import {
   btnStyle,
   disabledBtn,
-  secondaryBtnColor
+  secondaryBtnColor,
 } from "./styles/style-button";
 
 type Props = {
@@ -26,7 +26,7 @@ const Button = ({
   target,
   width,
   id,
-  onClick
+  onClick,
 }: Props): JSX.Element => {
   const wrapper = useRef(null);
 
@@ -34,19 +34,19 @@ const Button = ({
   if (secondary) {
     style = {
       ...style,
-      ...secondaryBtnColor
+      ...secondaryBtnColor,
     };
   }
   if (disabled) {
     style = {
       ...style,
-      ...disabledBtn
+      ...disabledBtn,
     };
   }
   if (width) {
     style = {
       ...style,
-      width
+      width,
     };
   }
 
