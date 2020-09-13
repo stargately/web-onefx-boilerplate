@@ -7,11 +7,13 @@ type TNewUser = {
   password: string;
   email: string;
   ip: string;
+  locale?: string;
 };
 
 export type TUser = mongoose.Document &
   TNewUser & {
     avatar: string;
+    locale: string;
 
     isBlocked: boolean;
 
@@ -28,15 +30,16 @@ export class UserModel {
         password: { type: String },
         email: { type: String },
         ip: { type: String },
+        locale: { type: String },
 
         isBlocked: { type: Boolean, default: false },
 
         createAt: { type: Date, default: Date.now },
-        updateAt: { type: Date, default: Date.now }
+        updateAt: { type: Date, default: Date.now },
       },
       {
         timestamps: { createdAt: "createAt", updatedAt: "updateAt" },
-        id: true
+        id: true,
       }
     );
 
@@ -56,7 +59,7 @@ export class UserModel {
   public async newAndSave(user: TNewUser): Promise<TUser> {
     const hashed = {
       ...user,
-      password: await tools.bhash(user.password)
+      password: await tools.bhash(user.password),
     };
     return new this.Model(hashed).save();
   }
@@ -68,6 +71,18 @@ export class UserModel {
     return this.Model.update(
       { _id: userId },
       { password: await tools.bhash(password) }
+    );
+  }
+
+  public async updateLocale(
+    userId: string,
+    locale: string
+  ): Promise<TUser | null> {
+    return this.Model.update(
+      { _id: userId },
+      {
+        locale,
+      }
     );
   }
 

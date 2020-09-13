@@ -132,10 +132,12 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
     passwordValidator(),
     async (ctx: Context, next: koa.Next) => {
       const { email, password } = ctx.request.body;
+      const locale = ctx.i18n.getLocale();
       try {
         const user = await server.auth.user.newAndSave({
           email,
           password,
+          locale,
           ip: ctx.headers["x-forwarded-for"],
         });
         ctx.state.userId = user._id;
@@ -199,6 +201,7 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
       ctx.state.userId = user._id;
       await next();
     },
+    server.auth.recordUserLocale,
     server.auth.postAuthentication
   );
 
