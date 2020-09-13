@@ -1,8 +1,16 @@
-meta.title: Boilerplate
 meta.description: Description
-topbar.brand: OneFx
-topbar.home: HOME
+
+meta.title: Boilerplate
+
 not_found.bar: Not Found
-not_found.title: Oops!
+
 not_found.info: We cannot find the page for you...
-page.noscript: We’re sorry, some parts of the website don’t work properly without JavaScript enabled.
+
+not_found.title: Oops!
+
+page.noscript: 'We’re sorry, some parts of the website don’t work properly without JavaScript enabled.'
+
+topbar.brand: OneFx
+
+topbar.home: HOME
+

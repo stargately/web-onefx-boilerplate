@@ -20,6 +20,7 @@
     "size": "ls -lh dist/",
     "bp": "npm run build-production && npm run size",
     "kill": "lsof -n -i4TCP:5000 | grep LISTEN | awk '{ print $2 }' | xargs kill",
+    "format-i18n": "onefx-format-translations translations",
     "schema:generate": "apollo client:codegen --no-addTypename --target=typescript --localSchemaFile=src/api-gateway/api-gateway.graphql"
   },
   "eslintConfig": {
@@ -240,7 +241,7 @@
     "mongoose": "5.10.5",
     "nodemailer": "6.4.11",
     "nodemailer-mailgun-transport": "2.0.0",
-    "onefx": "2.2.2",
+    "onefx": "2.3.6",
     "process": "0.11.10",
     "react": "16.13.1",
     "react-apollo": "4.0.0-beta.1",
