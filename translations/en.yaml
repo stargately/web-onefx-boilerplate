@@ -5,4 +5,8 @@ topbar.home: HOME
 not_found.bar: Not Found
 not_found.title: Oops!
 not_found.info: We cannot find the page for you...
-page.noscript: We’re sorry, some parts of the website don’t work properly without JavaScript enabled.
+page.noscript: >-
+  We’re sorry, some parts of the website don’t work properly without JavaScript
+  enabled.
+auth/ratelimited: Too many requests. Please try again later.
+rate_limit: rate_limit
