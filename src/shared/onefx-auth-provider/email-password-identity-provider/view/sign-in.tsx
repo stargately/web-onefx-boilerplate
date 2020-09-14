@@ -76,6 +76,15 @@ const SignInInner = (props: Props): JSX.Element => {
       }
     } catch (err) {
       window.console.error(`failed to post sign-in: ${err}`);
+      let errMsg = err.message;
+      if (err.response?.data?.error?.code === "RATE_LIMIT") {
+        errMsg = t("auth/ratelimited");
+      }
+      setValueEmail(email);
+      setValuePassword(valuePassword);
+      setErrorEmail(errMsg);
+      setErrorPassword("");
+      setDisableButton(false);
     }
   };
 
