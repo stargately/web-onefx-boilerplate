@@ -9,7 +9,8 @@ import { noopReducer } from "onefx/lib/iso-react-render/root/root-reducer";
 import { RootServer } from "onefx/lib/iso-react-render/root/root-server";
 import { Context, ViewState } from "onefx/lib/types";
 import React from "react";
-import { ApolloProvider, getDataFromTree } from "react-apollo";
+import { ApolloProvider } from "@apollo/client";
+import { getDataFromTree } from "@apollo/client/react/ssr";
 
 import { Reducer } from "redux";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
