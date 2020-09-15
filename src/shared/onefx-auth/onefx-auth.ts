@@ -125,6 +125,20 @@ export class OnefxAuth {
     ctx.redirect(nextUrl);
   };
 
+  public recordUserLocale = async (
+    ctx: Context,
+    next: koa.Next
+  ): Promise<void> => {
+    if (!ctx.state.userId) {
+      return;
+    }
+    // https://github.com/jeresig/i18n-node-2#getlocale defaultLocale='en'
+    const locale = ctx.i18n.getLocale();
+    logger.debug(`user ${ctx.state.userId} locale: ${locale}`);
+    this.user.updateLocale(ctx.state.userId, locale);
+    await next();
+  };
+
   public tokenFromCtx = (ctx: Context): string => {
     let token = ctx.cookies.get(this.config.cookieName, this.config.cookieOpts);
     if (!token && ctx.headers.authorization) {

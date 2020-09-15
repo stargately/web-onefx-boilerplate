@@ -1,9 +1,10 @@
+import { MyServer } from "@/server/start-server";
+import koa from "koa";
 import { noopReducer } from "onefx/lib/iso-react-render/root/root-reducer";
+import { createRateLimiter } from "onefx/lib/middleware/rate-limiter-middleware";
 import { Context } from "onefx/lib/types";
 import * as React from "react";
 import validator from "validator";
-import koa from "koa";
-import { MyServer } from "@/server/start-server";
 import { IdentityAppContainer } from "./view/identity-app-container";
 
 const PASSWORD_MIN_LENGTH = 8;
@@ -132,10 +133,12 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
     passwordValidator(),
     async (ctx: Context, next: koa.Next) => {
       const { email, password } = ctx.request.body;
+      const locale = ctx.i18n.getLocale();
       try {
         const user = await server.auth.user.newAndSave({
           email,
           password,
+          locale,
           ip: ctx.headers["x-forwarded-for"],
         });
         ctx.state.userId = user._id;
@@ -159,6 +162,16 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
     "api-sign-in",
     "/api/sign-in/",
     emailValidator(),
+    createRateLimiter(server, {
+      name: "api-sign-in",
+      generateKey(ctx) {
+        return ctx.request.ip;
+      },
+      // interval: Time Type - how long should records of requests be kept in memory. Defaults to 60000 (1 minute).
+      interval: 60000,
+      // max number of connections during interval milliseconds before sending a 429 response code. Defaults to 5. Set to 0 to disable.
+      max: 5,
+    }),
     async (ctx: Context, next: koa.Next) => {
       const { email, password } = ctx.request.body;
       const user = await server.auth.user.getByMail(email);
@@ -199,6 +212,7 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
       ctx.state.userId = user._id;
       await next();
     },
+    server.auth.recordUserLocale,
     server.auth.postAuthentication
   );
 

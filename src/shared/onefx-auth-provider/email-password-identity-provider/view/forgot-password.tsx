@@ -1,7 +1,7 @@
 import Button from "antd/lib/button";
 import serialize from "form-serialize";
 import { t } from "onefx/lib/iso-i18n";
-import Helmet from "onefx/lib/react-helmet";
+import { Helmet } from "onefx/lib/react-helmet";
 import { styled } from "onefx/lib/styletron-react";
 import React, { useRef, useState } from "react";
 import { Flex } from "@/shared/common/flex";

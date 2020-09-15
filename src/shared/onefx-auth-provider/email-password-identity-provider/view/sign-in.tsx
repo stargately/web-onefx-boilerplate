@@ -1,7 +1,7 @@
 import Button from "antd/lib/button";
 import serialize from "form-serialize";
 import { t } from "onefx/lib/iso-i18n";
-import Helmet from "onefx/lib/react-helmet";
+import { Helmet } from "onefx/lib/react-helmet";
 import { styled } from "onefx/lib/styletron-react";
 import React, { useState } from "react";
 import { connect } from "react-redux";
@@ -76,6 +76,15 @@ const SignInInner = (props: Props): JSX.Element => {
       }
     } catch (err) {
       window.console.error(`failed to post sign-in: ${err}`);
+      let errMsg = err.message;
+      if (err.response?.data?.error?.code === "RATE_LIMIT") {
+        errMsg = t("auth/ratelimited");
+      }
+      setValueEmail(email);
+      setValuePassword(valuePassword);
+      setErrorEmail(errMsg);
+      setErrorPassword("");
+      setDisableButton(false);
     }
   };
 
