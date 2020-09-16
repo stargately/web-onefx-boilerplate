@@ -1,12 +1,17 @@
-meta.title: Boilerplate
-meta.description: Description
-topbar.brand: OneFx
-topbar.home: HOME
-not_found.bar: Not Found
-not_found.title: Oops!
-not_found.info: We cannot find the page for you...
-page.noscript: >-
-  We’re sorry, some parts of the website don’t work properly without JavaScript
-  enabled.
 auth/ratelimited: Too many requests. Please try again later.
-rate_limit: rate_limit
+
+meta.description: Description
+
+meta.title: Boilerplate
+
+not_found.bar: Not Found
+
+not_found.info: We cannot find the page for you...
+
+not_found.title: Oops!
+
+page.noscript: 'We’re sorry, some parts of the website don’t work properly without JavaScript enabled.'
+
+topbar.brand: OneFx
+
+topbar.home: HOME

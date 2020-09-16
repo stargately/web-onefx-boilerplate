@@ -13,13 +13,14 @@
     "build-production": "NODE_ENV=production gulp build",
     "build-static-html": "NODE_ENV=production ts-node ./src/server/generate-static-html.ts",
     "server": "node server",
-    "lint": "pretty-quick --staged && eslint src --fix --ext .js,.tsx,.ts --quiet",
+    "lint": "npm run format-i18n && pretty-quick --staged && eslint src --fix --ext .js,.tsx,.ts --quiet",
     "lint:css": "stylelint 'css/*.css' 'src/**/*.tsx' --fix",
     "postinstall": "npm run bp && npm run schema:generate",
     "cover": "cross-env NODE_ENV=test tsc && nyc npm run ava",
     "size": "ls -lh dist/",
     "bp": "npm run build-production && npm run size",
     "kill": "lsof -n -i4TCP:5000 | grep LISTEN | awk '{ print $2 }' | xargs kill",
+    "format-i18n": "onefx-format-translations translations",
     "schema:generate": "apollo client:codegen --no-addTypename --target=typescript --localSchemaFile=src/api-gateway/api-gateway.graphql"
   },
   "eslintConfig": {
