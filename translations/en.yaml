@@ -1,3 +1,5 @@
+auth/ratelimited: Too many requests. Please try again later.
+
 meta.description: Description
 
 meta.title: Boilerplate
@@ -13,4 +15,3 @@ page.noscript: 'We’re sorry, some parts of the website don’t work properly w
 topbar.brand: OneFx
 
 topbar.home: HOME
-
