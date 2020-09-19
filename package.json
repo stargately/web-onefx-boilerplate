@@ -23,71 +23,6 @@
     "format-i18n": "onefx-format-translations translations",
     "schema:generate": "apollo client:codegen --no-addTypename --target=typescript --localSchemaFile=src/api-gateway/api-gateway.graphql"
   },
-  "eslintConfig": {
-    "extends": [
-      "airbnb-base",
-      "plugin:react/recommended",
-      "plugin:@typescript-eslint/recommended",
-      "prettier"
-    ],
-    "plugins": [
-      "@typescript-eslint",
-      "react"
-    ],
-    "env": {
-      "browser": true
-    },
-    "rules": {
-      "no-use-before-define": [
-        0
-      ],
-      "@typescript-eslint/no-use-before-define": [
-        1
-      ],
-      "no-restricted-imports": [
-        "error",
-        {
-          "name": "antd",
-          "message": "import antd/lib/* instead."
-        },
-        {
-          "name": "styletron-react",
-          "message": "import onefx/lib/styletron-react instead."
-        }
-      ],
-      "@typescript-eslint/no-var-requires": 0,
-      "curly": [
-        "error",
-        "all"
-      ],
-      "max-classes-per-file": 0,
-      "no-param-reassign": 0,
-      "no-restricted-syntax": [
-        "error",
-        "ForInStatement",
-        "LabelStatement",
-        "WithStatement"
-      ],
-      "no-underscore-dangle": 0,
-      "no-unused-expressions": 0,
-      "import/extensions": 0,
-      "import/no-unresolved": 0,
-      "import/prefer-default-export": 0,
-      "class-methods-use-this": 0
-    },
-    "overrides": [
-      {
-        "files": "*.js",
-        "rules": {
-          "@typescript-eslint/explicit-function-return-type": 0
-        }
-      },
-      {
-        "files": "*.ts",
-        "parser": "@typescript-eslint/parser"
-      }
-    ]
-  },
   "stylelint": {
     "extends": [
       "stylelint-config-standard",
@@ -143,7 +78,6 @@
   },
   "homepage": "https://github.com/puncsky/template_website#readme",
   "devDependencies": {
-    "@2fd/graphdoc": "2.4.0",
     "@typescript-eslint/eslint-plugin": "4.1.0",
     "@typescript-eslint/parser": "4.1.0",
     "apollo": "2.30.3",
@@ -194,6 +128,8 @@
     "@babel/preset-react": "7.10.4",
     "@babel/preset-typescript": "7.10.4",
     "@babel/register": "7.11.5",
+    "@puncsky/eslint-config-onefx": "^2.4.0",
+    "@puncsky/eslint-config-onefx-react": "^2.4.0",
     "@types/config": "0.0.36",
     "@types/dateformat": "3.0.1",
     "@types/dotenv": "6.1.0",
