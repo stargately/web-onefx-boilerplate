@@ -85,7 +85,7 @@ const SignUpInner = (props: Props): JSX.Element => {
         <Form id={LOGIN_FORM} onSubmit={onSubmit}>
           <Helmet title={`Sign Up - ${t("topbar.brand")}`} />
           <Flex column>
-            <h1>Create Account</h1>
+            <h1>{t("auth/create_account")}</h1>
             <EmailField defaultValue={valueEmail} error={errorEmail} />
             <input defaultValue={props.next} hidden name="next" />
             <PasswordField defaultValue={valuePassword} error={errorPassword} />

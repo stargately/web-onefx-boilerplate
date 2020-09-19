@@ -1,4 +1,54 @@
+auth/button_submit: Submit
+
+auth/consent: 'By clicking "SUBMIT", you agree to our <a href="${tosUrl}">Terms of Use</a> and acknowledge you have read the <a href="${policyUrl}">Privacy Policy</a>.'
+
+auth/create_account: Create Account
+
+auth/email-already-in-use: Email is already in use
+
+auth/forgot_password: Forgot Password
+
+auth/forgot_password.back: ← Back to Login
+
+auth/forgot_password.desc: 'Enter the email address associated with your account, and we’ll email you a link to reset your password.'
+
+auth/forgot_password.email_content: 'Hi, we’ve received a request to reset your password. If you didn’t make the request, just ignore this message. Otherwise, you can reset your password using this link: ${link}.'
+
+auth/forgot_password.email_title: Reset your Password
+
+auth/forgot_password.email_token_failure: Your request to reset password has already expired. Please try again.
+
+auth/forgot_password.send: SEND RESET LINK
+
+auth/forgot_password.sent: 'A link to reset your password has been sent to ${email}.'
+
+auth/invalid-email: Email is invalid
+
 auth/ratelimited: Too many requests. Please try again later.
+
+auth/reset_password: Reset password
+
+auth/reset_password.desc: 'Your password needs to have at least one symbol or number, and have at least 8 characters.'
+
+auth/reset_password.success: Your password has been updated.
+
+auth/sign_in.forgot_password: Forgot password? Reset
+
+auth/sign_in.switch_to_sign_up: Don’t have an account? Sign up
+
+auth/sign_in.title: Sign In
+
+auth/sign_up.preparing: Your ledger is on the way...
+
+auth/sign_up.switch_to_sign_in: Already have an account? Log in
+
+auth/user-disabled: User is banned
+
+auth/user-not-found: User is not found
+
+auth/weak-password: Please use at least 8 characters as the password
+
+auth/wrong-password: Password is incorrect
 
 meta.description: Description
 

@@ -235,7 +235,7 @@
     "koa": "2.13.0",
     "mongoose": "5.10.5",
     "onefx": "2.3.7",
-    "onefx-auth": "2.4.1",
+    "onefx-auth": "^2.4.2",
     "process": "0.11.10",
     "react": "16.13.1",
     "react-apollo": "4.0.0-beta.1",
