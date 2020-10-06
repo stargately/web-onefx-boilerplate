@@ -160,7 +160,7 @@
     "dateformat": "3.0.3",
     "dayjs": "1.8.35",
     "dotenv": "8.2.0",
-    "eslint-plugin-react": "7.20.6",
+    "eslint-plugin-react": "7.21.3",
     "form-serialize": "0.7.2",
     "global": "4.4.0",
     "graphql": "14.7.0",
