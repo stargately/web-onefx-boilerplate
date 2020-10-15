@@ -1,6 +1,7 @@
 {
   "extends": [
-    "@puncsky/eslint-config-onefx-react",
-    "@puncsky/eslint-config-onefx"
-  ]
+    "@puncsky/eslint-config-onefx",
+    "@puncsky/eslint-config-onefx-react"
+  ],
+  "ignorePatterns": ["src/client/static/**/*"]
 }

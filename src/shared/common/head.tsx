@@ -65,7 +65,7 @@ function HeadInner({
       title={`${t("meta.title")} - ${t("meta.description")}`}
     >
       <html lang={locale} />
-      <script type={"text/javascript"} nonce={nonce}>
+      <script type="text/javascript" nonce={nonce}>
         {noFlashColorMode({ defaultMode: "light" })}
       </script>
     </Helmet>

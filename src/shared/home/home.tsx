@@ -65,7 +65,7 @@ export const Home = connect(
             <Row justify="center">
               <HealthController />
             </Row>
-            <Row justify={"center"}>
+            <Row justify="center">
               <ExampleButton
                 onClick={() =>
                   props.actionSetTheme(
