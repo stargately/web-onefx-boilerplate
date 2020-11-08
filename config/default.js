@@ -1,10 +1,12 @@
 const { config } = require("dotenv");
 config();
 
+const routePrefix = "";
+
 module.exports = {
   project: "web-onefx-boilerplate",
   server: {
-    routePrefix: "",
+    routePrefix,
     port: process.env.PORT || 5000,
     proxy: false,
     staticDir: "./dist",
@@ -13,12 +15,12 @@ module.exports = {
       secrets: ["insecure plain text", "insecure secret here"],
     },
     noSecurityHeadersRoutes: {
-      "/api-gateway/": true,
-      "/api/": true,
+      [`${routePrefix}/api-gateway/`]: true,
+      [`${routePrefix}/api/`]: true,
     },
     noCsrfRoutes: {
-      "/api-gateway/": true,
-      "/api/": true,
+      [`${routePrefix}/api-gateway/`]: true,
+      [`${routePrefix}/api/`]: true,
     },
   },
   gateways: {
