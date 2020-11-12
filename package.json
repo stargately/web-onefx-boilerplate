@@ -21,7 +21,9 @@
     "bp": "npm run build-production && npm run size",
     "kill": "lsof -n -i4TCP:5000 | grep LISTEN | awk '{ print $2 }' | xargs kill",
     "format-i18n": "onefx-format-translations translations",
-    "schema:generate": "apollo client:codegen --no-addTypename --target=typescript --localSchemaFile=src/api-gateway/api-gateway.graphql"
+    "schema:generate": "apollo client:codegen --no-addTypename --target=typescript --localSchemaFile=src/api-gateway/api-gateway.graphql",
+    "storybook": "start-storybook -s ./src/client/static -p 6006",
+    "build-storybook": "build-storybook"
   },
   "stylelint": {
     "extends": [
@@ -78,11 +80,17 @@
   },
   "homepage": "https://github.com/puncsky/template_website#readme",
   "devDependencies": {
+    "@storybook/addon-actions": "^6.0.26",
+    "@storybook/addon-essentials": "^6.0.26",
+    "@storybook/addon-links": "^6.0.26",
+    "@storybook/react": "^6.0.28",
+    "@types/styletron-engine-atomic": "^1.1.0",
     "@typescript-eslint/eslint-plugin": "4.1.0",
     "@typescript-eslint/parser": "4.1.0",
     "apollo": "2.30.3",
     "ava": "3.11.1",
     "cache-loader": "4.1.0",
+    "core-js": "^3.7.0",
     "cross-env": "7.0.2",
     "del": "5.1.0",
     "eslint": "7.9.0",
@@ -97,6 +105,8 @@
     "gulp-nodemon": "2.5.0",
     "gulp-sass": "4.1.0",
     "husky": "4.3.0",
+    "less": "^3.12.2",
+    "less-loader": "^7.0.2",
     "nyc": "15.1.0",
     "plugin-error": "1.0.1",
     "prettier": "2.1.1",
@@ -106,6 +116,7 @@
     "stylelint-config-prettier": "8.0.2",
     "stylelint-config-recess-order": "2.1.0",
     "stylelint-config-standard": "20.0.0",
+    "styletron-engine-atomic": "^1.4.6",
     "sw-precache-webpack-plugin": "1.0.0",
     "terser-webpack-plugin": "4.2.0",
     "ts-loader": "8.0.3",
@@ -186,7 +197,6 @@
     "reflect-metadata": "0.1.13",
     "safe-json-globals": "2.1.0",
     "shader": "1.0.0",
-    "styletron-engine-atomic": "1.4.6",
     "styletron-react": "5.2.7",
     "styletron-standard": "3.0.4",
     "ts-node": "9.0.0",

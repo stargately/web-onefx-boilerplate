@@ -3,7 +3,13 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Mutation {
+  addNum(inc: Int!): Int!
+}
+
 type Query {
+  currentNum: Int!
+
   # is the server healthy?
   health: String!
 }
