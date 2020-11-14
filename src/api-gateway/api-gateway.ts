@@ -23,7 +23,11 @@ export async function setApiGateway(server: MyServer): Promise<void> {
   const apollo = new ApolloServer({
     schema,
     introspection: true,
-    playground: true,
+    playground: {
+      settings: {
+        "request.credentials": "include",
+      },
+    },
     context: async () => ({}),
   });
   const gPath = `${server.config.server.routePrefix || ""}/api-gateway/`;
