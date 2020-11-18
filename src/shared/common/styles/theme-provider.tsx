@@ -7,10 +7,12 @@ import {
 } from "onefx/lib/styletron-react";
 import { actionSetTheme as setTheme } from "../base-reducer";
 import { colors } from "./style-color";
+import { themeFonts } from "./style-font";
 
 export const THEME: Theme = {
   colors,
   sizing: ["2px", "6px", "10px", "16px", "24px", "32px"],
+  fonts: themeFonts,
 };
 
 const THEME_DARK: Theme = THEME; // we actually depends on the main.css for the colors.

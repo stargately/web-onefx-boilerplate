@@ -15,10 +15,10 @@ const ExampleButton = styled("button", ({ $theme }) => {
     backgroundColor: $theme.colors.white,
     borderColor: $theme.colors.black,
     color: $theme.colors.text01,
-    fontSize: $theme.sizing[3],
     padding: $theme.sizing[1],
     borderRadius: $theme.sizing[1],
     outline: "none",
+    ...$theme.fonts[2],
   };
 });
 
