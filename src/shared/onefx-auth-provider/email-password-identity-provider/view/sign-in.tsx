@@ -6,8 +6,9 @@ import { styled } from "onefx/lib/styletron-react";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Flex } from "@/shared/common/flex";
-import { fullOnPalm } from "@/shared/common/styles/style-media";
+import { fullOnPalm, media } from "@/shared/common/styles/style-media";
 import { ContentPadding } from "@/shared/common/styles/style-padding";
+import { margin } from "polished";
 import { axiosInstance } from "./axios-instance";
 import { EmailField } from "./email-field";
 import { FieldMargin } from "./field-margin";
@@ -34,7 +35,7 @@ const SignInInner = (props: Props): JSX.Element => {
     if (!el) {
       return;
     }
-    const { email = "", password = "", next = "" } = serialize(el, {
+    const { email = "", password = "", next = "/meetings" } = serialize(el, {
       hash: true,
     }) as {
       email: string;
@@ -90,11 +91,12 @@ const SignInInner = (props: Props): JSX.Element => {
 
   return (
     <ContentPadding>
-      <Flex center minHeight="550px">
+      <Flex center>
         <Form id={LOGIN_FORM} onSubmit={onSubmit}>
           <Helmet title={`login - ${t("topbar.brand")}`} />
           <Flex column>
-            <h1>{t("auth/sign_in.title")}</h1>
+            <TopMargin />
+            <H1>{t("auth/sign_in.title")}</H1>
             <EmailField defaultValue={valueEmail} error={errorEmail} />
             <input defaultValue={props.next} hidden name="next" />
             <PasswordField defaultValue={valuePassword} error={errorPassword} />
@@ -128,6 +130,17 @@ const SignInInner = (props: Props): JSX.Element => {
     </ContentPadding>
   );
 };
+
+export const TopMargin = styled("div", ({ $theme }) => ({
+  [media.palm]: {
+    margin: 0,
+  },
+  margin: $theme.sizing[5],
+}));
+
+export const H1 = styled("h1", ({ $theme }) => ({
+  ...margin($theme.sizing[5], 0),
+}));
 
 const Form = styled(FormContainer, {
   width: "320px",
