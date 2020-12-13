@@ -81,7 +81,7 @@ export const TopBar = (): JSX.Element => {
   );
 };
 
-const Bar = styled("div", ({ $theme }) => ({
+const Bar = styled("nav", ({ $theme }) => ({
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
