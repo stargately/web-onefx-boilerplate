@@ -49,6 +49,7 @@ module.exports = {
     // options for resolving module requests
     // (does not apply to resolving to loaders)
     modules: ["node_modules", path.resolve(__dirname, "src")],
+    mainFields: ["browser", "main", "module"],
     // directories where to look for modules
     extensions: [".js", ".json", ".jsx", ".ts", ".tsx"],
     // extensions that are used
