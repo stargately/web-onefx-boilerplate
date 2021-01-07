@@ -126,7 +126,7 @@
     "webpack-manifest-plugin": "2.2.0"
   },
   "dependencies": {
-    "@ant-design/icons": "4.2.2",
+    "@ant-design/icons": "4.3.0",
     "@apollo/client": "3.3.6",
     "@babel/cli": "7.12.10",
     "@babel/core": "7.12.10",
