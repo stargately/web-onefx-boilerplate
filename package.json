@@ -180,7 +180,7 @@
     "isomorphic-unfetch": "3.0.0",
     "koa": "2.13.0",
     "mongoose": "5.10.5",
-    "onefx": "2.3.7",
+    "onefx": "2.6.0",
     "onefx-auth": "2.4.3",
     "polished": "4.0.5",
     "process": "0.11.10",
