@@ -140,7 +140,7 @@
     "@babel/register": "7.12.10",
     "@puncsky/eslint-config-onefx": "2.5.0",
     "@puncsky/eslint-config-onefx-react": "2.5.0",
-    "@types/config": "0.0.36",
+    "@types/config": "0.0.38",
     "@types/dateformat": "3.0.1",
     "@types/dotenv": "6.1.0",
     "@types/form-serialize": "0.7.1",
