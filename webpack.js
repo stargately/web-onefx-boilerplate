@@ -1,12 +1,11 @@
 const path = require("path");
 const UglifyJSPlugin = require("terser-webpack-plugin");
 const webpack = require("webpack");
-const ManifestPlugin = require("webpack-manifest-plugin");
+const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const glob = require("glob");
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-  .BundleAnalyzerPlugin;
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+const { GenerateSW } = require("workbox-webpack-plugin");
 const process = require("global/process");
-const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 const ANALYZE = false;
@@ -54,11 +53,23 @@ module.exports = {
     extensions: [".js", ".json", ".jsx", ".ts", ".tsx"],
     // extensions that are used
     alias: {},
+    fallback: {
+      fs: false,
+      tls: false,
+      net: false,
+      path: false,
+      zlib: false,
+      http: false,
+      https: false,
+      stream: false,
+      crypto: false,
+      util: false,
+    },
     /* Alternative alias syntax (click to show) */
     /* Advanced resolve configuration (click to show) */
   },
   plugins: [
-    new ManifestPlugin({
+    new WebpackManifestPlugin({
       basePath: "/",
       fileName: "asset-manifest.json",
     }),
@@ -76,21 +87,7 @@ module.exports = {
           }),
         ]
       : []),
-    new SWPrecacheWebpackPlugin({
-      mergeStaticsConfig: true,
-      dontCacheBustUrlsMatching: /\.\w{8}\./,
-      filename: "service-worker.js",
-      minify: false,
-      navigateFallback: "/",
-      navigateFallbackWhitelist: [/^(?!\/__).*/],
-      staticFileGlobs: [`${OUTPUT_DIR}/**`],
-      stripPrefix: OUTPUT_DIR,
-      staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
-      dynamicUrlToDependencies: {
-        "/index.html": glob.sync(path.resolve(`${OUTPUT_DIR}/**/*.js`)),
-        "/notes": glob.sync(path.resolve(`${OUTPUT_DIR}/**/*.js`)),
-        "/notes/": glob.sync(path.resolve(`${OUTPUT_DIR}/**/*.js`)),
-      },
-    }),
+    // TODO: config this later
+    // new GenerateSW({}),
   ],
 };
