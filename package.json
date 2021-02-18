@@ -104,7 +104,7 @@
     "gulp-livereload": "4.0.2",
     "gulp-nodemon": "2.5.0",
     "gulp-sass": "4.1.0",
-    "husky": "4.3.0",
+    "husky": "4.3.8",
     "less": "3.13.1",
     "less-loader": "7.2.1",
     "nyc": "15.1.0",
