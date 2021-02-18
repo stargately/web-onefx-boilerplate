@@ -1,4 +1,3 @@
-import { styled } from "onefx/lib/styletron-react";
 import React from "react";
 import "../../client/stylesheets/antd.less";
 import { Story } from "@storybook/react/types-6-0";
@@ -17,24 +16,9 @@ export const themeDecorator = () =>
       <ReduxProvider store={configureStore({ base: {} })}>
         <StyletronProvider value={styletron}>
           <ThemeProvider>
-            <Overlay>
-              <MobileContent>
-                <BrowserRouter>{React.createElement(story)}</BrowserRouter>
-              </MobileContent>
-            </Overlay>
+            <BrowserRouter>{React.createElement(story)}</BrowserRouter>
           </ThemeProvider>
         </StyletronProvider>
       </ReduxProvider>
     );
   };
-
-const MobileContent = styled("div", () => ({
-  width: "360px",
-  height: "600px",
-}));
-
-const Overlay = styled("div", ({ $theme }) => ({
-  width: "100%",
-  height: "700px",
-  backgroundColor: $theme.colors.black10,
-}));
