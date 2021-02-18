@@ -10,7 +10,7 @@ import { Hamburger } from "./icons/hamburger.svg";
 import { transition } from "./styles/style-animation";
 import { colors } from "./styles/style-color";
 import { media, PALM_WIDTH } from "./styles/style-media";
-import { contentPadding } from "./styles/style-padding";
+import { contentPadding, maxContentWidth } from "./styles/style-padding";
 
 export const TOP_BAR_HEIGHT = 52;
 
@@ -55,25 +55,27 @@ export const TopBar = (): JSX.Element => {
   return (
     <div>
       <Bar>
-        <Flex>
-          <Logo />
-          <CommonMargin />
-          <BrandText href="/">{t("topbar.brand")}</BrandText>
-        </Flex>
-        <Flex>
-          <Menu>{renderMenu()}</Menu>
-        </Flex>
-        <HamburgerBtn
-          displayMobileMenu={displayMobileMenu}
-          onClick={() => {
-            setDisplayMobileMenu(true);
-          }}
-        >
-          <Hamburger />
-        </HamburgerBtn>
-        <CrossBtn displayMobileMenu={displayMobileMenu}>
-          <Cross />
-        </CrossBtn>
+        <MaxWidth>
+          <Flex>
+            <Logo />
+            <CommonMargin />
+            <BrandText href="/">{t("topbar.brand")}</BrandText>
+          </Flex>
+          <Flex>
+            <Menu>{renderMenu()}</Menu>
+          </Flex>
+          <HamburgerBtn
+            displayMobileMenu={displayMobileMenu}
+            onClick={() => {
+              setDisplayMobileMenu(true);
+            }}
+          >
+            <Hamburger />
+          </HamburgerBtn>
+          <CrossBtn displayMobileMenu={displayMobileMenu}>
+            <Cross />
+          </CrossBtn>
+        </MaxWidth>
       </Bar>
       <BarPlaceholder />
       {renderMobileMenu()}
@@ -81,10 +83,18 @@ export const TopBar = (): JSX.Element => {
   );
 };
 
+const MaxWidth = styled("div", () => ({
+  display: "flex",
+  flexDirection: "row",
+  ...maxContentWidth,
+  justifyContent: "space-between",
+  alignItems: "center",
+}));
+
 const Bar = styled("nav", ({ $theme }) => ({
   display: "flex",
   flexDirection: "row",
-  justifyContent: "space-between",
+  justifyContent: "center",
   alignItems: "center",
   lineHeight: `${TOP_BAR_HEIGHT}px`,
   height: `${TOP_BAR_HEIGHT}px`,

@@ -20,6 +20,8 @@ export const contentPadding = {
   },
 };
 
+export const maxContentWidth = { maxWidth: "1320px", width: "100%" };
+
 export const topBottomContentPadding = {
   paddingTop: "12px",
   paddingBottom: "12px",
@@ -37,7 +39,7 @@ export function ContentPadding({
   return (
     <Pd style={style as CSSProperties}>
       <Flex center width="100%">
-        <div style={{ maxWidth: "1320px", width: "100%" }}>{children}</div>
+        <div style={maxContentWidth}>{children}</div>
       </Flex>
     </Pd>
   );
