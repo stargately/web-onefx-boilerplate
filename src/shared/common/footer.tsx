@@ -1,7 +1,8 @@
 import { styled } from "onefx/lib/styletron-react";
 import React from "react";
+import { border } from "polished";
 import { Flex } from "./flex";
-import { contentPadding } from "./styles/style-padding";
+import { ContentPadding } from "./styles/style-padding";
 import { TOP_BAR_HEIGHT } from "./top-bar";
 
 export const FOOTER_HEIGHT = 89;
@@ -13,14 +14,21 @@ export const FOOTER_ABOVE = {
 export function Footer(): JSX.Element {
   return (
     <Align>
-      <Flex>{`Copyright © ${new Date().getFullYear()}`}</Flex>
-      <Flex>Built with ❤️ in San Francisco</Flex>
+      <ContentPadding>
+        <Flexbox>
+          <Flex>{`Copyright © ${new Date().getFullYear()}`}</Flex>
+          <Flex>Built with ❤️ in San Francisco</Flex>
+        </Flexbox>
+      </ContentPadding>
     </Align>
   );
 }
 
 const Align = styled("div", ({ $theme }) => ({
-  ...contentPadding,
+  ...border("top", "1px", "solid", $theme.colors.black40),
+}));
+
+const Flexbox = styled("div", {
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
@@ -28,6 +36,4 @@ const Align = styled("div", ({ $theme }) => ({
   paddingTop: "32px",
   paddingBottom: "32px",
   minHeight: `${FOOTER_HEIGHT}px`,
-  backgroundColor: $theme.colors.nav02,
-  color: $theme?.colors.textReverse,
-}));
+});
