@@ -26,7 +26,7 @@ This is intended for \*nix users. If you use Windows, go to [Run on Windows](#ru
 ```bash
 cd my-awesome-project
 
-nvm use 10.15.0
+nvm use 14.15.4
 npm install
 
 # prepare environment variable
