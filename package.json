@@ -93,7 +93,7 @@
     "core-js": "3.8.2",
     "cross-env": "7.0.2",
     "del": "6.0.0",
-    "eslint": "7.9.0",
+    "eslint": "7.22.0",
     "eslint-config-airbnb-base": "14.2.0",
     "eslint-config-prettier": "6.15.0",
     "eslint-plugin-import": "2.22.0",
