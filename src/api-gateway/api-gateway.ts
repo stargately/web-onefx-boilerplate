@@ -18,6 +18,7 @@ export async function setApiGateway(server: MyServer): Promise<void> {
       commentDescriptions: true,
     },
     validate: false,
+    nullableByDefault: true,
   });
 
   const apollo = new ApolloServer({

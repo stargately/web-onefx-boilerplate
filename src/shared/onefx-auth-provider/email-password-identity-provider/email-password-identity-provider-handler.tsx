@@ -1,4 +1,5 @@
 import { MyServer } from "@/server/start-server";
+import { ThemeProvider } from "@/shared/common/styles/theme-provider";
 import koa from "koa";
 import { noopReducer } from "onefx/lib/iso-react-render/root/root-reducer";
 import { createRateLimiter } from "onefx/lib/middleware/rate-limiter-middleware";
@@ -53,8 +54,13 @@ export function passwordValidator(): Handler {
 }
 
 function isoRender(ctx: Context): void {
+  ctx.setState("base.nonce", ctx.state.nonce);
   ctx.body = ctx.isoReactRender({
-    VDom: <IdentityAppContainer />,
+    VDom: (
+      <ThemeProvider>
+        <IdentityAppContainer />
+      </ThemeProvider>
+    ),
     reducer: noopReducer,
     clientScript: "/identity-provider-main.js",
   });

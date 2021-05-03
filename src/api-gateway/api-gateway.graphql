@@ -4,12 +4,12 @@
 # -----------------------------------------------
 
 type Mutation {
-  addNum(inc: Int!): Int!
+  addNum(inc: Int): Int
 }
 
 type Query {
-  currentNum: Int!
+  currentNum: Int
 
   # is the server healthy?
-  health: String!
+  health: String
 }
