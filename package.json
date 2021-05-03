@@ -177,7 +177,7 @@
     "graphql-iso-date": "3.6.1",
     "graphql-tag": "2.11.0",
     "is-browser": "2.1.0",
-    "isomorphic-unfetch": "3.0.0",
+    "isomorphic-unfetch": "3.1.0",
     "koa": "2.13.0",
     "mongoose": "5.11.10",
     "onefx": "2.6.0",
