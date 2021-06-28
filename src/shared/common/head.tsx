@@ -60,7 +60,8 @@ function HeadInner({
         // social
         { property: "og:title", content: `${t("meta.title")}` },
         { property: "og:description", content: t("meta.description") },
-        { property: "twitter:card", content: "summary" },
+        { property: "og:image", content: assetURL("favicon.png") },
+        { property: "twitter:card", content: "summary_large_image" },
       ]}
       title={`${t("meta.title")} - ${t("meta.description")}`}
     >
