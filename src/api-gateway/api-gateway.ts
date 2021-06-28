@@ -4,10 +4,11 @@ import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import { AddNumResolver } from "@/api-gateway/resolvers/add-num-resolver";
 import { MyServer } from "@/server/start-server";
+import { NonEmptyArray } from "type-graphql/dist/interfaces/NonEmptyArray";
 import { MetaResolver } from "./resolvers/meta-resolver";
 
 export async function setApiGateway(server: MyServer): Promise<void> {
-  const resolvers = [MetaResolver, AddNumResolver];
+  const resolvers: NonEmptyArray<Function> = [MetaResolver, AddNumResolver];
   server.resolvers = resolvers;
 
   const sdlPath = path.resolve(__dirname, "api-gateway.graphql");

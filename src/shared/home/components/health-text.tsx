@@ -6,7 +6,7 @@ import React from "react";
 
 type Props = {
   loading: boolean;
-  health?: string;
+  health?: string | null;
   error: boolean;
 };
 

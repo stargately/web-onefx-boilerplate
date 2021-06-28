@@ -1,12 +1,11 @@
 const path = require("path");
 const UglifyJSPlugin = require("terser-webpack-plugin");
 const webpack = require("webpack");
-const ManifestPlugin = require("webpack-manifest-plugin");
+const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const glob = require("glob");
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-  .BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const process = require("global/process");
-const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 const ANALYZE = false;
@@ -27,6 +26,7 @@ module.exports = {
   output: {
     filename: PROD ? "[name]-[chunkhash].js" : "[name].js",
     path: path.resolve(__dirname, OUTPUT_DIR),
+    publicPath: "",
   },
   ...(PROD ? {} : { devtool: "source-map" }),
   module: {
@@ -58,7 +58,7 @@ module.exports = {
     /* Advanced resolve configuration (click to show) */
   },
   plugins: [
-    new ManifestPlugin({
+    new WebpackManifestPlugin({
       basePath: "/",
       fileName: "asset-manifest.json",
     }),
@@ -76,21 +76,5 @@ module.exports = {
           }),
         ]
       : []),
-    new SWPrecacheWebpackPlugin({
-      mergeStaticsConfig: true,
-      dontCacheBustUrlsMatching: /\.\w{8}\./,
-      filename: "service-worker.js",
-      minify: false,
-      navigateFallback: "/",
-      navigateFallbackWhitelist: [/^(?!\/__).*/],
-      staticFileGlobs: [`${OUTPUT_DIR}/**`],
-      stripPrefix: OUTPUT_DIR,
-      staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
-      dynamicUrlToDependencies: {
-        "/index.html": glob.sync(path.resolve(`${OUTPUT_DIR}/**/*.js`)),
-        "/notes": glob.sync(path.resolve(`${OUTPUT_DIR}/**/*.js`)),
-        "/notes/": glob.sync(path.resolve(`${OUTPUT_DIR}/**/*.js`)),
-      },
-    }),
   ],
 };

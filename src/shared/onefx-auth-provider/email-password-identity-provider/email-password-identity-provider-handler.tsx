@@ -14,8 +14,8 @@ type Handler = (ctx: Context, next: koa.Next) => Promise<void>;
 
 export function emailValidator(): Handler {
   return async (ctx: Context, next: koa.Next) => {
-    let { email } = ctx.request.body;
-    email = String(email).toLowerCase();
+    const body = ctx.request.body as Record<string, string>;
+    let email = String(body.email || "").toLowerCase();
     email = validator.trim(email);
     if (!validator.isEmail(email)) {
       ctx.response.body = {
@@ -28,15 +28,15 @@ export function emailValidator(): Handler {
       return;
     }
 
-    ctx.request.body.email = email;
+    body.email = email;
     await next();
   };
 }
 
 export function passwordValidator(): Handler {
   return async (ctx: Context, next: koa.Next) => {
-    let { password } = ctx.request.body;
-    password = String(password);
+    const body = ctx.request.body as Record<string, string>;
+    const password = String(body.password || "");
     if (password.length < PASSWORD_MIN_LENGTH) {
       ctx.response.body = {
         ok: false,
@@ -48,7 +48,7 @@ export function passwordValidator(): Handler {
       return;
     }
 
-    ctx.request.body.password = password;
+    body.password = password;
     await next();
   };
 }
@@ -102,7 +102,7 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
     "reset-password",
     "/settings/reset-password",
     async (ctx: Context) => {
-      const { token } = ctx.query;
+      const { token } = ctx.query as Record<string, string>;
       const found = await server.auth.emailToken.findOne(token);
       ctx.setState("base.token", found && found.token);
       return isoRender(ctx);
@@ -138,14 +138,14 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
     emailValidator(),
     passwordValidator(),
     async (ctx: Context, next: koa.Next) => {
-      const { email, password } = ctx.request.body;
+      const { email, password } = ctx.request.body as Record<string, string>;
       const locale = ctx.i18n.getLocale();
       try {
         const user = await server.auth.user.newAndSave({
           email,
           password,
           locale,
-          ip: ctx.headers["x-forwarded-for"],
+          ip: ctx.ip,
         });
         ctx.state.userId = user._id;
         await next();
@@ -179,7 +179,7 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
       max: 5,
     }),
     async (ctx: Context, next: koa.Next) => {
-      const { email, password } = ctx.request.body;
+      const { email, password } = ctx.request.body as Record<string, string>;
       const user = await server.auth.user.getByMail(email);
       if (!user) {
         ctx.response.body = {
@@ -227,7 +227,7 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
     "/api/forgot-password/",
     emailValidator(),
     async (ctx: Context): Promise<void> => {
-      const { email } = ctx.request.body;
+      const { email } = ctx.request.body as Record<string, string>;
 
       const user = await server.auth.user.getByMail(email);
       if (user) {
@@ -245,7 +245,10 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
     "/api/reset-password/",
     server.auth.authRequired,
     async (ctx: Context): Promise<void> => {
-      const { token, password, newPassword } = ctx.request.body;
+      const { token, password, newPassword } = ctx.request.body as Record<
+        string,
+        string
+      >;
       if (token) {
         const verified = Boolean(await server.auth.emailToken.findOne(token));
         if (!verified) {
