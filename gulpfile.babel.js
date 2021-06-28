@@ -3,7 +3,6 @@ const gulp = require("gulp");
 const gulpLivereload = require("gulp-livereload");
 const logger = require("global/console");
 const nodemon = require("gulp-nodemon");
-const sass = require("gulp-sass");
 const webpack = require("webpack");
 const PluginError = require("plugin-error");
 const log = require("fancy-log");
@@ -14,17 +13,17 @@ const clean = () => {
   return del(["dist"]);
 };
 
-const watchServer = done => {
+const watchServer = (done) => {
   nodemon({
     exec: "npm",
     ext: "js json jsx yaml jade md ts tsx",
     script: "start",
-    ignore: ["node_modules/", "dist/", "*translations/"]
+    ignore: ["node_modules/", "dist/", "*translations/"],
   });
   done();
 };
 
-const compileJavascripts = done => {
+const compileJavascripts = (done) => {
   webpack(webpackConfig, (err, stats) => {
     if (err) {
       throw new PluginError("webpack", err);
@@ -34,7 +33,7 @@ const compileJavascripts = done => {
   });
 };
 
-const watchJavascripts = done => {
+const watchJavascripts = (done) => {
   gulp.watch(
     [
       "src/client/javascripts/**/*.js",
@@ -46,30 +45,17 @@ const watchJavascripts = done => {
       "src/shared/**/*.jsx",
       "src/shared/**/*.ts",
       "src/shared/**/*.tsx",
-      "src/shared/**/*.json"
+      "src/shared/**/*.json",
     ],
     compileJavascripts
   );
   done();
 };
 
-const watchLivereload = done => {
+const watchLivereload = (done) => {
   gulp.watch(["dist/**/*"], function onChange(e) {
     gulpLivereload.changed(e.path);
   });
-  done();
-};
-
-const compileStylesheets = done => {
-  gulp
-    .src("src/client/stylesheets/*.scss")
-    .pipe(sass().on("error", sass.logError))
-    .pipe(gulp.dest("dist/stylesheets"));
-  done();
-};
-
-const watchStylesheets = done => {
-  gulp.watch("src/**/*.scss", compileStylesheets);
   done();
 };
 
@@ -79,13 +65,13 @@ const compileLess = () => {
     .pipe(
       less({
         javascriptEnabled: true,
-        paths: ["./node_modules/antd/dist/antd.less"]
+        paths: ["./node_modules/antd/dist/antd.less"],
       })
     )
     .pipe(gulp.dest("dist/stylesheets"));
 };
 
-const compileStatic = done => {
+const compileStatic = (done) => {
   gulp
     .src("src/client/static/**/*")
     .on("error", function onError(err) {
@@ -95,24 +81,13 @@ const compileStatic = done => {
   done();
 };
 
-const watchStatic = done => {
+const watchStatic = (done) => {
   gulp.watch("src/client/static/**/*", compileStatic, compileLess);
   done();
 };
 
-const build = gulp.parallel(
-  compileJavascripts,
-  compileStylesheets,
-  compileLess,
-  compileStatic
-);
-const watch = gulp.parallel(
-  build,
-  watchJavascripts,
-  watchStylesheets,
-  watchStatic,
-  watchServer
-);
+const build = gulp.parallel(compileJavascripts, compileLess, compileStatic);
+const watch = gulp.parallel(build, watchJavascripts, watchStatic, watchServer);
 
 export { build, watch };
 
