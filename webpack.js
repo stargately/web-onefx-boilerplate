@@ -1,5 +1,4 @@
 const path = require("path");
-const UglifyJSPlugin = require("terser-webpack-plugin");
 const webpack = require("webpack");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const glob = require("glob");
@@ -65,10 +64,6 @@ module.exports = {
     ...(ANALYZE ? [new BundleAnalyzerPlugin()] : []),
     ...(PROD
       ? [
-          new UglifyJSPlugin({
-            cache: true,
-            parallel: true,
-          }),
           new webpack.DefinePlugin({
             "process.env": {
               NODE_ENV: JSON.stringify("production"),
