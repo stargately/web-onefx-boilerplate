@@ -1,7 +1,7 @@
 import { t } from "onefx/lib/iso-i18n";
 import { Link, Route, Switch } from "onefx/lib/react-router-dom";
 import { styled } from "onefx/lib/styletron-react";
-import React, { useEffect } from "react";
+import React from "react";
 import { Flex } from "@/shared/common/flex";
 import { FOOTER_ABOVE, Footer } from "@/shared/common/footer";
 import { Head } from "@/shared/common/head";
@@ -10,23 +10,14 @@ import { colors } from "@/shared/common/styles/style-color";
 import { fonts } from "@/shared/common/styles/style-font";
 import { ContentPadding } from "@/shared/common/styles/style-padding";
 import { TopBar } from "@/shared/common/top-bar";
+import { useGtag } from "@/shared/common/use-gtag";
 import { ForgotPassword } from "./forgot-password";
 import { ResetPasswordContainer } from "./reset-password";
 import { SignIn } from "./sign-in";
 import { SignUp } from "./sign-up";
 
-const initGoogleAnalytics = require("../../../common/google-analytics");
-
-type Props = {
-  googleTid?: string;
-};
-
-export const IdentityApp = ({ googleTid }: Props): JSX.Element => {
-  useEffect(() => {
-    if (googleTid) {
-      initGoogleAnalytics({ tid: googleTid });
-    }
-  }, [googleTid]);
+export const IdentityApp = (): JSX.Element => {
+  useGtag();
   return (
     <RootStyle>
       <Head />

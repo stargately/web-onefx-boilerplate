@@ -5,15 +5,17 @@ import { mobileViewPortContent } from "onefx/lib/iso-react-render/root/mobile-vi
 import { Helmet } from "onefx/lib/react-helmet";
 import { noFlashColorMode } from "onefx/lib/styletron-react";
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { colors } from "./styles/style-color";
 
 function HeadInner({
   locale,
   nonce,
+  gaMeasurementId,
 }: {
   locale: string;
   nonce: string;
+  gaMeasurementId: string;
 }): JSX.Element {
   return (
     <Helmet
@@ -63,13 +65,34 @@ function HeadInner({
       <script type="text/javascript" nonce={nonce}>
         {noFlashColorMode({ defaultMode: "light" })}
       </script>
+      <script
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
+      />
+      <script nonce={nonce}>
+        {`window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${gaMeasurementId}');`}
+      </script>
     </Helmet>
   );
 }
 
-export const Head = connect(
-  (state: { base: { locale: string; nonce: string } }) => ({
-    locale: state.base.locale,
-    nonce: state.base.nonce,
-  })
-)(HeadInner);
+export const Head: React.FC = () => {
+  const props = useSelector(
+    (state: {
+      base: {
+        locale: string;
+        nonce: string;
+        analytics: { gaMeasurementId: string };
+      };
+    }) => ({
+      locale: state.base.locale,
+      nonce: state.base.nonce,
+      gaMeasurementId: state.base.analytics.gaMeasurementId,
+    })
+  );
+
+  return <HeadInner {...props} />;
+};

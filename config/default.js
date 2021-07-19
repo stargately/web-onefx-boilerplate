@@ -50,6 +50,6 @@ module.exports = {
     "img-src": ["*", "data:"],
     "media-src": ["self"],
     "object-src": ["self"],
-    "script-src": ["self", "https://www.google-analytics.com/"],
+    "script-src": ["self", "https://www.googletagmanager.com/"],
   },
 };
