@@ -33,7 +33,7 @@ module.exports = {
     },
   },
   analytics: {
-    googleTid: "TODO: replace with your googleTid",
+    gaMeasurementId: "TODO: replace with your googleTid",
   },
   csp: {
     "default-src": ["none"],
