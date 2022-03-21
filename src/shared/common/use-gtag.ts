@@ -24,7 +24,7 @@ export const useGtag = () => {
   );
 
   useEffect(() => {
-    return listen((location) => {
+    return listen((location: any) => {
       if (!window.gtag) {
         return;
       }
