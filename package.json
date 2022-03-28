@@ -172,7 +172,6 @@
     "global": "4.4.0",
     "graphql": "15.5.1",
     "graphql-iso-date": "3.6.1",
-    "graphql-tag": "2.12.5",
     "is-browser": "2.1.0",
     "isomorphic-unfetch": "3.1.0",
     "koa": "2.13.1",
