@@ -24,12 +24,15 @@ type Props = {
 function Status({ code, children }: Props): JSX.Element {
   return (
     <Route>
-      {({ staticContext }: RouteComponentProps) => {
-        if (staticContext) {
-          staticContext.statusCode = code;
+      {
+        // @ts-ignore
+        ({ staticContext }: RouteComponentProps) => {
+          if (staticContext) {
+            staticContext.statusCode = code;
+          }
+          return children;
         }
-        return children;
-      }}
+      }
     </Route>
   );
 }
