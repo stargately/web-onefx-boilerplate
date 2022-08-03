@@ -38,12 +38,12 @@ function HeadInner({
       <link
         rel="stylesheet"
         type="text/css"
-        href={assetURL("stylesheets/non-critical.css")}
+        href={assetURL("stylesheets/antd.css")}
       />
       <link
         rel="stylesheet"
         type="text/css"
-        href={assetURL("stylesheets/main-page.css")}
+        href={assetURL("stylesheets/antd-dark.css")}
       />
 
       <html lang={locale} />
