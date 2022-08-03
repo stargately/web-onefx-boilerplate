@@ -13,9 +13,12 @@ const styletron = new StyletronClient({ prefix: "_" });
 export const themeDecorator = () =>
   function Inner(story: Story): JSX.Element {
     return (
+      // @ts-ignore
       <ReduxProvider store={configureStore({ base: {} })}>
         <StyletronProvider value={styletron}>
           <ThemeProvider>
+            {/*
+            // @ts-ignore */}
             <BrowserRouter>{React.createElement(story)}</BrowserRouter>
           </ThemeProvider>
         </StyletronProvider>

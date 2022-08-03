@@ -18,49 +18,34 @@ function HeadInner({
   gaMeasurementId: string;
 }): JSX.Element {
   return (
-    <Helmet
-      link={[
-        // PWA & mobile
-        { rel: "manifest", href: assetURL("manifest.json") },
-        { rel: "apple-touch-icon", href: "/favicon.svg" },
+    // @ts-ignore
+    <Helmet>
+      <meta name="viewport" content={mobileViewPortContent} />
+      <meta name="description" content={t("meta.description")} />
+      <meta name="theme-color" content={colors.primary} />
+      <meta property="og:title" content={t("meta.title")} />
+      <meta property="og:description" content={t("meta.description")} />
+      <meta property="og:image" content={assetURL("favicon.png")} />
+      <meta property="twitter:card" content="summary_large_image" />
+      <link rel="manifest" href={assetURL("manifest.json")} />
+      <link rel="apple-touch-icon" href={assetURL("favicon.svg")} />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="any"
+        href={assetURL("favicon.png")}
+      />
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href={assetURL("stylesheets/non-critical.css")}
+      />
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href={assetURL("stylesheets/main-page.css")}
+      />
 
-        {
-          rel: "icon",
-          type: "image/png",
-          sizes: "any",
-          href: assetURL("favicon.png"),
-        },
-
-        // styles
-        {
-          rel: "stylesheet",
-          type: "text/css",
-          href: assetURL("stylesheets/antd.css"),
-        },
-        {
-          rel: "stylesheet",
-          type: "text/css",
-          href: assetURL("stylesheets/antd-dark.css"),
-        },
-        {
-          href: "https://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic",
-          rel: "stylesheet",
-          type: "text/css",
-        },
-      ]}
-      meta={[
-        { name: "viewport", content: mobileViewPortContent },
-        { name: "description", content: t("meta.description") },
-        { name: "theme-color", content: colors.primary },
-
-        // social
-        { property: "og:title", content: `${t("meta.title")}` },
-        { property: "og:description", content: t("meta.description") },
-        { property: "og:image", content: assetURL("favicon.png") },
-        { property: "twitter:card", content: "summary_large_image" },
-      ]}
-      title={`${t("meta.title")} - ${t("meta.description")}`}
-    >
       <html lang={locale} />
       <script type="text/javascript" nonce={nonce}>
         {noFlashColorMode({ defaultMode: "light" })}

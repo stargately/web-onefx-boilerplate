@@ -218,6 +218,7 @@ const Menu = styled("div", {
   },
 });
 
+// @ts-ignore
 const Dropdown = styled("div", {
   backgroundColor: colors.nav01,
   display: "flex",

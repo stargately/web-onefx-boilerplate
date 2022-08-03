@@ -1,4 +1,4 @@
-import { styled, StyleObject } from "onefx/lib/styletron-react";
+import { styled } from "onefx/lib/styletron-react";
 import React, { useRef } from "react";
 
 import {
@@ -32,6 +32,7 @@ const Button = ({
 
   let style = btnStyle;
   if (secondary) {
+    // @ts-ignore
     style = {
       ...style,
       ...secondaryBtnColor,
@@ -50,7 +51,7 @@ const Button = ({
     };
   }
 
-  const MyButton = styled(href ? "a" : "button", style as StyleObject);
+  const MyButton = styled(href ? "a" : "button", style);
 
   return (
     <div ref={wrapper}>
