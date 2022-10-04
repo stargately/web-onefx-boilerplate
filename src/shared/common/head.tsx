@@ -20,6 +20,9 @@ function HeadInner({
   return (
     // @ts-ignore
     <Helmet>
+      <title>
+        {t("meta.title")} - {t("meta.description")}
+      </title>
       <meta name="viewport" content={mobileViewPortContent} />
       <meta name="description" content={t("meta.description")} />
       <meta name="theme-color" content={colors.primary} />

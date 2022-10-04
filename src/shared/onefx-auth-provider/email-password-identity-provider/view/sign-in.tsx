@@ -35,7 +35,11 @@ const SignInInner = (props: Props): JSX.Element => {
     if (!el) {
       return;
     }
-    const { email = "", password = "", next = "/meetings" } = serialize(el, {
+    const {
+      email = "",
+      password = "",
+      next = "/",
+    } = serialize(el, {
       hash: true,
     }) as {
       email: string;

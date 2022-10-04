@@ -1,6 +1,7 @@
 import { MyServer } from "@/server/start-server";
 import { ThemeProvider } from "@/shared/common/styles/theme-provider";
 import koa from "koa";
+import { logger } from "onefx/lib/integrated-gateways/logger";
 import { noopReducer } from "onefx/lib/iso-react-render/root/root-reducer";
 import { Context } from "onefx/lib/types";
 import * as React from "react";
@@ -149,7 +150,16 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
         ctx.state.userId = user._id;
         await next();
       } catch (err) {
-        if (err.name === "MongoError" && err.code === 11000) {
+        if (err.code === 11000) {
+          ctx.body = {
+            ok: false,
+            error: {
+              code: "auth/email-already-in-use",
+              message: ctx.t("auth/email-already-in-use"),
+            },
+          };
+        } else {
+          logger.error(`failed to create user`, { meta: err });
           ctx.body = {
             ok: false,
             error: {
