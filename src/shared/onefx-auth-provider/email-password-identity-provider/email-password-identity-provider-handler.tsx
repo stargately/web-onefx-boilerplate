@@ -71,7 +71,7 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
   server.get(
     "login",
     "/login",
-    // server.auth.authOptionalContinue,
+    server.auth.authOptionalContinue,
     async (ctx: Context) => {
       ctx.setState("base.next", ctx.query.next);
       ctx.setState("base.userId", ctx.state.userId);
@@ -81,7 +81,7 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
   server.get(
     "sign-up",
     "/sign-up",
-    // server.auth.authOptionalContinue,
+    server.auth.authOptionalContinue,
     async (ctx: Context) => {
       ctx.setState("base.next", ctx.query.next);
       ctx.setState("base.userId", ctx.state.userId);
@@ -91,7 +91,7 @@ export function setEmailPasswordIdentityProviderRoutes(server: MyServer): void {
   server.get(
     "forgot-password",
     "/forgot-password",
-    // server.auth.authOptionalContinue,
+    server.auth.authOptionalContinue,
     async (ctx: Context) => {
       ctx.setState("base.next", ctx.query.next);
       ctx.setState("base.userId", ctx.state.userId);
