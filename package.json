@@ -175,7 +175,7 @@
     "is-browser": "2.1.0",
     "isomorphic-unfetch": "3.1.0",
     "koa": "2.13.1",
-    "mongoose": "5.12.15",
+    "mongoose": "5.13.15",
     "onefx": "2.6.8",
     "onefx-auth": "2.6.9",
     "polished": "4.1.3",
