@@ -1,10 +1,9 @@
 import Button from "antd/lib/button";
-import serialize from "form-serialize";
 import { t } from "onefx/lib/iso-i18n";
 import { Helmet } from "onefx/lib/react-helmet";
-import { Link } from "onefx/lib/react-router-dom";
+import { Link, useLocation } from "onefx/lib/react-router-dom";
 import { styled } from "onefx/lib/styletron-react";
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { colorHover } from "@/shared/common/color-hover";
 import { Flex } from "@/shared/common/flex";
@@ -12,46 +11,34 @@ import { transition } from "@/shared/common/styles/style-animation";
 import { colors } from "@/shared/common/styles/style-color";
 import { fullOnPalm } from "@/shared/common/styles/style-media";
 import { ContentPadding } from "@/shared/common/styles/style-padding";
-import { axiosInstance } from "./axios-instance";
-import { EmailField } from "./email-field";
-import { FieldMargin } from "./field-margin";
-import { FormContainer } from "./form-container";
-import { PasswordField } from "./password-field";
+import { useRoutePrefix } from "@/shared/common/hooks/use-route-prefix";
+import Input from "antd/lib/input";
+import Checkbox from "antd/lib/checkbox";
+import Form from "antd/lib/form";
+import { useForm } from "antd/lib/form/Form";
 import { H1, TopMargin } from "./sign-in";
-
-const LOGIN_FORM = "signup";
+import { axiosInstance } from "./axios-instance";
 
 type Props = {
   next: string;
 };
 
 const SignUpInner = (props: Props): JSX.Element => {
-  const [errorEmail, setErrorEmail] = useState("");
-  const [errorPassword, setErrorPassword] = useState("");
-  const [valueEmail, setValueEmail] = useState("");
-  const [valuePassword, setValuePassword] = useState("");
-  const [disableButton, setDisableButton] = useState(false);
+  const routePrefix = useRoutePrefix();
+  const { search } = useLocation();
+  const { next = `${routePrefix}/` } = props;
 
-  const onSubmit = async (
-    e: React.MouseEvent<HTMLElement, MouseEvent>
-  ): Promise<void> => {
-    e.preventDefault();
-    const el = window.document.getElementById(LOGIN_FORM) as HTMLFormElement;
-    const { email = "", password = "", next = "" } = serialize(el, {
-      hash: true,
-    }) as {
-      email: string;
-      password: string;
-      next: string;
-    };
-    setDisableButton(true);
-    setValueEmail(email);
-    setValuePassword(password);
+  const [form] = useForm();
+
+  const onFinish = async (values: any) => {
+    const { email, password, subscribedToNewsletter } = values;
+
     try {
       const r = await axiosInstance.post("/api/sign-up/", {
         email,
         password,
         next,
+        subscribedToNewsletter,
       });
       if (r.data.ok && r.data.shouldRedirect) {
         window.location.href = r.data.next;
@@ -59,19 +46,26 @@ const SignUpInner = (props: Props): JSX.Element => {
       }
       if (r.data.error) {
         const { error } = r.data;
-        setValueEmail(email);
-        setErrorEmail("");
-        setErrorPassword("");
-        setDisableButton(false);
         switch (error.code) {
           case "auth/email-already-in-use":
           case "auth/invalid-email": {
-            setErrorEmail(error.message);
+            form.setFields([
+              {
+                name: "email",
+                errors: [error.message],
+              },
+            ]);
+
             break;
           }
           default:
           case "auth/weak-password": {
-            setErrorPassword(error.message);
+            form.setFields([
+              {
+                name: "password",
+                errors: [error.message],
+              },
+            ]);
           }
         }
       }
@@ -82,33 +76,53 @@ const SignUpInner = (props: Props): JSX.Element => {
 
   return (
     <ContentPadding>
-      <Flex center>
-        <Form id={LOGIN_FORM} onSubmit={onSubmit}>
-          <Helmet title={`Sign Up - ${t("topbar.brand")}`} />
-          <Flex column>
-            <TopMargin />
-            <H1>{t("auth/create_account")}</H1>
-            <EmailField defaultValue={valueEmail} error={errorEmail} />
-            <input defaultValue={props.next} hidden name="next" />
-            <PasswordField defaultValue={valuePassword} error={errorPassword} />
-            <FieldMargin>
-              {/*
-               */}
-              <Button
-                htmlType="submit"
-                loading={disableButton}
-                onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) =>
-                  onSubmit(e)
-                }
-                size="large"
-                style={{ width: "100%" }}
-                type="primary"
-              >
-                {t("auth/button_submit")}
-              </Button>
-            </FieldMargin>
-          </Flex>
-          <FieldMargin>
+      <Helmet title={`Sign Up - ${t("topbar.brand")}`} />
+      <Flex column>
+        <TopMargin />
+
+        <WrappedForm
+          form={form}
+          layout="vertical"
+          name="basic"
+          onFinish={onFinish}
+          autoComplete="off"
+        >
+          <H1>{t("auth/create_account")}</H1>
+
+          <Form.Item
+            label="EMAIL"
+            name="email"
+            rules={[{ required: true, message: "Please input your email!" }]}
+          >
+            <Input autoFocus placeholder="email@example.com" size="large" />
+          </Form.Item>
+
+          <Form.Item
+            label="PASSWORD"
+            name="password"
+            rules={[{ required: true, message: "Please input your password!" }]}
+          >
+            <Input.Password size="large" />
+          </Form.Item>
+
+          <Form.Item
+            name="subscribedToNewsletter"
+            valuePropName="checked"
+            initialValue={true}
+          >
+            <Checkbox>Subscribe to newsletter</Checkbox>
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              size="middle"
+              style={{ width: "100%" }}
+            >
+              {t("auth/button_submit")}
+            </Button>
+
             <div
               dangerouslySetInnerHTML={{
                 __html: t("auth/consent", {
@@ -116,30 +130,30 @@ const SignUpInner = (props: Props): JSX.Element => {
                   policyUrl: "/p/legal/privacy-policy",
                 }),
               }}
-              style={{ fontSize: "10px" }}
+              style={{ fontSize: "12px" }}
             />
-          </FieldMargin>
+          </Form.Item>
 
-          <FieldMargin>
-            <StyleLink to="/login/">
+          <Form.Item>
+            <StyleLink to={`/login/${search}`}>
               {t("auth/sign_up.switch_to_sign_in")}
             </StyleLink>
-          </FieldMargin>
-        </Form>
+          </Form.Item>
+        </WrappedForm>
       </Flex>
     </ContentPadding>
   );
 };
 
+const WrappedForm = styled(Form, {
+  width: "340px",
+  ...fullOnPalm,
+});
+
 export const StyleLink = styled(Link, {
   ...colorHover(colors.primary),
   textDecoration: "none",
   transition,
-});
-
-const Form = styled(FormContainer, {
-  width: "320px",
-  ...fullOnPalm,
 });
 
 export const SignUp = connect((state: { base: { next: string } }) => ({
