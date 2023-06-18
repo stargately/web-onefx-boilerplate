@@ -12,4 +12,13 @@ type Query {
 
   # is the server healthy?
   health: String
+
+  # get the user
+  userProfile(userId: String): UserProfileResponse
+}
+
+type UserProfileResponse {
+  email: String
+  id: String
+  locale: String
 }
